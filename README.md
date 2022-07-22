@@ -72,6 +72,6 @@ Assuming one encoder + switch for the brightness, another for everything else (m
 
 what else..?
 
-The ESP32 is also overkill for this, an Arduino Uno or whatever would be plenty. But it does leave a lot of doors open. Instead of modulated white noise why not music over Bluetooth? (OK, using PWM DAC, that will probably sound terrible). Or a joint session with a therapy colleague over the Web? (The WiFi/Web stuff on ESP32 is pretty straightforward).
+The ESP32 is also overkill for this, an Arduino Uno or whatever would be plenty. But it does leave a lot of doors open. Instead of modulated white noise why not music over Bluetooth? (OK, using PWM DAC, that will probably sound terrible). Or a joint session with a therapy colleague over the Web? (The WiFi/Web stuff on ESP32 is pretty straightforward). Telephotonics, mate.
 
 Anyhow, this is a weekend project and it's only Friday night. And I want a beer.
