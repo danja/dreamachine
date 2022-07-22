@@ -23,14 +23,14 @@ Here are the main components I intend to use:
 - ESP32
 - couple of BC109 transistors to drive the LEDs
 - LM386 audio amp module (not shown)
-- 2xrotary encoders with pushbutton
+- 2 x rotary encoders with pushbutton
 - 3.5mm socket for LEDs, another for headphones
 
 Power supply to be decided - probably a PP3. I think I still have some 3.3v/5v linear regulator modules designed for breadboarding.
 
 ## Functionality
 
-- visual :flashing lights
+- visual : flashing lights
 - brightness adjustable
 - frequency control say 1-50Hz
 - waveform choice - sine/square
