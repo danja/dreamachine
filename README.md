@@ -59,6 +59,8 @@ I'll use the PlatformIO plugin on VSCode. Is much more manageable than the Ardui
 
 Need to generate sine & square waves. Also noise for audio. The ESP32 is fast enough that I'm sure a lookup table or anything remotely fancy won't be needed.
 
+[Oh wait, just remembered pink noise can be a tricky one, gets hellish/kludgy in analog circuits because it's white with 3dB/octave low pass, standard filters are 6dB/octave or multiples. Must be easier in code..? I should read more.]
+
 Need to read from encoders - whatever library.
 
 Drive display - ditto.
