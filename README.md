@@ -41,13 +41,13 @@ Power supply to be decided - probably a PP3. I think I still have some 3.3v/5v l
 
 ### Hardware
 
-Using a pair of 1W LEDs is probably massive overkill for something that's going to be close to eyes, even closed ones. But it'll make the sums easier than an array of smaller ones, and easier to build physically. No need to drive them any more than seems comfortable.
+Using a pair of 1W LEDs is probably massive overkill for something that's going to be close to eyes, even closed ones. But it'll make the sums easier than an array/matrix of smaller ones, and easier to build physically. No need to drive them any more than seems comfortable.
 
 Does provide the first functional requirement. For safety's sake, it must always start with the LEDs off, turn up very gradually, be able to shut off immediately. That should be doable with a rotary encoder with built in push switch. I think maybe devote one encoder to just the brightness.
 
 For the visuals, the ESP32 has PWM outputs that should work nicely to drive an LED through a small bipolar transistor, act as a digital-to-analog converter. As long as the pulse frequency is far above the eye's persistence of vision rate (and below what the transistor can switch). Big space, what, about 50Hz to 10MHz..? I'm thinking an order around 10kHz, the ESP32 should be comfortable there.
 
-Even tiny signal transistors can handle relatively high currents, if they're only in saturation (very low resistance) or off (very high resistence), dissipating bugger all.
+Even tiny signal transistors can handle relatively high currents, if they're only in saturation (very low resistance) or off (very high resistance), dissipating bugger all.
 I need to breadboard a bit, see what kind of voltage/signal works best, but basically a common-emitter, with a resistor on the base to limit loading of the ESP32 and a resistor in series with the LED on the collector to limit max current.
 
 For the audio, again use PWM to behave as a DAC, any audio freq driver amp will do, just to take the load off the ESP32. Hmm. Already rethinking a little, using a LM386 would be mono, I'd like to see if antiphase makes any difference to the psycho-effect. Maybe a couple more transistors running Class A for that (common emitter again, the phones driven from collector much like the LEDs, but in a more linear range), or somewhere I have some stereo low power Class D (digital, PWM effectively) modules. Hmm. Have to play.
