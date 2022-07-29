@@ -1,3 +1,6 @@
+ESP32 AI Thinker NodeMCU-32S
+https://docs.ai-thinker.com/_media/esp32/docs/nodemcu-32s_product_specification.pdf
+
 Display 0.96 inch SSD1306 OLED display (GM009605)
 https://www.amazon.it/gp/product/B08GM1XW31
 
