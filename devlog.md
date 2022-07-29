@@ -1,6 +1,6 @@
 **2022-07-29**
 
-I thought I'd better test the LEDs, just in case. Wound up doing some [sums]() and [measurements]()
+I thought I'd better test the LEDs, just in case. Wound up doing some [sums](https://github.com/danja/dreamachine/blob/main/images/led-driver-sums.jpeg) and [measurements](https://github.com/danja/dreamachine/blob/main/images/led-driver-measure.jpeg)
 
 The LEDs are rated at 1W, 3.2-3.4 V 350mA, but voltage drop was actually about 2v.
 
