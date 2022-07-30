@@ -1,3 +1,36 @@
+**2022-07-30**
+
+I have the display working. Next step there is to make it usable. Wrap the display lib into a class that only exposes the functionality I need through simple functions.
+
+The UI will be modal, with the press of a button changing mode.
+
+The display is (rather bizarrely) split into two areas - a top 1/5 or so shows yellow, the rest shows blue.
+
+I guess a simple way of exploiting this is to use the top (yellow) line to show current mode, area below the value.
+
+Brightness : 70%
+Frequency : 33 Hz
+Phase : 90°
+Volume : 80%
+Wave : sine
+Noise : white
+
+It's a dot matrix display so I guess it makes sense to exploit this with some kind of graphic indication as well as text. That suggests three functions :
+
+drawLabel(labelString)
+drawValue(valueString)
+drawGraphic(graphicObject)
+
+(The latter two can probably be wrapped together somehow, but that can wait until later)
+
+rename to displayXXX()
+
+probably need a display(labelString, valueString) ..?
+
+https://github.com/adafruit/Adafruit_SSD1306
+
+https://github.com/adafruit/Adafruit-GFX-Library
+
 **2022-07-29**
 
 Had a bit of trouble writing to the ESP32, the USB connection wasn't been recognised.
