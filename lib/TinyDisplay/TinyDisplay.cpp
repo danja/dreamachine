@@ -11,14 +11,12 @@ TinyDisplay::TinyDisplay()
     // Serial.begin(9600);
     // Serial.println("TD constructor");
     display = Adafruit_SSD1306(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+    // display.clearDisplay();
 }
 
 void TinyDisplay::init()
 {
-
-    // Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
     // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
-
     if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
     {
         Serial.println(F("SSD1306 allocation failed"));
@@ -27,36 +25,31 @@ void TinyDisplay::init()
     }
 
     display.display();
-    delay(2000); // Pause for 2 seconds
-
-    // Clear the buffer
+    delay(2000);
     display.clearDisplay();
-
-    // Draw a single pixel in white
-    //  display.drawPixel(10, 10, WHITE);
-
-    display.display();
+    display.setTextColor(WHITE);
 }
 
-void TinyDisplay::drawLabel(const String label)
+void TinyDisplay::refresh()
 {
-    // display.clearDisplay();
-
-    display.setCursor(0, 0); // Start at top-left corner
-
-    display.setTextSize(2); // Draw 2X-scale text
-    display.setTextColor(WHITE);
-    //   display.println(F("Hello, world!"));
+    display.clearDisplay();
+    display.setCursor(0, 0);
+    display.setTextSize(2);
     display.println(label);
-    display.display();
-}
-
-void TinyDisplay::drawValue(String value)
-{
-    display.setCursor(0, 20); // Start at top-left corner
-
-    display.setTextSize(4); // Draw 2X-scale text
-    display.setTextColor(WHITE);
+    display.setCursor(0, 20);
+    display.setTextSize(4);
     display.println(value);
     display.display();
+}
+
+void TinyDisplay::drawLabel(const String newLabel)
+{
+    label = newLabel;
+    refresh();
+}
+
+void TinyDisplay::drawValue(String newValue)
+{
+    value = newValue;
+    refresh();
 }

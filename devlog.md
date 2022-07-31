@@ -41,6 +41,16 @@ lsmod|grep usbserial
 
 sudo modprobe cp210x
 
+sudo rmmod cp210x
+sudo insmod /lib/modules/5.15.0-43-generic/kernel/drivers/usb/serial/cp210x.ko
+
+uninstall brltty
+
+systemctl stop brltty-udev.service
+sudo systemctl mask brltty-udev.service
+systemctl stop brltty.service
+systemctl disable brltty.service
+
 Got this display example to work (after adding forward function definitions) :
 
 https://randomnerdtutorials.com/esp32-ssd1306-oled-display-arduino-ide/

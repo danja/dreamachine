@@ -16,7 +16,10 @@ public:
     void drawValue(const String value);
 
 private:
+    void refresh();
     Adafruit_SSD1306 display;
+    String label;
+    String value;
 };
 
 #endif
