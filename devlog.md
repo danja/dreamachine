@@ -1,5 +1,104 @@
 **2022-07-30**
 
+rotary encoders + switches basically working - counting the wrong way, I need to look how the value scaling in the lib works.
+
+Couple of related issues I had worth noting :
+
+The rotary encoders I have are mounted on little PCBs with 3 resistors on their backs. I haven't bothered tracing tracks, but presumably pull-up or pull-down.
+
+I tried using GPIO 2, which is connected to an onboard LED. Stupid idea to begin with, and in practice with a resistor connected to _something_, this stopped the program uploading.
+
+In the encoder lib code, it has some lines like :
+
+pinMode(this->encoderAPin, INPUT_PULLDOWN);
+
+etc.
+
+This seemed to conflict with the onboard resistors, I got around this by adding :
+
+pinMode(ENCODER_1_CLK, INPUT);
+
+etc.
+
+After the encoder objects' creation, but before begin()
+
+---
+
+EARLIER
+
+Rotary encoder time. There are quite a few libs that can manage these things, probably near-equivalent. If the encoder button can be handled here that'd be convenient. I'd prefer something interrupt-driven, polling can get messy fast. This lib appears to fit the bill : https://github.com/igorantolic/ai-esp32-rotary-encoder
+
+So installed from PlatformIO. Now to pick GPIOs - I want ones without overloaded functionality I might need elsewhere.
+
+I want 2 encoders (with buttons). Each needs 3 GPIOs : CLK, DT, SW
+
+The list at https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
+is a great starting point (extract below)
+
+I may use the DACs,
+GPIO25
+GPIO26
+
+I'm already using:
+GPIO 22 display SCL
+GPIO 21 display SDA
+
+checking for potential later use, to connect UDA1334A I2S DAC in Chatterbox:
+GPIO 25
+GPIO 26
+GPIO 27
+
+These look promising :
+GPIO 34 input only
+GPIO 35 input only
+GPIO 36 input only
+GPIO 39 input only
+
+plus (both ADC/RTC, neither of which I need)
+GPIO 2
+GPIO 4
+
+Ok, so try:
+
+Encoder1 ESP32
+CLK GPIO 34
+DT GPIO 35
+SW GPIO 2 NO! 16
+
+Encoder2 ESP32
+CLK GPIO 36
+DT GPIO 39
+SW GPIO 4
+
+Hmm, that's annoying, although this lib appears to be interrupt-driven, the examples all seem to poll.
+Not a big deal - I'll go along with the examples for now. If that doesn't seem nice, I must be able to add an interrupt callback encoderChanged() somewhere...
+
+---
+
+Free-ish GPIO
+
+GPIO 2 (on-board LED)
+GPIO 4
+GPIO 13 JTAG
+GPIO 16
+GPIO 17
+GPIO 18
+GPIO 19
+GPIO 21
+GPIO 22
+GPIO 23
+GPIO 25
+GPIO 26
+GPIO 27
+GPIO 32
+GPIO 33
+GPIO 34 input only
+GPIO 35 input only
+GPIO 36 input only
+GPIO 39 input only
+
+**2022-07-30**
+
 I have the display working. Next step there is to make it usable. Wrap the display lib into a class that only exposes the functionality I need through simple functions.
 
 The UI will be modal, with the press of a button changing mode.

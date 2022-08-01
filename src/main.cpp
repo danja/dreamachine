@@ -3,15 +3,38 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+#include "AiEsp32RotaryEncoder.h"
+#include "AiEsp32RotaryEncoderNumberSelector.h"
+
 #include <TinyDisplay.h>
 
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+#define ENCODER_1_CLK 34
+#define ENCODER_1_DT 35
+#define ENCODER_1_SW 16
 
-// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
-#define OLED_RESET -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+#define ENCODER_2_CLK 36
+#define ENCODER_2_DT 39
+#define ENCODER_2_SW 4
+
+#define ENCODER_1_STEPS 10
+#define ENCODER_2_STEPS 10
+
+AiEsp32RotaryEncoder *encoder1 = new AiEsp32RotaryEncoder(ENCODER_1_CLK, ENCODER_1_DT, ENCODER_1_SW, -1, ENCODER_1_STEPS);
+AiEsp32RotaryEncoder *encoder2 = new AiEsp32RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW, -1, ENCODER_2_STEPS);
+AiEsp32RotaryEncoderNumberSelector numberSelector1 = AiEsp32RotaryEncoderNumberSelector();
+AiEsp32RotaryEncoderNumberSelector numberSelector2 = AiEsp32RotaryEncoderNumberSelector();
 
 TinyDisplay tinyDisplay = TinyDisplay();
+
+void IRAM_ATTR readEncoderISR_1()
+{
+    encoder1->readEncoder_ISR();
+}
+
+void IRAM_ATTR readEncoderISR_2()
+{
+    encoder2->readEncoder_ISR();
+}
 
 void setup()
 {
@@ -21,12 +44,63 @@ void setup()
 
     tinyDisplay.drawLabel("Starting...");
     tinyDisplay.drawValue("0%");
-    delay(2000);
+    delay(500);
     tinyDisplay.drawValue("100%");
-    delay(2000);
+    delay(500);
     tinyDisplay.drawLabel("Working");
+    //////////////////////////////////////////////
+
+    pinMode(ENCODER_1_CLK, INPUT);
+    pinMode(ENCODER_1_DT, INPUT);
+    pinMode(ENCODER_1_SW, INPUT);
+
+    pinMode(ENCODER_2_CLK, INPUT);
+    pinMode(ENCODER_2_DT, INPUT);
+    pinMode(ENCODER_2_SW, INPUT);
+
+    encoder1->begin();
+    encoder1->setup(readEncoderISR_1);
+    numberSelector1.attachEncoder(encoder1);
+
+    numberSelector1.setRange(0.0, 100.0, 1, false, 0);
+    numberSelector1.setValue(25);
+
+    encoder2->begin();
+    encoder2->setup(readEncoderISR_2);
+    numberSelector2.attachEncoder(encoder2);
+
+    numberSelector2.setRange(0.0, 100.0, 1, false, 0);
+    numberSelector2.setValue(25);
 }
 
 void loop()
 {
+    if (encoder1->encoderChanged())
+    {
+        Serial.print(numberSelector1.getValue());
+        float value1 = numberSelector1.getValue();
+        Serial.println(" 1 ");
+        String value1String = String(value1, 0);
+        tinyDisplay.drawValue(value1String);
+    }
+
+    if (encoder1->isEncoderButtonClicked())
+    {
+        Serial.print("1 Selected value is ");
+        Serial.print(numberSelector1.getValue(), 1);
+        Serial.println(" ***********************");
+    }
+    if (encoder2->encoderChanged())
+    {
+        Serial.println(" 2 ");
+        Serial.print(numberSelector2.getValue());
+        Serial.println(" ");
+    }
+
+    if (encoder2->isEncoderButtonClicked())
+    {
+        Serial.print("Selected 2 value is ");
+        Serial.print(numberSelector2.getValue(), 1);
+        Serial.println(" ***********************");
+    }
 }
