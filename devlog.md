@@ -1,3 +1,16 @@
+**2022-08-02**
+
+Time to look at the main function of this thing : controlling the big LEDs.
+
+I've rigged up LEDs on sunglasses with a stereo 3.5mm jack socket.
+
+Because the LEDs might be out of circuit at times, I'll add a dummy load of 1k or so to their transistor drivers, collector to +ve.
+
+Now I need to find two free GPIO pins that can do PWM.
+
+GPIO 32 PWM LED_L
+GPIO 33 PWM LED_R
+
 **2022-07-30**
 
 rotary encoders + switches basically working - counting the wrong way, I need to look how the value scaling in the lib works.
@@ -78,9 +91,9 @@ Not a big deal - I'll go along with the examples for now. If that doesn't seem n
 Free-ish GPIO
 
 GPIO 2 (on-board LED)
-GPIO 4
-GPIO 13 JTAG
-GPIO 16
+GPIO 4 Encoder 2 SW
+GPIO 13 (JTAG)
+GPIO 16 Encoder 1 SW
 GPIO 17
 GPIO 18
 GPIO 19
@@ -92,10 +105,12 @@ GPIO 26
 GPIO 27
 GPIO 32
 GPIO 33
-GPIO 34 input only
-GPIO 35 input only
-GPIO 36 input only
-GPIO 39 input only
+GPIO 34 (input only) Encoder 1 CLK
+GPIO 35 (input only) Encoder 1 DT
+GPIO 36 (input only) Encoder 2 CLK
+GPIO 39 (input only) Encoder 12 DT
+
+https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
 
 **2022-07-30**
 
@@ -129,6 +144,8 @@ probably need a display(labelString, valueString) ..?
 https://github.com/adafruit/Adafruit_SSD1306
 
 https://github.com/adafruit/Adafruit-GFX-Library
+
+I noticed this, don't think it was necessary : https://rntlab.com/question/esp32-oled-ssd1306-issue/
 
 **2022-07-29**
 

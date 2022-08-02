@@ -8,16 +8,24 @@
 
 #include <TinyDisplay.h>
 
-#define ENCODER_1_CLK 34
-#define ENCODER_1_DT 35
-#define ENCODER_1_SW 16
+const int LED_L = 32;
+const int LED_R = 33;
 
-#define ENCODER_2_CLK 36
-#define ENCODER_2_DT 39
-#define ENCODER_2_SW 4
+// PWM properties
+const int freq = 5000;
+const int ledChannel = 0;
+const int resolution = 8;
 
-#define ENCODER_1_STEPS 10
-#define ENCODER_2_STEPS 10
+const int ENCODER_1_CLK = 34;
+const int ENCODER_1_DT = 35;
+const int ENCODER_1_SW = 16;
+
+const int ENCODER_2_CLK = 36;
+const int ENCODER_2_DT = 39;
+const int ENCODER_2_SW = 4;
+
+const int ENCODER_1_STEPS = 10;
+const int ENCODER_2_STEPS = 10;
 
 AiEsp32RotaryEncoder *encoder1 = new AiEsp32RotaryEncoder(ENCODER_1_CLK, ENCODER_1_DT, ENCODER_1_SW, -1, ENCODER_1_STEPS);
 AiEsp32RotaryEncoder *encoder2 = new AiEsp32RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW, -1, ENCODER_2_STEPS);
@@ -26,15 +34,9 @@ AiEsp32RotaryEncoderNumberSelector numberSelector2 = AiEsp32RotaryEncoderNumberS
 
 TinyDisplay tinyDisplay = TinyDisplay();
 
-void IRAM_ATTR readEncoderISR_1()
-{
-    encoder1->readEncoder_ISR();
-}
-
-void IRAM_ATTR readEncoderISR_2()
-{
-    encoder2->readEncoder_ISR();
-}
+// forward declarations
+void IRAM_ATTR readEncoderISR_1();
+void IRAM_ATTR readEncoderISR_2();
 
 void setup()
 {
@@ -50,6 +52,13 @@ void setup()
     tinyDisplay.drawLabel("Working");
     //////////////////////////////////////////////
 
+    ledcSetup(ledChannel, freq, resolution);
+
+    // attach the channel to the GPIO to be controlled
+    ledcAttachPin(LED_L, ledChannel);
+    ledcAttachPin(LED_R, ledChannel);
+
+    ////////////////////////////////
     pinMode(ENCODER_1_CLK, INPUT);
     pinMode(ENCODER_1_DT, INPUT);
     pinMode(ENCODER_1_SW, INPUT);
@@ -75,6 +84,16 @@ void setup()
 
 void loop()
 {
+    // increase the LED brightness
+    for (int dutyCycle = 0; dutyCycle <= 255; dutyCycle++)
+    {
+        //  Serial.print(dutyCycle);
+        // changing the LED brightness with PWM
+        ledcWrite(ledChannel, dutyCycle);
+        delay(3);
+    }
+    ////////////////////////////
+
     if (encoder1->encoderChanged())
     {
         Serial.print(numberSelector1.getValue());
@@ -103,4 +122,14 @@ void loop()
         Serial.print(numberSelector2.getValue(), 1);
         Serial.println(" ***********************");
     }
+}
+
+void IRAM_ATTR readEncoderISR_1()
+{
+    encoder1->readEncoder_ISR();
+}
+
+void IRAM_ATTR readEncoderISR_2()
+{
+    encoder2->readEncoder_ISR();
 }
