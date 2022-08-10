@@ -1,3 +1,19 @@
+**2022-08-10**
+
+The other day I did get the LEDs basically working.
+
+The code around the rotary encoders is pretty horrible, so (like the display) am putting it in a wrapper class.
+
+I've got that basically working.
+
+It _is_ possible to use the change interrupt directly, but has to happen fast or it crashes -
+
+Guru Meditation Error: Core 1 panic'ed (Interrupt wdt timeout on CPU1)
+
+"When an interrupt handler is called, it blocks the entire system. So it must only do minimal work and return quickly. Serial communication however is slow and causes long delays. Thus, your program is terminated by the watchdog ("wdt" is the abbreviation for the watchdog)."
+
+Which explains why the lib exposes polling as the main access method.
+
 **2022-08-02**
 
 Time to look at the main function of this thing : controlling the big LEDs.
