@@ -7,6 +7,7 @@
 #include "AiEsp32RotaryEncoderNumberSelector.h"
 
 #include <TinyDisplay.h>
+#include <RotaryEncoder.h>
 
 const int LED_L = 32;
 const int LED_R = 33;
@@ -28,9 +29,11 @@ const int ENCODER_1_STEPS = 10;
 const int ENCODER_2_STEPS = 10;
 
 AiEsp32RotaryEncoder *encoder1 = new AiEsp32RotaryEncoder(ENCODER_1_CLK, ENCODER_1_DT, ENCODER_1_SW, -1, ENCODER_1_STEPS);
-AiEsp32RotaryEncoder *encoder2 = new AiEsp32RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW, -1, ENCODER_2_STEPS);
+// AiEsp32RotaryEncoder *encoder2 = new AiEsp32RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW, -1, ENCODER_2_STEPS);
 AiEsp32RotaryEncoderNumberSelector numberSelector1 = AiEsp32RotaryEncoderNumberSelector();
-AiEsp32RotaryEncoderNumberSelector numberSelector2 = AiEsp32RotaryEncoderNumberSelector();
+// AiEsp32RotaryEncoderNumberSelector numberSelector2 = AiEsp32RotaryEncoderNumberSelector();
+
+RotaryEncoder encoder2 = RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW, ENCODER_2_STEPS);
 
 TinyDisplay tinyDisplay = TinyDisplay();
 
@@ -46,9 +49,9 @@ void setup()
 
     tinyDisplay.drawLabel("Starting...");
     tinyDisplay.drawValue("0%");
-    delay(500);
+    // delay(500);
     tinyDisplay.drawValue("100%");
-    delay(500);
+    // delay(500);
     tinyDisplay.drawLabel("Working");
     //////////////////////////////////////////////
 
@@ -63,9 +66,9 @@ void setup()
     pinMode(ENCODER_1_DT, INPUT);
     pinMode(ENCODER_1_SW, INPUT);
 
-    pinMode(ENCODER_2_CLK, INPUT);
-    pinMode(ENCODER_2_DT, INPUT);
-    pinMode(ENCODER_2_SW, INPUT);
+    //   pinMode(ENCODER_2_CLK, INPUT);
+    //   pinMode(ENCODER_2_DT, INPUT);
+    //   pinMode(ENCODER_2_SW, INPUT);
 
     encoder1->begin();
     encoder1->setup(readEncoderISR_1);
@@ -74,17 +77,20 @@ void setup()
     numberSelector1.setRange(0.0, 100.0, 1, false, 0);
     numberSelector1.setValue(25);
 
-    encoder2->begin();
-    encoder2->setup(readEncoderISR_2);
-    numberSelector2.attachEncoder(encoder2);
+    encoder2.setup(readEncoderISR_2);
 
-    numberSelector2.setRange(0.0, 100.0, 1, false, 0);
-    numberSelector2.setValue(25);
+    // encoder2->begin();
+    // encoder2->setup(readEncoderISR_2);
+    // numberSelector2.attachEncoder(encoder2);
+
+    // numberSelector2.setRange(0.0, 100.0, 1, false, 0);
+    // numberSelector2.setValue(25);
 }
 
 void loop()
 {
     // increase the LED brightness
+    /*
     for (int dutyCycle = 0; dutyCycle <= 255; dutyCycle++)
     {
         //  Serial.print(dutyCycle);
@@ -92,6 +98,7 @@ void loop()
         ledcWrite(ledChannel, dutyCycle);
         delay(3);
     }
+    */
     ////////////////////////////
 
     if (encoder1->encoderChanged())
@@ -109,18 +116,10 @@ void loop()
         Serial.print(numberSelector1.getValue(), 1);
         Serial.println(" ***********************");
     }
-    if (encoder2->encoderChanged())
+    if (encoder2.changed())
     {
-        Serial.println(" 2 ");
-        Serial.print(numberSelector2.getValue());
-        Serial.println(" ");
-    }
-
-    if (encoder2->isEncoderButtonClicked())
-    {
-        Serial.print("Selected 2 value is ");
-        Serial.print(numberSelector2.getValue(), 1);
-        Serial.println(" ***********************");
+        Serial.print("2 Selected value is ");
+        Serial.println(encoder2.getValue(), 1);
     }
 }
 
@@ -131,5 +130,5 @@ void IRAM_ATTR readEncoderISR_1()
 
 void IRAM_ATTR readEncoderISR_2()
 {
-    encoder2->readEncoder_ISR();
+    encoder2.readEncoder_ISR();
 }
