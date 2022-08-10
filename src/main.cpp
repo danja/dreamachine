@@ -131,4 +131,6 @@ void IRAM_ATTR readEncoderISR_1()
 void IRAM_ATTR readEncoderISR_2()
 {
     encoder2.readEncoder_ISR();
+    //    Serial.print("2 interrupt "); //// anything in here has to happen really fast
+    //  Serial.println(encoder2.getValue(), 1);
 }
