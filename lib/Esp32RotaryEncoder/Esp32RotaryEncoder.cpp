@@ -44,43 +44,44 @@ void IRAM_ATTR Esp32RotaryEncoder::updateValue()
 		this->encoder0Pos += currentDirection;
 		long newRotaryPosition = this->encoder0Pos / this->encoderSteps;
 
-		if (newRotaryPosition != prevRotaryPosition && rotaryAccelerationCoef > 1)
-		{
-			// additional movements cause acceleration?
-			//  at X ms, there should be no acceleration.
-			unsigned long accelerationLongCutoffMillis = 200;
-			// at Y ms, we want to have maximum acceleration
-			unsigned long accelerationShortCutffMillis = 4;
-
-			// compute linear acceleration
-			if (currentDirection == lastMovementDirection &&
-				currentDirection != 0 &&
-				lastMovementDirection != 0)
-			{
-				// ... but only of the direction of rotation matched and there
-				// actually was a previous rotation.
-				unsigned long millisAfterLastMotion = now - lastMovementAt;
-
-				if (millisAfterLastMotion < accelerationLongCutoffMillis)
+		/*
+				if (newRotaryPosition != prevRotaryPosition && rotaryAccelerationCoef > 1)
 				{
-					if (millisAfterLastMotion < accelerationShortCutffMillis)
-					{
-						millisAfterLastMotion = accelerationShortCutffMillis; // limit to maximum acceleration
-					}
-					if (currentDirection > 0)
-					{
-						this->encoder0Pos += rotaryAccelerationCoef / millisAfterLastMotion;
-					}
-					else
-					{
-						this->encoder0Pos -= rotaryAccelerationCoef / millisAfterLastMotion;
-					}
-				}
-			}
-			this->lastMovementAt = now;
-			this->lastMovementDirection = currentDirection;
-		}
+					// additional movements cause acceleration?
+					//  at X ms, there should be no acceleration.
+					unsigned long accelerationLongCutoffMillis = 200;
+					// at Y ms, we want to have maximum acceleration
+					unsigned long accelerationShortCutffMillis = 4;
 
+					// compute linear acceleration
+					if (currentDirection == lastMovementDirection &&
+						currentDirection != 0 &&
+						lastMovementDirection != 0)
+					{
+						// ... but only of the direction of rotation matched and there
+						// actually was a previous rotation.
+						unsigned long millisAfterLastMotion = now - lastMovementAt;
+
+						if (millisAfterLastMotion < accelerationLongCutoffMillis)
+						{
+							if (millisAfterLastMotion < accelerationShortCutffMillis)
+							{
+								millisAfterLastMotion = accelerationShortCutffMillis; // limit to maximum acceleration
+							}
+							if (currentDirection > 0)
+							{
+								this->encoder0Pos += rotaryAccelerationCoef / millisAfterLastMotion;
+							}
+							else
+							{
+								this->encoder0Pos -= rotaryAccelerationCoef / millisAfterLastMotion;
+							}
+						}
+					}
+					this->lastMovementAt = now;
+					this->lastMovementDirection = currentDirection;
+				}
+		*/
 		// respect limits
 		if (this->encoder0Pos > (this->_maxEncoderValue))
 			this->encoder0Pos = this->_circleValues ? this->_minEncoderValue : this->_maxEncoderValue;
@@ -117,6 +118,7 @@ void Esp32RotaryEncoder::resetButton()
 	this->buttonClickedFlag = false;
 }
 
+/*
 void Esp32RotaryEncoder::setBoundaries(long minEncoderValue, long maxEncoderValue, bool circleValues)
 {
 	this->_minEncoderValue = minEncoderValue * this->encoderSteps;
@@ -124,11 +126,31 @@ void Esp32RotaryEncoder::setBoundaries(long minEncoderValue, long maxEncoderValu
 
 	this->_circleValues = circleValues;
 }
+*/
+
+void Esp32RotaryEncoder::setScale(long minValue, long maxValue, long steps, bool invert, bool circleValues)
+{
+	this->encoderSteps = steps;
+
+	// this->_minEncoderValue = minValue * this->encoderSteps;
+	// this->_maxEncoderValue = maxValue * this->encoderSteps;
+
+	this->_minEncoderValue = minValue;
+	this->_maxEncoderValue = maxValue;
+
+	this->invert = invert;
+	this->_circleValues = circleValues;
+}
 
 long Esp32RotaryEncoder::getValue()
 // long Esp32RotaryEncoder::readEncoder()
 {
-	return (this->encoder0Pos / this->encoderSteps);
+	long value = (this->encoder0Pos / this->encoderSteps);
+	if (this->invert)
+	{
+		return this->_maxEncoderValue - value;
+	}
+	return value;
 }
 
 void Esp32RotaryEncoder::setEncoderValue(long newValue)

@@ -30,6 +30,7 @@ private:
 	uint8_t gpioSW = 36;
 
 	long encoderSteps = 10;
+	bool invert = false;
 
 	long _minEncoderValue = -1 << 15;
 	long _maxEncoderValue = 1 << 15;
@@ -45,14 +46,14 @@ public:
 	// Esp32RotaryEncoder();
 	Esp32RotaryEncoder(uint8_t gpioCLK, uint8_t gpioDT, uint8_t gpioSW);
 
-	void setBoundaries(long minValue = -100, long maxValue = 100, bool circleValues = false);
+	// void setBoundaries(long minValue = -100, long maxValue = 100, bool circleValues = false);
+	void setScale(long minValue = 0, long maxValue = 100, long steps = 100, boolean invert = true, bool circleValues = true);
 
 	void IRAM_ATTR updateValue();
 	void IRAM_ATTR readButton_ISR();
 
 	volatile boolean valueChangeFlag = false; // not 100% about volatile
 	volatile boolean buttonClickedFlag = false;
-
 	boolean valueChanged();
 	boolean buttonClicked();
 	void resetValue();
@@ -60,9 +61,10 @@ public:
 
 	void setup(void (*ISR_callback)(void), void (*ISR_button)(void));
 	void reset(long newValue = 0);
-	// long readEncoder();
+
 	long getValue();
 	void setEncoderValue(long newValue);
+
 	long encoderChanged();
 };
 #endif

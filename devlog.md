@@ -1,3 +1,16 @@
+**2022-08-11**
+
+I got frustrated with the rotary encoder lib so have changed it radically, now is https://github.com/danja/Esp32RotaryEncoder
+
+TODO :
+
+- move current readme to a blog post, create something new
+- encoder start, end, nSteps
+- encoder set current
+
+- state struct
+- link encoder, state, display
+
 **2022-08-10**
 
 The other day I did get the LEDs basically working.
