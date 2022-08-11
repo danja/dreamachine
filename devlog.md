@@ -1,5 +1,7 @@
 **2022-08-11**
 
+LATER : got the encoder a bit closer, good enough for now. Split the processes off between the 2 ESP32 cores : DreamachineUI, DreamachineWaves
+
 I got frustrated with the rotary encoder lib so have changed it radically, now is https://github.com/danja/Esp32RotaryEncoder
 
 TODO :
