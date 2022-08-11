@@ -3,11 +3,8 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
-#include "AiEsp32RotaryEncoder.h"
-#include "AiEsp32RotaryEncoderNumberSelector.h"
-
 #include <TinyDisplay.h>
-#include <RotaryEncoder.h>
+#include <Esp32RotaryEncoder.h>
 
 const int LED_L = 32;
 const int LED_R = 33;
@@ -17,6 +14,7 @@ const int freq = 5000;
 const int ledChannel = 0;
 const int resolution = 8;
 
+// GPIO ports for rotary encoders
 const int ENCODER_1_CLK = 34;
 const int ENCODER_1_DT = 35;
 const int ENCODER_1_SW = 16;
@@ -28,18 +26,16 @@ const int ENCODER_2_SW = 4;
 const int ENCODER_1_STEPS = 10;
 const int ENCODER_2_STEPS = 10;
 
-AiEsp32RotaryEncoder *encoder1 = new AiEsp32RotaryEncoder(ENCODER_1_CLK, ENCODER_1_DT, ENCODER_1_SW, -1, ENCODER_1_STEPS);
-// AiEsp32RotaryEncoder *encoder2 = new AiEsp32RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW, -1, ENCODER_2_STEPS);
-AiEsp32RotaryEncoderNumberSelector numberSelector1 = AiEsp32RotaryEncoderNumberSelector();
-// AiEsp32RotaryEncoderNumberSelector numberSelector2 = AiEsp32RotaryEncoderNumberSelector();
-
-RotaryEncoder encoder2 = RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW, ENCODER_2_STEPS);
+Esp32RotaryEncoder encoder1 = Esp32RotaryEncoder(ENCODER_1_CLK, ENCODER_1_DT, ENCODER_1_SW);
+Esp32RotaryEncoder encoder2 = Esp32RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW);
 
 TinyDisplay tinyDisplay = TinyDisplay();
 
 // forward declarations
-void IRAM_ATTR readEncoderISR_1();
-void IRAM_ATTR readEncoderISR_2();
+void IRAM_ATTR encoderEvent1();
+void IRAM_ATTR buttonEvent1();
+void IRAM_ATTR encoderEvent2();
+void IRAM_ATTR buttonEvent2();
 
 void setup()
 {
@@ -62,29 +58,9 @@ void setup()
     ledcAttachPin(LED_R, ledChannel);
 
     ////////////////////////////////
-    pinMode(ENCODER_1_CLK, INPUT);
-    pinMode(ENCODER_1_DT, INPUT);
-    pinMode(ENCODER_1_SW, INPUT);
-
-    //   pinMode(ENCODER_2_CLK, INPUT);
-    //   pinMode(ENCODER_2_DT, INPUT);
-    //   pinMode(ENCODER_2_SW, INPUT);
-
-    encoder1->begin();
-    encoder1->setup(readEncoderISR_1);
-    numberSelector1.attachEncoder(encoder1);
-
-    numberSelector1.setRange(0.0, 100.0, 1, false, 0);
-    numberSelector1.setValue(25);
-
-    encoder2.setup(readEncoderISR_2);
-
-    // encoder2->begin();
-    // encoder2->setup(readEncoderISR_2);
-    // numberSelector2.attachEncoder(encoder2);
-
-    // numberSelector2.setRange(0.0, 100.0, 1, false, 0);
-    // numberSelector2.setValue(25);
+    Serial.begin(115200);
+    encoder1.setup(encoderEvent1, buttonEvent1); // pass the callback functions (leave as-is)
+    encoder2.setup(encoderEvent2, buttonEvent2); // pass the callback functions (leave as-is)
 }
 
 void loop()
@@ -100,37 +76,49 @@ void loop()
     }
     */
     ////////////////////////////
-
-    if (encoder1->encoderChanged())
+    if (encoder1.buttonClicked()) // look at a flag
     {
-        Serial.print(numberSelector1.getValue());
-        float value1 = numberSelector1.getValue();
-        Serial.println(" 1 ");
-        String value1String = String(value1, 0);
-        tinyDisplay.drawValue(value1String);
+        Serial.println("1 click!"); // do stuff
+        encoder1.resetButton();     // reset the flag
     }
 
-    if (encoder1->isEncoderButtonClicked())
+    if (encoder1.valueChanged()) // look at a flag
     {
-        Serial.print("1 Selected value is ");
-        Serial.print(numberSelector1.getValue(), 1);
-        Serial.println(" ***********************");
+        Serial.print("1 Value :"); // do stuff
+        Serial.println(encoder1.getValue());
+        encoder1.resetValue(); // reset the flag
     }
-    if (encoder2.changed())
+
+    if (encoder2.buttonClicked()) // look at a flag
     {
-        Serial.print("2 Selected value is ");
-        Serial.println(encoder2.getValue(), 1);
+        Serial.println("2 click!"); // do stuff
+        encoder2.resetButton();     // reset the flag
+    }
+
+    if (encoder2.valueChanged()) // look at a flag
+    {
+        Serial.print("2 Value :"); // do stuff
+        Serial.println(encoder2.getValue());
+        encoder2.resetValue(); // reset the flag
     }
 }
 
-void IRAM_ATTR readEncoderISR_1()
+void IRAM_ATTR encoderEvent1()
 {
-    encoder1->readEncoder_ISR();
+    encoder1.updateValue();
 }
 
-void IRAM_ATTR readEncoderISR_2()
+void IRAM_ATTR buttonEvent1()
 {
-    encoder2.readEncoder_ISR();
-    //    Serial.print("2 interrupt "); //// anything in here has to happen really fast
-    //  Serial.println(encoder2.getValue(), 1);
+    encoder1.readButton_ISR();
+}
+
+void IRAM_ATTR encoderEvent2()
+{
+    encoder2.updateValue();
+}
+
+void IRAM_ATTR buttonEvent2()
+{
+    encoder2.readButton_ISR();
 }
