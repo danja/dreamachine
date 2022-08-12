@@ -84,7 +84,7 @@ void DreamachineUI::UI(void *pvParameter)
         Serial.println("UI");
         delay(500);
         // increase the LED brightness
-        /*
+
         for (int dutyCycle = 0; dutyCycle <= 255; dutyCycle++)
         {
             //  Serial.print(dutyCycle);
@@ -92,7 +92,7 @@ void DreamachineUI::UI(void *pvParameter)
             ledcWrite(ledChannel, dutyCycle);
             delay(3);
         }
-        */
+
         ////////////////////////////
         if (encoder1.buttonClicked()) // look at a flag
         {
