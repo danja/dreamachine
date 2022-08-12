@@ -10,8 +10,8 @@ public:
     static void Waves(void *pvParameter);
 
 private:
-    void setup();
-    void loop();
+    // void setup();
+    // void loop();
     //   void IRAM_ATTR onTimer(); // ARDUINO_ISR_ATTR
 };
 #endif

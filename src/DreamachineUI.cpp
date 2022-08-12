@@ -12,14 +12,6 @@
 
 TaskHandle_t uiHandle = NULL;
 
-const int LED_L = 32;
-const int LED_R = 33;
-
-// PWM properties
-const int freq = 5000;
-const int ledChannel = 0;
-const int resolution = 8;
-
 // GPIO ports for rotary encoders
 const int ENCODER_1_CLK = 34;
 const int ENCODER_1_DT = 35;
@@ -69,12 +61,6 @@ void DreamachineUI::UI(void *pvParameter)
     // delay(500);
     tinyDisplay.drawLabel("Working");
 
-    ledcSetup(ledChannel, freq, resolution);
-
-    // attach the channel to the GPIO to be controlled
-    ledcAttachPin(LED_L, ledChannel);
-    ledcAttachPin(LED_R, ledChannel);
-
     encoder1.setScale(0, 100, 1, true, true);
     encoder1.setup(encoderEvent1, buttonEvent1); // pass the callback functions (leave as-is)
     encoder2.setup(encoderEvent2, buttonEvent2); // pass the callback functions (leave as-is)
@@ -84,14 +70,6 @@ void DreamachineUI::UI(void *pvParameter)
         Serial.println("UI");
         delay(500);
         // increase the LED brightness
-
-        for (int dutyCycle = 0; dutyCycle <= 255; dutyCycle++)
-        {
-            //  Serial.print(dutyCycle);
-            // changing the LED brightness with PWM
-            ledcWrite(ledChannel, dutyCycle);
-            delay(3);
-        }
 
         ////////////////////////////
         if (encoder1.buttonClicked()) // look at a flag
