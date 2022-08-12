@@ -1,3 +1,9 @@
+**2022-08-12**
+
+To try putting something on the DreamMachineWaves core, set up a timer to flash LEDs. Works a treat, at least up to 440Hz (tested with earpiece & guitar tuner!).
+
+Code in LightWave class, derived from https://github.com/espressif/arduino-esp32/blob/master/libraries/ESP32/examples/Timer/RepeatTimer/RepeatTimer.ino
+
 **2022-08-11**
 
 LATER : got the encoder a bit closer, good enough for now. Split the processes off between the 2 ESP32 cores : DreamachineUI, DreamachineWaves
