@@ -1,18 +1,22 @@
-#ifndef _LIGHTWAVE_h
-#define _LIGHTWAVE_h
+#ifndef _LFO_h
+#define _LFO_h
 
-#include <Arduino.h>
+#include <dispatcher.hpp>
 
-#define BTN_STOP_ALARM 17
-
-class LightWave
+class LFO
 {
 public:
-    LightWave();
+    LFO();
     void checkTimer();
     void setFrequency(float freq);
+    Dispatcher<float> dispatcher;
 
 private:
+    enum waveform
+    {
+        square,
+        sine
+    };
     float frequency;
     int period;
     // void setup();

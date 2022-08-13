@@ -1,12 +1,6 @@
-#include <LightWave.h>
-
-const int LED_L = 32;
-const int LED_R = 33;
-
-// PWM properties
-const int pwmFreq = 5000;
-const int ledChannel = 0;
-const int resolution = 8;
+#include <Arduino.h>
+#include <LFO.h>
+#include <dispatcher.hpp>
 
 //// timer bits
 hw_timer_t *timer = NULL;
@@ -18,7 +12,7 @@ volatile uint32_t isrCounter = 0;
 ////////////////////
 bool on = false;
 
-void IRAM_ATTR onTimer() // ARDUINO_ISR_ATTR
+void IRAM_ATTR onTimer()
 {
     // Increment the counter and set the time of ISR
     portENTER_CRITICAL_ISR(&timerMux);
@@ -30,20 +24,10 @@ void IRAM_ATTR onTimer() // ARDUINO_ISR_ATTR
     // It is safe to use digitalRead/Write here if you want to toggle an output
 }
 
-LightWave::LightWave()
+LFO::LFO()
 {
-    // set up LEDs
-    ledcSetup(ledChannel, pwmFreq, resolution);
-
-    // attach the channel to the GPIO to be controlled
-    ledcAttachPin(LED_L, ledChannel);
-    ledcAttachPin(LED_R, ledChannel);
-
     // set up timer
     setFrequency(16);
-
-    // Set BTN_STOP_ALARM to input mode
-    pinMode(BTN_STOP_ALARM, INPUT);
 
     // Create semaphore to inform us when the timer has fired
     timerSemaphore = xSemaphoreCreateBinary();
@@ -64,13 +48,13 @@ LightWave::LightWave()
     timerAlarmEnable(timer);
 }
 
-void LightWave::setFrequency(float freq)
+void LFO::setFrequency(float freq)
 {
     this->frequency = freq;
     this->period = 1000000.0 / freq;
 }
 
-void LightWave::checkTimer()
+void LFO::checkTimer()
 {
     if (xSemaphoreTake(timerSemaphore, 0) == pdTRUE)
     {
@@ -90,16 +74,19 @@ void LightWave::checkTimer()
         */
 
         // changing the LED brightness with PWM
-        if (on)
-        {
-            ledcWrite(ledChannel, 255);
-            on = false;
-        }
-        else
-        {
-            ledcWrite(ledChannel, 0);
-            on = true;
-        }
+        dispatcher.broadcast(3.14159265);
+        /*
+          if (on)
+          {
+              ledcWrite(ledChannel, 255);
+              on = false;
+          }
+          else
+          {
+              ledcWrite(ledChannel, 0);
+              on = true;
+          }
+          */
     }
 
     /*

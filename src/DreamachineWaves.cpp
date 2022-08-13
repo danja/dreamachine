@@ -1,6 +1,7 @@
 #include <Arduino.h>
 #include <DreamachineWaves.h>
-#include <LightWave.h>
+#include <LFO.h>
+#include <LedDriver.h>
 
 TaskHandle_t wavesHandle = NULL;
 
@@ -23,7 +24,10 @@ void DreamachineWaves::Waves(void *pvParameter)
 {
     // Serial.begin(115200);
     // Serial.println("Waves");
-    LightWave lightwave;
+    LFO lightwave;
+    LedDriver ledDriver;
+
+    ledDriver.registerCallback(lightwave.dispatcher);
 
     while (1)
     {

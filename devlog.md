@@ -1,3 +1,11 @@
+**2022-08-13**
+
+Renamed the LightWave class to LFO. It should be more general-purpose, not tied to how it is used.
+
+Useful examles :
+
+https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples
+
 **2022-08-12**
 
 To try putting something on the DreamMachineWaves core, set up a timer to flash LEDs. Works a treat, at least up to 440Hz (tested with earpiece & guitar tuner!).
