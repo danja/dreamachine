@@ -7,11 +7,15 @@ class LFO
 {
 public:
     LFO();
-    void checkTimer();
-    void setFrequency(float freq);
     Dispatcher<float> dispatcher;
 
+    void setFrequency(float freq);
+
+    void checkTimer();
+    void killTimer();
+
 private:
+    void makeWaves(uint32_t step);
     enum waveform
     {
         square,
@@ -19,8 +23,5 @@ private:
     };
     float frequency;
     int period;
-    // void setup();
-    // void loop();
-    //   void IRAM_ATTR onTimer(); // ARDUINO_ISR_ATTR
 };
 #endif

@@ -23,5 +23,5 @@ LedDriver::LedDriver()
 void LedDriver::setLevel(float level)
 {
     ledcWrite(ledChannel, level);
-    Serial.println(level);
+    // Serial.println(level);
 }

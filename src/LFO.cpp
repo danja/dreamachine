@@ -1,13 +1,16 @@
 #include <Arduino.h>
+// #include <cmath.h>
 #include <LFO.h>
 #include <dispatcher.hpp>
+
+const int N_STEPS = 256;
 
 //// timer bits
 hw_timer_t *timer = NULL;
 volatile SemaphoreHandle_t timerSemaphore;
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 
-volatile uint32_t isrCounter = 0;
+volatile uint32_t stepCounter = 0;
 // volatile uint32_t lastIsrAt = 0;
 ////////////////////
 bool on = false;
@@ -16,7 +19,7 @@ void IRAM_ATTR onTimer()
 {
     // Increment the counter and set the time of ISR
     portENTER_CRITICAL_ISR(&timerMux);
-    isrCounter++;
+    stepCounter++;
     //   lastIsrAt = millis();
     portEXIT_CRITICAL_ISR(&timerMux);
     // Give a semaphore that we can check in the loop
@@ -27,7 +30,7 @@ void IRAM_ATTR onTimer()
 LFO::LFO()
 {
     // set up timer
-    setFrequency(16);
+    setFrequency(440);
 
     // Create semaphore to inform us when the timer has fired
     timerSemaphore = xSemaphoreCreateBinary();
@@ -51,54 +54,46 @@ LFO::LFO()
 void LFO::setFrequency(float freq)
 {
     this->frequency = freq;
-    this->period = 1000000.0 / freq;
+    this->period = 1000000.0 / (freq * N_STEPS);
+}
+
+void LFO::makeWaves(uint32_t step)
+{
+    int square = 0;
+    if (step > 128)
+    {
+        square = 255;
+    }
+    float x = 2 * 3.1416 * (float)step / N_STEPS;
+    int sine = 128 + 128.0 * sin(x);
+    dispatcher.broadcast(sine);
 }
 
 void LFO::checkTimer()
 {
     if (xSemaphoreTake(timerSemaphore, 0) == pdTRUE)
     {
-        uint32_t isrCount = 0, isrTime = 0;
+        uint32_t currentStep = 0, isrTime = 0;
         // Read the interrupt count and time
         portENTER_CRITICAL(&timerMux);
-        isrCount = isrCounter;
+        if (stepCounter >= N_STEPS)
+        {
+            stepCounter = 0;
+        }
+        currentStep = stepCounter;
         //  isrTime = lastIsrAt;
         portEXIT_CRITICAL(&timerMux);
-        // Print it
-        /*
-        Serial.print("onTimer no. ");
-        Serial.print(isrCount);
-        Serial.print(" at ");
-        Serial.print(isrTime);
-        Serial.println(" ms");
-        */
 
-        // changing the LED brightness with PWM
-        dispatcher.broadcast(3.14159265);
-        /*
-          if (on)
-          {
-              ledcWrite(ledChannel, 255);
-              on = false;
-          }
-          else
-          {
-              ledcWrite(ledChannel, 0);
-              on = true;
-          }
-          */
+        makeWaves(currentStep);
     }
+}
 
-    /*
-            if (digitalRead(BTN_STOP_ALARM) == LOW)
-            {
-                // If timer is still running
-                if (timer)
-                {
-                    // Stop and free timer
-                    timerEnd(timer);
-                    timer = NULL;
-                }
-            }
-            */
+void LFO::killTimer()
+{
+    if (timer)
+    {
+        // Stop and free timer
+        timerEnd(timer);
+        timer = NULL;
+    }
 }
