@@ -30,7 +30,7 @@ void IRAM_ATTR onTimer()
 LFO::LFO()
 {
     // set up timer
-    setFrequency(440);
+    setFrequency(100);
 
     // Create semaphore to inform us when the timer has fired
     timerSemaphore = xSemaphoreCreateBinary();
