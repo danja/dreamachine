@@ -1,5 +1,23 @@
 **2022-08-15**
 
+Hah! I was setting sine wave LFO to 100Hz, Bitscope meter was saying it was 16.8Hz. Was going around in circles until I double-checked wih Bitscope DSO - that said 100Hz!
+
+Ok, so that's near enough for now.
+
+The noise generator bits are the fun part, leave for now.
+
+Get the overall prog logic in place first.
+
+Design Patterns book suggests State. Found a reasonably clear example :
+
+https://refactoring.guru/design-patterns/state/cpp/example
+
+Renaming State to Mode and Context to Dreamachine.
+
+Nooo!
+
+I got hopelessly confused, circular dependencies etc.
+
 **2022-08-13**
 
 Renamed the LightWave class to LFO. It should be more general-purpose, not tied to how it is used.
