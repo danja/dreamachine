@@ -10,6 +10,7 @@ public:
     Dispatcher<float> dispatcher;
 
     void setFrequency(float freq);
+    void setPeriod(int period);
 
     void checkTimer();
     void killTimer();
@@ -21,7 +22,7 @@ private:
         square,
         sine
     };
-    float frequency;
-    int period;
+    float frequency = 1;
+    int period = 3906;
 };
 #endif

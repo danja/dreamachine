@@ -29,8 +29,6 @@ void IRAM_ATTR onTimer()
 
 LFO::LFO()
 {
-    // set up timer
-    setFrequency(100);
 
     // Create semaphore to inform us when the timer has fired
     timerSemaphore = xSemaphoreCreateBinary();
@@ -53,18 +51,27 @@ LFO::LFO()
 
 void LFO::setFrequency(float freq)
 {
+    Serial.begin(115200);
     this->frequency = freq;
-    this->period = 1000000.0 / (freq * N_STEPS);
+    this->setPeriod(1000000.0 / freq);
+    Serial.println(this->period);
+}
+
+void LFO::setPeriod(int period)
+{
+    this->period = period / N_STEPS;
+    timerAlarmWrite(timer, this->period, true);
 }
 
 void LFO::makeWaves(uint32_t step)
 {
+    // Serial.println(step);
     int square = 0;
     if (step > 128)
     {
         square = 255;
     }
-    float x = 2 * 3.1416 * (float)step / N_STEPS;
+    float x = 2 * 3.1416 * (float)step / (float)N_STEPS;
     int sine = 128 + 128.0 * sin(x);
     dispatcher.broadcast(sine);
 }

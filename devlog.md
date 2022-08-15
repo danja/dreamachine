@@ -1,8 +1,10 @@
+**2022-08-15**
+
 **2022-08-13**
 
 Renamed the LightWave class to LFO. It should be more general-purpose, not tied to how it is used.
 
-Useful examles :
+Useful examples :
 
 https://github.com/espressif/arduino-esp32/tree/master/libraries/ESP32/examples
 

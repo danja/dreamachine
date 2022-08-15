@@ -22,11 +22,18 @@ DreamachineWaves::DreamachineWaves()
 /************************/
 void DreamachineWaves::Waves(void *pvParameter)
 {
-    // Serial.begin(115200);
+    Serial.begin(115200);
     // Serial.println("Waves");
     LFO lightwave;
     LedDriver ledDriver;
 
+    // set up timer
+
+    //   lightwave.setPeriod(1000000);
+
+    Serial.println("Waves A");
+    lightwave.setFrequency(100);
+    Serial.println("Waves B");
     ledDriver.registerCallback(lightwave.dispatcher);
 
     while (1)
