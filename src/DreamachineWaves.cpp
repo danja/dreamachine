@@ -27,19 +27,12 @@ void DreamachineWaves::Waves(void *pvParameter)
     LFO lightwave;
     LedDriver ledDriver;
 
-    // set up timer
-
-    //   lightwave.setPeriod(1000000);
-
-    Serial.println("Waves A");
-    lightwave.setFrequency(100);
+    lightwave.setFrequency(4);
     Serial.println("Waves B");
     ledDriver.registerCallback(lightwave.dispatcher);
 
     while (1)
     {
         lightwave.checkTimer();
-        //  Serial.println("Waves loop");
-        // If Timer has fired
     }
 }

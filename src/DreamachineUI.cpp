@@ -24,8 +24,8 @@ const int ENCODER_2_SW = 4;
 const int ENCODER_1_STEPS = 10;
 const int ENCODER_2_STEPS = 10;
 
-Esp32RotaryEncoder encoder1 = Esp32RotaryEncoder(ENCODER_1_CLK, ENCODER_1_DT, ENCODER_1_SW);
-Esp32RotaryEncoder encoder2 = Esp32RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW);
+Esp32RotaryEncoder encoder1 = Esp32RotaryEncoder(ENCODER_1_CLK, ENCODER_1_DT, ENCODER_1_SW); // brightness
+Esp32RotaryEncoder encoder2 = Esp32RotaryEncoder(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW); // everything else
 
 // forward declarations
 void IRAM_ATTR encoderEvent1();

@@ -1,15 +1,13 @@
 #include <Arduino.h>
-#include <DreamachineUI.h>
-#include <DreamachineWaves.h>
+#include <Dreamachine.h>
+// #include <DreamachineUI.h>
+// #include <DreamachineWaves.h>
 
 void setup()
 {
     Serial.begin(115200);
 
-    //////////////////////////////////////////////
-
-    static DreamachineUI ui;
-    static DreamachineWaves waves;
+    static Dreamachine dreamachine;
 }
 
 void loop()

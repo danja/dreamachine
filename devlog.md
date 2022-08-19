@@ -1,3 +1,9 @@
+**2022-08-19**
+
+I just wasted a load more time unsuccessfully trying to implement the State pattern.
+
+
+
 **2022-08-15**
 
 Hah! I was setting sine wave LFO to 100Hz, Bitscope meter was saying it was 16.8Hz. Was going around in circles until I double-checked wih Bitscope DSO - that said 100Hz!
@@ -17,6 +23,8 @@ Renaming State to Mode and Context to Dreamachine.
 Nooo!
 
 I got hopelessly confused, circular dependencies etc.
+
+The functionality I need is very simple, I reckon I'll set it up with a simple switch(){} first, refactor later if it seems necessary.
 
 **2022-08-13**
 
