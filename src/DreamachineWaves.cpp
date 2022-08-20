@@ -17,6 +17,11 @@ DreamachineWaves::DreamachineWaves()
         1);
 }
 
+void DreamachineWaves::setDreamachine(Dreamachine dreamachine)
+{
+    this->dreamachine = dreamachine;
+}
+
 /************************/
 /***** WAVES THREAD *****/
 /************************/

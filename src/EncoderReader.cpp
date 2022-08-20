@@ -43,29 +43,32 @@ void EncoderReader::operate()
     ////////////////////////////
     if (encoder1.buttonClicked()) // look at a flag
     {
-        Serial.println("1 click!"); // do stuff
-        encoder1.resetButton();     // reset the flag
+        //   Serial.println("1 click!"); // do stuff
+        buttonDispatcher.broadcast(BUTTON_1_EVENT);
+        encoder1.resetButton(); // reset the flag
     }
 
     if (encoder1.valueChanged()) // look at a flag
     {
-        Serial.print("1 Value :"); // do stuff
-        Serial.println(encoder1.getValue());
+        //   Serial.print("1 Value :"); // do stuff
+        // Serial.println(encoder1.getValue());
+        encoderDispatcher.broadcast(ENCODER_1_EVENT, encoder1.getValue());
         encoder1.resetValue(); // reset the flag
     }
 
     if (encoder2.buttonClicked()) // look at a flag
     {
-        Serial.println("2 click!"); // do stuff
-                                    //      buttonDispatcher.broadcast(BUTTON_2_EVENT);
+        // Serial.println("2 click!"); // do stuff
+        buttonDispatcher.broadcast(BUTTON_2_EVENT);
         //        this->machine.nextMode();
         encoder2.resetButton(); // reset the flag
     }
 
     if (encoder2.valueChanged()) // look at a flag
     {
-        Serial.print("2 Value :"); // do stuff
-        Serial.println(encoder2.getValue());
+        // Serial.print("2 Value :"); // do stuff
+        // Serial.println(encoder2.getValue());
+        encoderDispatcher.broadcast(ENCODER_2_EVENT, encoder2.getValue());
         encoder2.resetValue(); // reset the flag
     }
 }

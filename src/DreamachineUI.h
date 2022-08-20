@@ -1,12 +1,17 @@
 #ifndef _DREAMACHINEUI_h
 #define _DREAMACHINEUI_h
 
+#include <Dreamachine.h>
+
 class DreamachineUI
 {
 public:
     DreamachineUI();
     static void UI(void *pvParameter);
+    void setDreamachine(Dreamachine dreamachine);
 
+private:
+    Dreamachine dreamachine;
     /*
     Brightness : 0-100%
 Light Balance : L% : R%

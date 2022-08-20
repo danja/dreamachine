@@ -23,6 +23,17 @@ TinyDisplay tinyDisplay = TinyDisplay();
 
 EncoderReader encoderReader;
 
+void DreamachineUI::setDreamachine(Dreamachine dreamachine)
+{
+    Serial.begin(115200);
+    this->dreamachine = dreamachine;
+    //  delay(500);
+    // Serial.println("reg");
+    // delay(500);
+    dreamachine.registerCallback(encoderReader.buttonDispatcher);
+    dreamachine.registerCallback(encoderReader.encoderDispatcher);
+}
+
 /*********************/
 /***** UI THREAD *****/
 /*********************/
@@ -39,8 +50,8 @@ void DreamachineUI::UI(void *pvParameter)
 
     while (1) // MAIN UI LOOP
     {
-        Serial.println("UI");
-        delay(500);
+        //        Serial.println("UI");
+        delay(100);
         // increase the LED brightness
         encoderReader.operate();
     }
