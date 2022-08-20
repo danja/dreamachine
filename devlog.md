@@ -1,8 +1,11 @@
+**2022-08-20**
+
+It took me a long time, but I've now got an EncoderReader (wrapping both encoders) dispatching events.
+But the high-level organisation is now a bit wonky :)
+
 **2022-08-19**
 
 I just wasted a load more time unsuccessfully trying to implement the State pattern.
-
-
 
 **2022-08-15**
 
