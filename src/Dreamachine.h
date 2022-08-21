@@ -6,6 +6,9 @@
 #include <dispatcher.hpp>
 #include <iostream>
 
+#include <DreamachineUI.h>
+#include <DreamachineWaves.h>
+
 #include <EncoderReader.h>
 
 using namespace std;
@@ -48,6 +51,8 @@ public:
     }
 
 private:
+    DreamachineUI ui;
+    DreamachineWaves waves;
     int mode;
     /*
         enum modes

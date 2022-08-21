@@ -6,7 +6,7 @@
 
 Dreamachine::Dreamachine()
 {
-    Serial.print("Dreamachine constructor");
+    //  Serial.print("Dreamachine constructor");
 }
 
 void Dreamachine::setMode(int mode)
@@ -34,6 +34,10 @@ void Dreamachine::onEncoderClick(ButtonEventEnum button)
 {
     Serial.print("in Dreamachine button event ");
     Serial.println(button);
+    if (button == BUTTON_1_EVENT)
+    {
+        Serial.println("zero");
+    }
 }
 
 void Dreamachine::onEncoderRotate(EncoderEventEnum encoder, float value)

@@ -17,10 +17,12 @@ DreamachineWaves::DreamachineWaves()
         1);
 }
 
+/*
 void DreamachineWaves::setDreamachine(Dreamachine dreamachine)
 {
     this->dreamachine = dreamachine;
 }
+*/
 
 /************************/
 /***** WAVES THREAD *****/
@@ -33,11 +35,13 @@ void DreamachineWaves::Waves(void *pvParameter)
     LedDriver ledDriver;
 
     lightwave.setFrequency(4);
-    Serial.println("Waves B");
+    // Serial.println("Waves B");
     ledDriver.registerCallback(lightwave.dispatcher);
 
     while (1)
     {
+        // delay(2000);
+        // Serial.println("Waves");
         lightwave.checkTimer();
     }
 }

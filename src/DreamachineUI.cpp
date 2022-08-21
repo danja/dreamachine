@@ -7,6 +7,15 @@
 
 TaskHandle_t uiHandle = NULL;
 
+/**
+ * `xTaskCreatePinnedToCore(UI, "DreamachineUI", 4096, NULL, 2, &uiHandle, 0);`
+ *
+ * The function `xTaskCreatePinnedToCore` creates a task (a thread) and pins it to a core. The first
+ * argument is the name of the function that will be run as a task. The second argument is the name of
+ * the task. The third argument is the stack size. The fourth argument is a pointer to the function's
+ * arguments. The fifth argument is the priority of the task. The sixth argument is a pointer to the
+ * task handle. The seventh argument is the core to pin the task to
+ */
 DreamachineUI::DreamachineUI()
 {
     xTaskCreatePinnedToCore(
@@ -23,6 +32,7 @@ TinyDisplay tinyDisplay = TinyDisplay();
 
 EncoderReader encoderReader;
 
+/*
 void DreamachineUI::setDreamachine(Dreamachine dreamachine)
 {
     Serial.begin(115200);
@@ -33,6 +43,7 @@ void DreamachineUI::setDreamachine(Dreamachine dreamachine)
     dreamachine.registerCallback(encoderReader.buttonDispatcher);
     dreamachine.registerCallback(encoderReader.encoderDispatcher);
 }
+*/
 
 /*********************/
 /***** UI THREAD *****/
@@ -50,9 +61,21 @@ void DreamachineUI::UI(void *pvParameter)
 
     while (1) // MAIN UI LOOP
     {
-        //        Serial.println("UI");
+        Serial.println("UI");
         delay(100);
         // increase the LED brightness
         encoderReader.operate();
     }
+}
+
+void DreamachineUI::updateDisplay(String label, int value)
+{
+    tinyDisplay.drawLabel(label);
+    tinyDisplay.drawValue(String(value));
+}
+
+void DreamachineUI::updateDisplay(String label, String value)
+{
+    tinyDisplay.drawLabel(label);
+    tinyDisplay.drawValue(value);
 }

@@ -1,3 +1,15 @@
+**2022-08-21**
+
+To try and sort out wonky organisation decided some visualisation would be useful.
+
+Installed :
+
+- doxygen
+- doxygen-gui (runs as doxywizard) : generates config, runs
+- mintlify doc writer (vscode extension) : highlight source, it generates comments
+
+
+
 **2022-08-20**
 
 It took me a long time, but I've now got an EncoderReader (wrapping both encoders) dispatching events.

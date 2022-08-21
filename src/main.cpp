@@ -10,11 +10,13 @@ void setup()
 
     Dreamachine dreamachine;
 
-    DreamachineUI ui;
-    ui.setDreamachine(dreamachine);
+    /*
+        DreamachineUI ui;
+        ui.setDreamachine(dreamachine);
 
-    DreamachineWaves waves;
-    waves.setDreamachine(dreamachine);
+        DreamachineWaves waves;
+        waves.setDreamachine(dreamachine);
+        */
 }
 
 void loop()
