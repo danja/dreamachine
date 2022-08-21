@@ -4,9 +4,14 @@
 #include <EncoderReader.h>
 #include <Dreamachine.h>
 
+DreamachineUI ui;
+
 Dreamachine::Dreamachine()
 {
     //  Serial.print("Dreamachine constructor");
+    // DreamachineUI ui;
+    ui.setDreamachine(*this);
+    DreamachineWaves waves;
 }
 
 void Dreamachine::setMode(int mode)
@@ -37,6 +42,7 @@ void Dreamachine::onEncoderClick(ButtonEventEnum button)
     if (button == BUTTON_1_EVENT)
     {
         Serial.println("zero");
+        ui.updateDisplay("zero", 0);
     }
 }
 

@@ -3,14 +3,14 @@
 
 #include <Arduino.h>
 
-// #include <Dreamachine.h>
+#include <Dreamachine.h>
 
 class DreamachineUI
 {
 public:
     DreamachineUI();
     static void UI(void *pvParameter);
-    //  void setDreamachine(Dreamachine dreamachine);
+    void setDreamachine(Dreamachine dreamachine);
 
     void updateDisplay(String label, int value);
     void updateDisplay(String label, String value);
