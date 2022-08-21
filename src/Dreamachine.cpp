@@ -8,9 +8,7 @@ DreamachineUI ui;
 
 Dreamachine::Dreamachine()
 {
-    //  Serial.print("Dreamachine constructor");
-    // DreamachineUI ui;
-    ui.setDreamachine(*this);
+    ui.attachEncoder(*this);
     DreamachineWaves waves;
 }
 

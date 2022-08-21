@@ -32,13 +32,8 @@ TinyDisplay tinyDisplay = TinyDisplay();
 
 EncoderReader encoderReader;
 
-void DreamachineUI::setDreamachine(Dreamachine dreamachine)
+void DreamachineUI::attachEncoder(Dreamachine dreamachine) // should probably extract interface
 {
-    Serial.begin(115200);
-    // this->dreamachine = dreamachine;
-    //  delay(500);
-    // Serial.println("reg");
-    // delay(500);
     dreamachine.registerCallback(encoderReader.buttonDispatcher);
     dreamachine.registerCallback(encoderReader.encoderDispatcher);
 }

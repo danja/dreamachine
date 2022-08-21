@@ -10,7 +10,8 @@ class DreamachineUI
 public:
     DreamachineUI();
     static void UI(void *pvParameter);
-    void setDreamachine(Dreamachine dreamachine);
+
+    void attachEncoder(Dreamachine dreamachine); // should probably extract interface
 
     void updateDisplay(String label, int value);
     void updateDisplay(String label, String value);
