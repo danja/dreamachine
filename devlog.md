@@ -8,7 +8,11 @@ Installed :
 - doxygen-gui (runs as doxywizard) : generates config, runs
 - mintlify doc writer (vscode extension) : highlight source, it generates comments
 
+I went around and around in circles again - literally.
 
+Getting the right bits static and the right pointer reference, hugely confusing.
+
+But now the encoder is talking to the display via a callback to Dreamachine.cpp. Phew!!!
 
 **2022-08-20**
 
