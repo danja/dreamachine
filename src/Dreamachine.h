@@ -51,7 +51,7 @@ public:
     }
 
 private:
-    int mode;
+    int mode = 0;
     /*
         enum modes
         {
@@ -66,7 +66,9 @@ private:
             audio_phase
         } mode;
     */
-    String labels[9] = {"Brightness", "Light Balance", "Frequency", "Light Wave", "Light Phase", "Volume", "Audio Balance", "Sound Wave", "Audio Phase"};
+
+    char *labels[9] = {"Brightness", "Light <->", "Frequency", "Light Wave", "Light /\\/", "Volume", "Audio <->", "Sound Wave", "Audio /\\/"};
+    // String labels[9] =
 
     /*
     Brightness : 0-100%

@@ -24,8 +24,8 @@ void Dreamachine::nextMode()
     {
         this->mode = 0;
     }
-    Serial.print("Mode :");
-    Serial.println(this->getLabel());
+    // Serial.print("Mode :");
+    //  Serial.println(this->getLabel());
 }
 
 String Dreamachine::getLabel()
@@ -35,18 +35,25 @@ String Dreamachine::getLabel()
 
 void Dreamachine::onEncoderClick(ButtonEventEnum button)
 {
-    Serial.print("in Dreamachine button event ");
-    Serial.println(button);
+    // Serial.print("in Dreamachine button event ");
+    // Serial.println(button);
     if (button == BUTTON_1_EVENT)
     {
-        Serial.println("zero");
+        mode = 0;
         ui.updateDisplay("zero", 0);
+    }
+    if (button == BUTTON_2_EVENT)
+    {
+        // Serial.println("mode");
+        nextMode();
+        // Serial.println(getLabel());
+        ui.updateDisplay(getLabel(), this->mode);
     }
 }
 
 void Dreamachine::onEncoderRotate(EncoderEventEnum encoder, float value)
 {
-    Serial.print("in Dreamachine encoder event ");
+    // Serial.print("in Dreamachine encoder event ");
     Serial.println(encoder);
     Serial.println(value);
 }
