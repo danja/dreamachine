@@ -9,7 +9,7 @@ DreamachineUI ui;
 Dreamachine::Dreamachine()
 {
     ui.attachEncoder(*this);
-    DreamachineWaves waves;
+    DreamachineWaves waves; // if this is placed up there ^^ it kills the encoder input
 }
 
 void Dreamachine::setMode(int mode)
