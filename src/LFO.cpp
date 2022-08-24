@@ -57,10 +57,12 @@ void LFO::setFrequency(float freq)
     Serial.println(this->period);
 }
 
-void LFO::setPeriod(int period)
+void IRAM_ATTR LFO::setPeriod(int period)
 {
     this->period = period / N_STEPS;
+    //   portENTER_CRITICAL(&timerMux);
     timerAlarmWrite(timer, this->period, true);
+    // portEXIT_CRITICAL(&timerMux);
 }
 
 void LFO::makeWaves(uint32_t step)

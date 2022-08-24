@@ -10,7 +10,7 @@ public:
     Dispatcher<float> dispatcher;
 
     void setFrequency(float freq);
-    void setPeriod(int period);
+    void IRAM_ATTR setPeriod(int period);
 
     void checkTimer();
     void killTimer();

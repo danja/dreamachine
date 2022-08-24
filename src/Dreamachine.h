@@ -38,7 +38,7 @@ public:
 
     void nextMode();
     void setMode(int mode);
-    //  string getLabel();
+    void update();
 
     void onEncoderClick(ButtonEventEnum button);
     void onEncoderRotate(EncoderEventEnum encoder, float value);

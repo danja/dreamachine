@@ -1,3 +1,11 @@
+**2022-08-24**
+
+I got past my annoying problem this morning. The encoder can now update the display.
+
+Next problem is getting it to update eg. the LED frequency.
+
+Does get confusing fast, the different scopes, what has to be static.
+
 **2022-08-23**
 
 I realised an easy (but still quite clean) way to handle the different application/UI modes, 'Brightness', 'Frequency' etc, was to implement them as (an array of) objects.

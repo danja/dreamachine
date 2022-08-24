@@ -55,7 +55,7 @@ void DreamachineUI::UI(void *pvParameter)
     while (1) // MAIN UI LOOP
     {
         //     Serial.println("UI");
-        delay(100);
+        delay(1);
         // increase the LED brightness
         encoderReader.operate();
     }

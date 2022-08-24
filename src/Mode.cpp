@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+
 #include <Mode.h>
 #include <Arduino.h>
 
@@ -21,9 +23,21 @@ void Mode::init(string _label, long _minValue, long _maxValue, long _steps, bool
     this->circleValues = _circleValues;
 }
 
+void Mode::setValue(long value)
+{
+    this->value = value;
+}
+
 string BrightnessMode::getValueString()
 {
-    return "bvalue";
+    stringstream stream;
+    stream << value;
+    string s = stream.str();
+    Serial.print("Value = ");
+    Serial.println(value);
+    Serial.print("String = ");
+    Serial.println(s.c_str());
+    return s;
 }
 
 string LightPhaseMode::getValueString()

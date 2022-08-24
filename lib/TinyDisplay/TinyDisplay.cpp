@@ -32,11 +32,12 @@ void TinyDisplay::init()
 
 void TinyDisplay::refresh()
 {
+    /*
     Serial.print("refresh, label = ");
     Serial.println(label.c_str());
     Serial.print("refresh, value = ");
     Serial.println(value.c_str());
-
+*/
     display.clearDisplay();
     display.setCursor(0, 0);
     display.setTextSize(2);

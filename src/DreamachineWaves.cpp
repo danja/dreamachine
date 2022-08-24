@@ -31,6 +31,7 @@ void DreamachineWaves::Waves(void *pvParameter)
 {
     //  Serial.begin(115200);
     // Serial.println("Waves");
+
     LFO lightwave;
     LedDriver ledDriver;
 
@@ -40,8 +41,13 @@ void DreamachineWaves::Waves(void *pvParameter)
 
     while (1)
     {
-        // delay(2000);
-        // Serial.println("Waves");
+        delay(1); // need to release
+                  // Serial.println("Waves");
         lightwave.checkTimer();
     }
+}
+
+void DreamachineWaves::setLightFrequency(int frequency)
+{
+    //    lightwave.setFrequency(frequency);
 }

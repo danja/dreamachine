@@ -11,7 +11,9 @@ using namespace std;
 
 DreamachineUI ui;
 // Mode aMode;
-Mode modes[2];
+Mode *modes[2];
+
+// DreamachineWaves waves;
 
 Dreamachine::Dreamachine()
 {
@@ -23,16 +25,13 @@ Dreamachine::Dreamachine()
 
 void Dreamachine::loadModes()
 {
-    //  aMode = Mode();
-    //
     //   char *labels[9] = {"Brightness", "Light <->", "Frequency", "Light Wave", "Light /\\/", "Volume", "Audio <->", "Sound Wave", "Audio /\\/"};
-    //  char *b = "Brightness";
-    // modes[0].init("Brightness", 10, 100, 100, true, false);
-    modes[0] = BrightnessMode();
-    modes[0].init("Brightness", 10, 100, 100, true, false);
 
-    modes[1] = LightPhaseMode();
-    modes[1].init("Light /\\/", 0, 360, 10, true, false);
+    modes[0] = new BrightnessMode();
+    modes[0]->init("Brightness", 10, 100, 100, true, false);
+
+    modes[1] = new LightPhaseMode();
+    modes[1]->init("Light /\\/", 0, 360, 10, true, false);
 }
 
 void Dreamachine::setMode(int mode)
@@ -49,6 +48,13 @@ void Dreamachine::nextMode()
     }
 }
 
+void Dreamachine::update()
+{
+    //  waves.setLightFrequency(modes[mode]->value); needs a semaphore???????
+
+    ui.updateDisplay(modes[mode]->label, modes[mode]->getValueString());
+}
+
 void Dreamachine::onEncoderClick(ButtonEventEnum button)
 {
     // Serial.print("in Dreamachine button event ");
@@ -56,24 +62,13 @@ void Dreamachine::onEncoderClick(ButtonEventEnum button)
     if (button == BUTTON_1_EVENT)
     {
         mode = 0;
-        ui.updateDisplay("zero", 0);
+        update();
     }
     if (button == BUTTON_2_EVENT)
     {
 
         nextMode();
-        Serial.print("Label : ");
-        Serial.println(modes[mode].label.c_str());
-
-        //            Serial.print("ALabel : ");
-        //  Serial.println(getLabel().c_str());
-
-        // aMode.minValue = 55;
-        // Serial.println(aMode.label.c_str());
-        // Serial.println(aMode.minValue);
-
-        //   ui.updateDisplay(getLabel().c_str(), aMode.getValueString());
-        ui.updateDisplay(modes[mode].label, "tttt");
+        update();
     }
 }
 
@@ -83,12 +78,12 @@ void Dreamachine::onEncoderRotate(EncoderEventEnum encoder, float value)
 
     if (encoder == ENCODER_1_EVENT)
     {
-        Serial.print("encoder 1 event : ");
-        Serial.println(value);
+        mode = 0;
+        update();
     }
     if (encoder == ENCODER_2_EVENT)
     {
-        Serial.print("encoder 2 event : ");
-        Serial.println(value);
+        modes[mode]->setValue(value);
+        update();
     }
 }
