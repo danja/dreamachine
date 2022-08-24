@@ -32,23 +32,28 @@ void TinyDisplay::init()
 
 void TinyDisplay::refresh()
 {
+    Serial.print("refresh, label = ");
+    Serial.println(label.c_str());
+    Serial.print("refresh, value = ");
+    Serial.println(value.c_str());
+
     display.clearDisplay();
     display.setCursor(0, 0);
     display.setTextSize(2);
-    display.println(label);
+    display.println(label.c_str());
     display.setCursor(0, 20);
     display.setTextSize(4);
-    display.println(value);
+    display.println(value.c_str());
     display.display();
 }
 
-void TinyDisplay::drawLabel(const String newLabel)
+void TinyDisplay::drawLabel(const string newLabel)
 {
     label = newLabel;
     refresh();
 }
 
-void TinyDisplay::drawValue(String newValue)
+void TinyDisplay::drawValue(string newValue)
 {
     value = newValue;
     refresh();

@@ -51,7 +51,7 @@ LFO::LFO()
 
 void LFO::setFrequency(float freq)
 {
-    Serial.begin(115200);
+    // Serial.begin(115200);
     this->frequency = freq;
     this->setPeriod(1000000.0 / freq);
     Serial.println(this->period);

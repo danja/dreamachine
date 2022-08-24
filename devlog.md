@@ -1,3 +1,34 @@
+**2022-08-23**
+
+I realised an easy (but still quite clean) way to handle the different application/UI modes, 'Brightness', 'Frequency' etc, was to implement them as (an array of) objects.
+
+But last night, coding it up, ran into trouble. So I cut the code back to something really simple, there's still a disconnect somewhere. Just now I had a look, still couldn't see the problem.
+
+Then I remembered I'd bought an ESP Prog JTAG board when I started working on Chatterbox. Could not get it to work then.
+
+I just plugged it into Dreamachine - It Just Worked - and now I have proper debugging!!!!
+
+https://medium.com/@manuel.bl/low-cost-esp32-in-circuit-debugging-dbbee39e508b
+
+```
+TDI (Test Data In)
+TDO (Test Data Out)
+TCK (Test Clock)
+TMS (Test Mode Select)
+TRST (Test Reset) optional.
+On the ESP32, the JTAG pins are GPIO pins at the same time. So during debugging, you cannot use them. They are:
+
+GPIO12 — TDI
+GPIO15 — TDO
+GPIO13 — TCK
+GPIO14 — TMS
+The reset pin (TRST) is not fully supported by OpenOCD. Fortunately, it’s optional.
+```
+
+https://medium.com/@manuel.bl/low-cost-esp32-in-circuit-debugging-dbbee39e508b
+
+I'm too tired to do any more tonight, but this should be a real timesaver. Proper magic!!!
+
 **2022-08-21**
 
 To try and sort out wonky organisation decided some visualisation would be useful.

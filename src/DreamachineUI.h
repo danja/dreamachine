@@ -1,9 +1,10 @@
 #ifndef _DREAMACHINEUI_h
 #define _DREAMACHINEUI_h
 
+#include <iostream>
 #include <Arduino.h>
-
 #include <Dreamachine.h>
+using namespace std;
 
 class DreamachineUI
 {
@@ -13,8 +14,11 @@ public:
 
     void attachEncoder(Dreamachine dreamachine); // should probably extract interface
 
-    void updateDisplay(String label, int value);
-    void updateDisplay(String label, String value);
+    //  void updateDisplay(String label, int value);
+    // void updateDisplay(String label, String value);
+
+    // void updateDisplay(string label, int value);
+    void updateDisplay(string label, string value);
 
 private:
     // Dreamachine dreamachine;

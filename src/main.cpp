@@ -5,11 +5,16 @@
 
 void setup()
 {
-    //  delay(500);
-    Serial.begin(115200);
 
+    Serial.begin(9600);
+
+    // Serial.println("AAA");
     Dreamachine dreamachine;
 
+    // Serial.println("BBB");
+
+    // dreamachine.loadModes();
+    // Serial.println("CCC");
     /*
         DreamachineUI ui;
         ui.setDreamachine(dreamachine);
@@ -21,4 +26,5 @@ void setup()
 
 void loop()
 {
+    delay(100);
 }

@@ -29,7 +29,7 @@ void DreamachineWaves::setDreamachine(Dreamachine dreamachine)
 /************************/
 void DreamachineWaves::Waves(void *pvParameter)
 {
-    Serial.begin(115200);
+    //  Serial.begin(115200);
     // Serial.println("Waves");
     LFO lightwave;
     LedDriver ledDriver;

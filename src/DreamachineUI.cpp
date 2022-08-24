@@ -54,20 +54,14 @@ void DreamachineUI::UI(void *pvParameter)
 
     while (1) // MAIN UI LOOP
     {
-        Serial.println("UI");
+        //     Serial.println("UI");
         delay(100);
         // increase the LED brightness
         encoderReader.operate();
     }
 }
 
-void DreamachineUI::updateDisplay(String label, int value)
-{
-    tinyDisplay.drawLabel(label);
-    tinyDisplay.drawValue(String(value));
-}
-
-void DreamachineUI::updateDisplay(String label, String value)
+void DreamachineUI::updateDisplay(string label, string value)
 {
     tinyDisplay.drawLabel(label);
     tinyDisplay.drawValue(value);

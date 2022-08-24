@@ -9,16 +9,21 @@
 // #include <DreamachineUI.h>
 #include <DreamachineWaves.h>
 
+#include <Mode.h>
+
 #include <EncoderReader.h>
 
 using namespace std;
 
-const int N_MODES = 9;
+const int N_MODES = 2;
 
 class Dreamachine
 {
 public:
     Dreamachine();
+    // Mode modes[2];
+
+    void loadModes();
 
     int brightnessValue = 0;
     int light_balanceValue = 50;
@@ -33,7 +38,7 @@ public:
 
     void nextMode();
     void setMode(int mode);
-    String getLabel();
+    //  string getLabel();
 
     void onEncoderClick(ButtonEventEnum button);
     void onEncoderRotate(EncoderEventEnum encoder, float value);
@@ -52,6 +57,7 @@ public:
 
 private:
     int mode = 0;
+
     /*
         enum modes
         {
@@ -67,7 +73,7 @@ private:
         } mode;
     */
 
-    char *labels[9] = {"Brightness", "Light <->", "Frequency", "Light Wave", "Light /\\/", "Volume", "Audio <->", "Sound Wave", "Audio /\\/"};
+    //  char *labels[9] = {"Brightness", "Light <->", "Frequency", "Light Wave", "Light /\\/", "Volume", "Audio <->", "Sound Wave", "Audio /\\/"};
     // String labels[9] =
 
     /*
