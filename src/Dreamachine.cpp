@@ -11,7 +11,7 @@
 using namespace std;
 
 const int queueItemSize = sizeof(AModeMessage); // Q
-const int queueLength = 1;                      // Q
+const int queueLength = 5;                      // Q
 QueueHandle_t queue;                            // Q
 
 DreamachineUI ui;
@@ -63,8 +63,8 @@ void Dreamachine::nextMode()
 
 void Dreamachine::update()
 {
-    //  waves.setLightFrequency(modes[mode]->value); needs a semaphore???????
-    xQueueSend(queue, &modes[mode]->modeMessage, portMAX_DELAY);
+    //  waves.setLightFrequency(modes[mode]->value);
+    xQueueSend(queue, &modes[mode]->modeMessage, 10000); // portMAX_DELAY
 
     ui.updateDisplay(modes[mode]->modeMessage.label, modes[mode]->getValueString());
 }
