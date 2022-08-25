@@ -1,7 +1,7 @@
 #ifndef _LFO_h
 #define _LFO_h
 
-#include <dispatcher.hpp>
+#include <Dispatcher.hpp>
 
 class LFO
 {

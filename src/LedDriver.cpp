@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <LedDriver.h>
-#include <dispatcher.hpp>
+#include <Dispatcher.hpp>
 
 const int LED_L = 32;
 const int LED_R = 33;

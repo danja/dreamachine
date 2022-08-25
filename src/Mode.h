@@ -28,25 +28,32 @@ Audio Phase : 0-359°
 
 using namespace std;
 
-class Mode
+typedef struct ModeMessage
 {
-public:
-    Mode();
-
-    void init(string _label, long _minValue, long _maxValue, long _steps, bool _invert, bool _circleValues);
     string label;
     long minValue;
     long maxValue;
     long steps;
     bool invert;
     bool circleValues;
+    long value;
+};
+
+class Mode
+{
+public:
+    Mode();
+    ModeMessage modeMessage;
+
+    void init(string _label, long _minValue, long _maxValue, long _steps, bool _invert, bool _circleValues);
+
     virtual string getValueString()
     {
         return "none";
     };
 
     void setValue(long value);
-    long value;
+    long getValue();
 
 private:
     // long previousValue = 0;

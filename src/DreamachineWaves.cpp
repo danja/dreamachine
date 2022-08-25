@@ -44,6 +44,14 @@ void DreamachineWaves::Waves(void *pvParameter)
         delay(1); // need to release
                   // Serial.println("Waves");
         lightwave.checkTimer();
+
+        if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) != 0)
+        {
+            /* The task received a notification – do whatever is
+            necessary to process the received event. */
+            // DoSomething();
+            Serial.println("notified");
+        }
     }
 }
 

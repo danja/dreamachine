@@ -9,6 +9,10 @@
 
 using namespace std;
 
+QueueHandle_t queue; // Q
+
+// int queueItemSize = sizeof(Mode);
+
 DreamachineUI ui;
 // Mode aMode;
 Mode *modes[2];
@@ -52,7 +56,7 @@ void Dreamachine::update()
 {
     //  waves.setLightFrequency(modes[mode]->value); needs a semaphore???????
 
-    ui.updateDisplay(modes[mode]->label, modes[mode]->getValueString());
+    ui.updateDisplay(modes[mode]->modeMessage.label, modes[mode]->getValueString());
 }
 
 void Dreamachine::onEncoderClick(ButtonEventEnum button)

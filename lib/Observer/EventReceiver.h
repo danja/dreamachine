@@ -2,9 +2,16 @@
 #define EventReceiver_h
 
 #include <WString.h>
-#include <dispatcher.hpp>
+#include <Dispatcher.hpp>
 
-enum EventType {NOTE_ON, NOTE_OFF, VALUE_CHANGE, EVENT2, EVENT3};
+enum EventType
+{
+    NOTE_ON,
+    NOTE_OFF,
+    VALUE_CHANGE,
+    EVENT2,
+    EVENT3
+};
 
 class EventReceiver
 {
@@ -14,8 +21,8 @@ public:
     void registerCallback(Dispatcher<EventType, String, float> &dispatcher);
 
 private:
-// void listener(EventType type, String name, float value);
-    void listener(const EventType& type, const String& name, const float& value);
+    // void listener(EventType type, String name, float value);
+    void listener(const EventType &type, const String &name, const float &value);
 };
 
 #endif

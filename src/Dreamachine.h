@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 
-#include <dispatcher.hpp>
+#include <Dispatcher.hpp>
 #include <iostream>
 
 // #include <DreamachineUI.h>

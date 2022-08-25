@@ -1,7 +1,7 @@
 #ifndef _ENCODERREADER_H
 #define _ENCODERREADER_H
 
-#include <dispatcher.hpp>
+#include <Dispatcher.hpp>
 #include <Esp32RotaryEncoder.h>
 
 enum ButtonEventEnum

@@ -1,14 +1,14 @@
 #include <Arduino.h>
-#include <dispatcher.hpp>
+#include <Dispatcher.hpp>
 #include <EventReceiver.h>
 
 EventReceiver::EventReceiver()
 {
     // delay(2000); // let it connect
 
-   // Serial.begin(serial_rate);
+    // Serial.begin(serial_rate);
 
-   // Serial.println("\n*** Starting Chatterbox ***\n");
+    // Serial.println("\n*** Starting Chatterbox ***\n");
 }
 
 void EventReceiver::registerCallback(Dispatcher<EventType, String, float> &dispatcher)
@@ -17,8 +17,8 @@ void EventReceiver::registerCallback(Dispatcher<EventType, String, float> &dispa
     dispatcher.addCallback(std::bind(&EventReceiver::listener, this, _1, _2, _3));
 }
 
-void EventReceiver::listener(const EventType& type, const String& name, const float& value)
+void EventReceiver::listener(const EventType &type, const String &name, const float &value)
 {
-   // Serial.print(name + " : ");
-   // Serial.println(value, DEC);
+    // Serial.print(name + " : ");
+    // Serial.println(value, DEC);
 }

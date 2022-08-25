@@ -26,5 +26,6 @@ void setup()
 
 void loop()
 {
-    delay(100);
+    // Serial.println("pause");
+    delay(1000);
 }

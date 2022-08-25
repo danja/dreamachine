@@ -1,3 +1,38 @@
+**2022-08-25**
+
+This thing is so concurrency-heavy!
+
+So now, when the Mode is changed in Dreamachine.cpp, on Core 0, I need it to pass whatever values have changed over to DreamachineWaves on Core 1.
+
+For a similar job, in LFO, it was textbook semaphore-based so I pretty much copy-and-pasted the relevant code.
+
+Comms between cores is central to the whole application(s), so I really need a clear idea of what's going on.
+
+A possibility would be to use RTOS Task Notifications, eg. with
+
+https://www.freertos.org/RTOS_Task_Notification_As_Mailbox.html
+
+But with this :
+
+- Only 32-bit values can be sent
+- The value is saved as the receiving task's notification value, and there can only be one notification value at any one time
+
+These are faster, and I could probably squeeze what's needed for Dreamachine into this approach, but I think it makes more sense to do it in a more general purpose way using
+FreeRTOS Queues.
+
+https://www.freertos.org/Embedded-RTOS-Queues.html
+
+So over to:
+
+https://www.freertos.org/Documentation/RTOS_book.html
+Tutorial, Chapter 4, Queue Management
+
+- bleah, not clear
+
+RTOS Reference Manual, P.163
+
+https://techtutorialsx.com/2017/08/20/esp32-arduino-freertos-queues/
+
 **2022-08-24**
 
 I got past my annoying problem this morning. The encoder can now update the display.

@@ -1,7 +1,7 @@
 #include <Arduino.h>
 // #include <cmath.h>
 #include <LFO.h>
-#include <dispatcher.hpp>
+#include <Dispatcher.hpp>
 
 const int N_STEPS = 256;
 
