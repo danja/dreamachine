@@ -46,15 +46,16 @@ void DreamachineWaves::Waves(void *pvParameter)
 
     while (1)
     {
-        delay(1); // need to release
-                  // Serial.println("Waves");
+        delay(10); // need to release
+                   // Serial.println("Waves");
         lightwave.checkTimer();
+
         ModeMessage modeMessage = ModeMessage();
         long x = modeMessage.value;
-        xQueueReceive(queue, &modeMessage, portMAX_DELAY);
+        xQueueReceive(queue, &modeMessage, 0); // portMAX_DELAY
         if (x != modeMessage.value)
         {
-            Serial.println(modeMessage.value);
+            // Serial.println(modeMessage.value);
             lightwave.setFrequency(modeMessage.value);
         }
     }
