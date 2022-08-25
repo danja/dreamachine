@@ -7,9 +7,10 @@
 #include <iostream>
 
 // #include <DreamachineUI.h>
-#include <DreamachineWaves.h>
+// #include <DreamachineWaves.h>
 
 #include <Mode.h>
+// #include <Q.h>
 
 #include <EncoderReader.h>
 

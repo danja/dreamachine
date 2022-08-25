@@ -1,25 +1,3 @@
-/*
-    Brightness : 0-100%
-Light Balance : L% : R%
-Frequency : 1-50 Hz
-Wave : sine/square
-Light Phase : 0-359°
-
-Volume : 0-100%
-Audio Balance : L% : R%
-Noise : white/pink
-Audio Phase : 0-359°
-
- brightness,
-            light_balance,
-            frequency,
-            light_wave,
-            light_phase,
-            volume,
-            audio_balance,
-            sound_wave,
-            audio_phase
-*/
 #ifndef _MODE_H
 #define _MODE_H
 
@@ -30,14 +8,14 @@ using namespace std;
 
 typedef struct ModeMessage
 {
-    string label;
-    long minValue;
-    long maxValue;
-    long steps;
-    bool invert;
-    bool circleValues;
-    long value;
-};
+    string label = "maximum label length maybe";
+    long minValue = 0;
+    long maxValue = 0;
+    long steps = 0;
+    bool invert = false;
+    bool circleValues = true;
+    long value = 0;
+} AModeMessage;
 
 class Mode
 {

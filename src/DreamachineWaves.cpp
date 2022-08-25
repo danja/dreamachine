@@ -1,9 +1,14 @@
 #include <Arduino.h>
 #include <DreamachineWaves.h>
+// #include <Dreamachine.h>
+#include <Mode.h>
 #include <LFO.h>
 #include <LedDriver.h>
+#include <Q.h>
 
 TaskHandle_t wavesHandle = NULL;
+
+// QueueHandle_t queue; // Q
 
 DreamachineWaves::DreamachineWaves()
 {
@@ -44,13 +49,13 @@ void DreamachineWaves::Waves(void *pvParameter)
         delay(1); // need to release
                   // Serial.println("Waves");
         lightwave.checkTimer();
-
-        if (ulTaskNotifyTake(pdTRUE, portMAX_DELAY) != 0)
+        ModeMessage modeMessage = ModeMessage();
+        long x = modeMessage.value;
+        xQueueReceive(queue, &modeMessage, portMAX_DELAY);
+        if (x != modeMessage.value)
         {
-            /* The task received a notification – do whatever is
-            necessary to process the received event. */
-            // DoSomething();
-            Serial.println("notified");
+            Serial.println(modeMessage.value);
+            lightwave.setFrequency(modeMessage.value);
         }
     }
 }

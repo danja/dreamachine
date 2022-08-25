@@ -4,14 +4,15 @@
 #include <EncoderReader.h>
 #include <Dreamachine.h>
 #include <Mode.h>
+#include <Q.h>
 
 #include <iostream>
 
 using namespace std;
 
-QueueHandle_t queue; // Q
-
-// int queueItemSize = sizeof(Mode);
+const int queueItemSize = sizeof(AModeMessage); // Q
+const int queueLength = 1;                      // Q
+QueueHandle_t queue;                            // Q
 
 DreamachineUI ui;
 // Mode aMode;
@@ -21,10 +22,18 @@ Mode *modes[2];
 
 Dreamachine::Dreamachine()
 {
+    queue = xQueueCreate(queueLength, queueItemSize);
+    if (queue == NULL)
+    {
+        Serial.println("Error creating the queue");
+    }
+
     ui.attachEncoder(*this);
     loadModes();
 
     DreamachineWaves waves; // if this is placed up there ^^ it kills the encoder input
+
+    // waves.setQueue(queue);
 }
 
 void Dreamachine::loadModes()
@@ -55,6 +64,7 @@ void Dreamachine::nextMode()
 void Dreamachine::update()
 {
     //  waves.setLightFrequency(modes[mode]->value); needs a semaphore???????
+    xQueueSend(queue, &modes[mode]->modeMessage, portMAX_DELAY);
 
     ui.updateDisplay(modes[mode]->modeMessage.label, modes[mode]->getValueString());
 }

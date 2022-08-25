@@ -47,10 +47,10 @@ string BrightnessMode::getValueString()
     stream << modeMessage.value;
     // stream << value;
     string s = stream.str();
-    Serial.print("Value = ");
-    Serial.println(modeMessage.value);
-    Serial.print("String = ");
-    Serial.println(s.c_str());
+    // Serial.print("Value = ");
+    // Serial.println(modeMessage.value);
+    // Serial.print("String = ");
+    // Serial.println(s.c_str());
     return s;
 }
 
