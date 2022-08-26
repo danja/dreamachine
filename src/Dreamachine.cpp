@@ -32,7 +32,8 @@ Dreamachine::Dreamachine()
 
     DreamachineWaves waves; // if this is placed up there ^^ it kills the encoder input
 
-    //  update();
+    //
+    // update();
 }
 
 void Dreamachine::loadModes()
@@ -65,8 +66,11 @@ void Dreamachine::loadModes()
     modes[modeSelect::SOUND_WAVE]->init(modeSelect::SOUND_WAVE, "Sound Wave", 0, 1, 10, true, false);
 
     this->currentMode = modes[modeSelect::FREQUENCY];
-    //    delay(1000);
+    // delay(500);
     // update();
+    delay(1000);
+
+    //   ui.updateDisplay(currentMode->label, currentMode->getValueString());
 }
 
 void Dreamachine::setMode(int modeIndex)

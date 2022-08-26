@@ -44,8 +44,8 @@ void DreamachineUI::attachEncoder(Dreamachine dreamachine) // should probably ex
 void DreamachineUI::UI(void *pvParameter)
 {
     tinyDisplay.init();
-    delay(500);
-    tinyDisplay.drawLabel("Starting...");
+    // delay(500);
+    // tinyDisplay.drawLabel("Starting...");
     /*
         tinyDisplay.drawLabel("Starting...");
         tinyDisplay.drawValue("0%");
