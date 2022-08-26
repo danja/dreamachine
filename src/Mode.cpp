@@ -10,9 +10,10 @@ Mode::Mode() {}
 
 // string _label,
 
-void Mode::init(string _label, long _minValue, long _maxValue, long _steps, bool _invert, bool _circleValues)
+void Mode::init(int index, string _label, long _minValue, long _maxValue, long _steps, bool _invert, bool _circleValues)
 {
-    this->modeMessage.label = _label;
+    this->modeMessage.index = index;
+    this->label = _label;
     this->modeMessage.minValue = _minValue;
     this->modeMessage.maxValue = _maxValue;
     this->modeMessage.steps = _steps;

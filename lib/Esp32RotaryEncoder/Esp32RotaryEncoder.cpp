@@ -35,7 +35,6 @@ void IRAM_ATTR Esp32RotaryEncoder::updateValue()
 
 	this->old_AB |= (ENC_PORT & 0x03); // add current state
 
-	// this->encoder0Pos += ( this->enc_states[( this->old_AB & 0x0f )]);
 	int8_t currentDirection = (this->enc_states[(this->old_AB & 0x0f)]); //-1,0 or 1
 
 	if (currentDirection != 0)
@@ -44,44 +43,6 @@ void IRAM_ATTR Esp32RotaryEncoder::updateValue()
 		this->encoder0Pos += currentDirection;
 		long newRotaryPosition = this->encoder0Pos / this->encoderSteps;
 
-		/*
-				if (newRotaryPosition != prevRotaryPosition && rotaryAccelerationCoef > 1)
-				{
-					// additional movements cause acceleration?
-					//  at X ms, there should be no acceleration.
-					unsigned long accelerationLongCutoffMillis = 200;
-					// at Y ms, we want to have maximum acceleration
-					unsigned long accelerationShortCutffMillis = 4;
-
-					// compute linear acceleration
-					if (currentDirection == lastMovementDirection &&
-						currentDirection != 0 &&
-						lastMovementDirection != 0)
-					{
-						// ... but only of the direction of rotation matched and there
-						// actually was a previous rotation.
-						unsigned long millisAfterLastMotion = now - lastMovementAt;
-
-						if (millisAfterLastMotion < accelerationLongCutoffMillis)
-						{
-							if (millisAfterLastMotion < accelerationShortCutffMillis)
-							{
-								millisAfterLastMotion = accelerationShortCutffMillis; // limit to maximum acceleration
-							}
-							if (currentDirection > 0)
-							{
-								this->encoder0Pos += rotaryAccelerationCoef / millisAfterLastMotion;
-							}
-							else
-							{
-								this->encoder0Pos -= rotaryAccelerationCoef / millisAfterLastMotion;
-							}
-						}
-					}
-					this->lastMovementAt = now;
-					this->lastMovementDirection = currentDirection;
-				}
-		*/
 		// respect limits
 		if (this->encoder0Pos > (this->_maxEncoderValue))
 			this->encoder0Pos = this->_circleValues ? this->_minEncoderValue : this->_maxEncoderValue;

@@ -54,7 +54,37 @@ void DreamachineWaves::Waves(void *pvParameter)
         if (x != modeMessage.value)
         {
             // Serial.println(modeMessage.value);
-            lightwave.setFrequency(modeMessage.value);
+            switch (modeMessage.index)
+            {
+            case modeSelect::BRIGHTNESS:
+                break;
+            case modeSelect::FREQUENCY:
+                lightwave.setFrequency(modeMessage.value);
+                break;
+            case modeSelect::LIGHT_BALANCE:
+                break;
+            case modeSelect::LIGHT_PHASE:
+                break;
+            case modeSelect::LIGHT_WAVE:
+            /*
+                if (modeMessage.value > 0)
+                {
+                    return "square";
+                }
+                return "sine";
+                break;
+                */
+            case modeSelect::SOUND_WAVE:
+                break;
+            case modeSelect::AUDIO_BALANCE:
+                break;
+            case modeSelect::AUDIO_PHASE:
+                break;
+            case modeSelect::VOLUME:
+                break;
+            default:
+                return;
+            }
         }
     }
 }

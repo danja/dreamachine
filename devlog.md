@@ -1,6 +1,17 @@
 **2022-08-26**
 
+The queue between processes on Core 0 and Core 1 was almost working, but :
+
 CORRUPT HEAP: Bad head
+
+First probably was that I was setting the queue item size from an uninitialized struct (empty box!).
+
+Fiddled around a bit elsewhere.
+
+The labels bizarrely kept resetting to the initialized default. I couldn't see how to check these in the debugger, but then I realised that they don't need to be passed with the message!
+Much more stable now.
+
+Ah...but I do still need to pass a ref. to the current mode...
 
 I changed the splash screen :
 

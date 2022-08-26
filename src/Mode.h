@@ -8,7 +8,7 @@ using namespace std;
 
 typedef struct ModeMessage
 {
-    string label = "maximum label length maybe";
+    int index = 0;
     long minValue = 0;
     long maxValue = 0;
     long steps = 0;
@@ -35,8 +35,9 @@ class Mode
 public:
     Mode();
     ModeMessage modeMessage;
+    string label = "ABCDEFGHIJ"; // doesn't have to be passed around
 
-    void init(string _label, long _minValue, long _maxValue, long _steps, bool _invert, bool _circleValues);
+    void init(int index, string _label, long _minValue, long _maxValue, long _steps, bool _invert, bool _circleValues);
 
     virtual string getValueString()
     {

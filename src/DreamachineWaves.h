@@ -12,5 +12,7 @@ public:
     static void Waves(void *pvParameter);
 
 private:
+    //  static void updateFrequency(long value);
+    // static void updateLightWave(long value);
 };
 #endif
