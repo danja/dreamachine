@@ -71,7 +71,11 @@ string FrequencyMode::getValueString()
 
 string LightWaveMode::getValueString()
 {
-    return Mode::valueToString(modeMessage.value);
+    if (modeMessage.value > 0)
+    {
+        return "square";
+    }
+    return "sine";
 }
 
 string LightPhaseMode::getValueString()
