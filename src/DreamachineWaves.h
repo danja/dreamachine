@@ -10,12 +10,7 @@ class DreamachineWaves
 public:
     DreamachineWaves();
     static void Waves(void *pvParameter);
-    //   void setDreamachine(Dreamachine dreamachine);
-    void setLightFrequency(int frequency);
-    //  LFO lightwave;
-    // void setQueue(QueueHandle_t queue); // is needed? queue is global??
 
 private:
-    // QueueHandle_t queue;
 };
 #endif

@@ -20,7 +20,8 @@ class EncoderReader
 {
 public:
     EncoderReader();
-    //   void setMachine(Dreamachine machine);
+    void setScale1(long minValue, long maxValue, long steps, boolean invert, bool circleValues);
+    void setScale2(long minValue, long maxValue, long steps, boolean invert, bool circleValues);
     void operate();
 
     Dispatcher<ButtonEventEnum> buttonDispatcher;

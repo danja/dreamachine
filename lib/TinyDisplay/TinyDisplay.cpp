@@ -25,7 +25,7 @@ void TinyDisplay::init()
     }
 
     display.display();
-    delay(2000);
+    // delay(2000); //
     display.clearDisplay();
     display.setTextColor(WHITE);
 }

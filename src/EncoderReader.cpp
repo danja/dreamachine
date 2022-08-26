@@ -73,6 +73,16 @@ void EncoderReader::operate()
     }
 }
 
+void EncoderReader::setScale1(long minValue, long maxValue, long steps, boolean invert, bool circleValues)
+{
+    encoder1.setScale(minValue, maxValue, steps, invert, circleValues);
+}
+
+void EncoderReader::setScale2(long minValue, long maxValue, long steps, boolean invert, bool circleValues)
+{
+    encoder2.setScale(minValue, maxValue, steps, invert, circleValues);
+}
+
 void IRAM_ATTR encoderEvent1()
 {
     encoder1.updateValue();

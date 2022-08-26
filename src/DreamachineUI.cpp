@@ -44,18 +44,17 @@ void DreamachineUI::attachEncoder(Dreamachine dreamachine) // should probably ex
 void DreamachineUI::UI(void *pvParameter)
 {
     tinyDisplay.init();
-
     tinyDisplay.drawLabel("Starting...");
-    tinyDisplay.drawValue("0%");
-    // delay(500);
-    tinyDisplay.drawValue("100%");
-    // delay(500);
-    tinyDisplay.drawLabel("Working");
-
+    /*
+        tinyDisplay.drawLabel("Starting...");
+        tinyDisplay.drawValue("0%");
+        tinyDisplay.drawValue("100%");
+        tinyDisplay.drawLabel("Working");
+    */
     while (1) // MAIN UI LOOP
     {
         //     Serial.println("UI");
-        delay(1);
+        delay(100);
         // increase the LED brightness
         encoderReader.operate();
     }

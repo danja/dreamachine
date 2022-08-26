@@ -10,77 +10,103 @@
 
 using namespace std;
 
-const int queueItemSize = sizeof(AModeMessage); // Q
-const int queueLength = 5;                      // Q
-QueueHandle_t queue;                            // Q
+QueueHandle_t intercoreQueue;
+
+const int N_MODES = 9;
 
 DreamachineUI ui;
-// Mode aMode;
-Mode *modes[2];
 
-// DreamachineWaves waves;
+Mode *modes[N_MODES];
 
 Dreamachine::Dreamachine()
 {
-    queue = xQueueCreate(queueLength, queueItemSize);
-    if (queue == NULL)
+    intercoreQueue = xQueueCreate(QUEUE_LENGTH, QUEUE_ITEM_SIZE);
+    if (intercoreQueue == NULL)
     {
-        Serial.println("Error creating the queue");
+        Serial.println("Error creating the intercoreQueue");
     }
 
-    ui.attachEncoder(*this);
     loadModes();
+
+    ui.attachEncoder(*this); // attaches callbacks
 
     DreamachineWaves waves; // if this is placed up there ^^ it kills the encoder input
 
-    // waves.setQueue(queue);
+    //  update();
 }
 
 void Dreamachine::loadModes()
 {
-    //   char *labels[9] = {"Brightness", "Light <->", "Frequency", "Light Wave", "Light /\\/", "Volume", "Audio <->", "Sound Wave", "Audio /\\/"};
+    modes[modeSelect::BRIGHTNESS] = new BrightnessMode();
+    modes[modeSelect::BRIGHTNESS]->init("Brightness", 0, 100, 100, true, false);
 
-    modes[0] = new BrightnessMode();
-    modes[0]->init("Brightness", 10, 100, 100, true, false);
+    modes[modeSelect::FREQUENCY] = new FrequencyMode();
+    modes[modeSelect::FREQUENCY]->init("Frequency ", 1, 50, 10, true, false);
 
-    modes[1] = new LightPhaseMode();
-    modes[1]->init("Light /\\/", 0, 360, 10, true, false);
+    modes[modeSelect::LIGHT_PHASE] = new LightPhaseMode();
+    modes[modeSelect::LIGHT_PHASE]->init("Light /\\/ ", 0, 360, 10, true, false);
+
+    modes[modeSelect::LIGHT_BALANCE] = new LightBalanceMode();
+    modes[modeSelect::LIGHT_BALANCE]->init("Light <-> ", 0, 100, 10, true, false);
+
+    modes[modeSelect::LIGHT_WAVE] = new LightWaveMode();
+    modes[modeSelect::LIGHT_WAVE]->init("Light Wave", 0, 1, 10, true, false);
+
+    modes[modeSelect::VOLUME] = new VolumeMode();
+    modes[modeSelect::VOLUME]->init("Volume    ", 0, 100, 10, true, false);
+
+    modes[modeSelect::AUDIO_BALANCE] = new AudioBalanceMode();
+    modes[modeSelect::AUDIO_BALANCE]->init("Audio <-> ", 0, 100, 10, true, false);
+
+    modes[modeSelect::AUDIO_PHASE] = new AudioPhaseMode();
+    modes[modeSelect::AUDIO_PHASE]->init("Audio /\\/ ", 0, 360, 10, true, false);
+
+    modes[modeSelect::SOUND_WAVE] = new SoundWaveMode();
+    modes[modeSelect::SOUND_WAVE]->init("Sound Wave", 0, 1, 10, true, false);
+
+    this->currentMode = modes[modeSelect::FREQUENCY];
+    //    delay(1000);
+    // update();
 }
 
-void Dreamachine::setMode(int mode)
+void Dreamachine::setMode(int modeIndex)
 {
-    this->mode = mode;
+    this->modeIndex = modeIndex;
 }
 
 void Dreamachine::nextMode()
 {
-    this->mode++;
-    if (this->mode >= N_MODES)
+    this->modeIndex++;
+    if (this->modeIndex >= N_MODES)
     {
-        this->mode = 0;
+        this->modeIndex = 0;
     }
+    this->currentMode = modes[modeIndex];
 }
 
 void Dreamachine::update()
 {
-    //  waves.setLightFrequency(modes[mode]->value);
-    xQueueSend(queue, &modes[mode]->modeMessage, 10000); // portMAX_DELAY
-
-    ui.updateDisplay(modes[mode]->modeMessage.label, modes[mode]->getValueString());
+    xQueueSend(intercoreQueue, &currentMode->modeMessage, QUEUE_SEND_DELAY);
+    /*
+     Serial.print("Label : ");
+     Serial.println(currentMode->modeMessage.label.c_str());
+     Serial.print("Value : ");
+     Serial.println(currentMode->getValueString().c_str());
+     */
+    ui.updateDisplay(currentMode->modeMessage.label, currentMode->getValueString());
 }
 
 void Dreamachine::onEncoderClick(ButtonEventEnum button)
 {
-    // Serial.print("in Dreamachine button event ");
-    // Serial.println(button);
     if (button == BUTTON_1_EVENT)
     {
-        mode = 0;
+        modeIndex = modeSelect::BRIGHTNESS;
+        this->currentMode = modes[modeIndex];
+        currentMode->modeMessage.value = 0;
         update();
     }
     if (button == BUTTON_2_EVENT)
     {
-
         nextMode();
         update();
     }
@@ -88,16 +114,14 @@ void Dreamachine::onEncoderClick(ButtonEventEnum button)
 
 void Dreamachine::onEncoderRotate(EncoderEventEnum encoder, float value)
 {
-    // Serial.print("in Dreamachine encoder event ");
-
     if (encoder == ENCODER_1_EVENT)
     {
-        mode = 0;
+        modeIndex = modeSelect::BRIGHTNESS;
         update();
     }
     if (encoder == ENCODER_2_EVENT)
     {
-        modes[mode]->setValue(value);
+        currentMode->setValue(value);
         update();
     }
 }

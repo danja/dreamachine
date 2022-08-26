@@ -41,10 +41,10 @@ long Mode::getValue()
     return this->modeMessage.value;
 }
 
-string BrightnessMode::getValueString()
+string Mode::valueToString(long value)
 {
     stringstream stream;
-    stream << modeMessage.value;
+    stream << value;
     // stream << value;
     string s = stream.str();
     // Serial.print("Value = ");
@@ -54,7 +54,48 @@ string BrightnessMode::getValueString()
     return s;
 }
 
+string BrightnessMode::getValueString()
+{
+    return Mode::valueToString(modeMessage.value);
+}
+
+string LightBalanceMode::getValueString()
+{
+    return Mode::valueToString(modeMessage.value);
+}
+
+string FrequencyMode::getValueString()
+{
+    return Mode::valueToString(modeMessage.value);
+}
+
+string LightWaveMode::getValueString()
+{
+    return Mode::valueToString(modeMessage.value);
+}
+
 string LightPhaseMode::getValueString()
 {
-    return "lpalue";
+    return Mode::valueToString(modeMessage.value);
 }
+
+string VolumeMode::getValueString()
+{
+    return Mode::valueToString(modeMessage.value);
+}
+
+string AudioBalanceMode::getValueString()
+{
+    return Mode::valueToString(modeMessage.value);
+}
+
+string SoundWaveMode::getValueString()
+{
+    return Mode::valueToString(modeMessage.value);
+}
+
+string AudioPhaseMode::getValueString()
+{
+    return Mode::valueToString(modeMessage.value);
+}
+//   char *labels[9] = {"Brightness", "Light <->", "Frequency", "Light Wave", "Light /\\/", "Volume", "Audio <->", "Sound Wave", "Audio /\\/"};

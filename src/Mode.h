@@ -17,6 +17,19 @@ typedef struct ModeMessage
     long value = 0;
 } AModeMessage;
 
+enum modeSelect
+{
+    BRIGHTNESS,
+    LIGHT_BALANCE,
+    FREQUENCY,
+    LIGHT_WAVE,
+    LIGHT_PHASE,
+    VOLUME,
+    AUDIO_BALANCE,
+    SOUND_WAVE,
+    AUDIO_PHASE
+};
+
 class Mode
 {
 public:
@@ -30,6 +43,7 @@ public:
         return "none";
     };
 
+    static string valueToString(long value);
     void setValue(long value);
     long getValue();
 
@@ -45,7 +59,65 @@ public:
 private:
 };
 
+class LightBalanceMode : public Mode
+{
+public:
+    string getValueString() override;
+
+private:
+};
+
+class FrequencyMode : public Mode
+{
+public:
+    string getValueString() override;
+
+private:
+};
+
+class LightWaveMode : public Mode
+{
+public:
+    string getValueString() override;
+
+private:
+};
+
+//   char *labels[9] = {"Brightness", "Light <->", "Frequency", "Light Wave", "Light /\\/", "Volume", "Audio <->", "Sound Wave", "Audio /\\/"};
+
 class LightPhaseMode : public Mode
+{
+public:
+    string getValueString() override;
+
+private:
+};
+
+class VolumeMode : public Mode
+{
+public:
+    string getValueString() override;
+
+private:
+};
+
+class AudioBalanceMode : public Mode
+{
+public:
+    string getValueString() override;
+
+private:
+};
+
+class SoundWaveMode : public Mode
+{
+public:
+    string getValueString() override;
+
+private:
+};
+
+class AudioPhaseMode : public Mode
 {
 public:
     string getValueString() override;

@@ -16,8 +16,6 @@
 
 using namespace std;
 
-const int N_MODES = 2;
-
 class Dreamachine
 {
 public:
@@ -37,8 +35,10 @@ public:
     int sound_typeValue = 0;
     int audio_phaseValue = 0;
 
+    Mode *currentMode;
+
     void nextMode();
-    void setMode(int mode);
+    void setMode(int modeIndex);
     void update();
 
     void onEncoderClick(ButtonEventEnum button);
@@ -57,22 +57,7 @@ public:
     }
 
 private:
-    int mode = 0;
-
-    /*
-        enum modes
-        {
-            brightness,
-            light_balance,
-            frequency,
-            light_wave,
-            light_phase,
-            volume,
-            audio_balance,
-            sound_wave,
-            audio_phase
-        } mode;
-    */
+    int modeIndex = 0;
 
     //  char *labels[9] = {"Brightness", "Light <->", "Frequency", "Light Wave", "Light /\\/", "Volume", "Audio <->", "Sound Wave", "Audio /\\/"};
     // String labels[9] =

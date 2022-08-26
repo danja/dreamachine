@@ -8,8 +8,6 @@
 
 TaskHandle_t wavesHandle = NULL;
 
-// QueueHandle_t queue; // Q
-
 DreamachineWaves::DreamachineWaves()
 {
     xTaskCreatePinnedToCore(
@@ -46,22 +44,17 @@ void DreamachineWaves::Waves(void *pvParameter)
 
     while (1)
     {
-        delay(10); // need to release
-                   // Serial.println("Waves");
+        delay(1); // need to release
+
         lightwave.checkTimer();
 
         ModeMessage modeMessage = ModeMessage();
         long x = modeMessage.value;
-        xQueueReceive(queue, &modeMessage, 0); // portMAX_DELAY
+        xQueueReceive(intercoreQueue, &modeMessage, QUEUE_RECEIVE_DELAY); // portMAX_DELAY
         if (x != modeMessage.value)
         {
             // Serial.println(modeMessage.value);
             lightwave.setFrequency(modeMessage.value);
         }
     }
-}
-
-void DreamachineWaves::setLightFrequency(int frequency)
-{
-    //    lightwave.setFrequency(frequency);
 }

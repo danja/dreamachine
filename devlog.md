@@ -1,3 +1,16 @@
+**2022-08-26**
+
+CORRUPT HEAP: Bad head
+
+I changed the splash screen :
+
+- copied .pio/lib/Adafruit SSD1306 to /lib/
+- removed ref in /platformio.ini
+- made 128x64 .bmp in Gimp
+- converted with https://javl.github.io/image2cpp/
+- backed up splash.h
+- pasted in my values
+
 **2022-08-25**
 
 This thing is so concurrency-heavy!
