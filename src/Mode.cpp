@@ -14,11 +14,11 @@ void Mode::init(int index, string _label, long _minValue, long _maxValue, long _
 {
     this->modeMessage.index = index;
     this->label = _label;
-    this->modeMessage.minValue = _minValue;
-    this->modeMessage.maxValue = _maxValue;
-    this->modeMessage.steps = _steps;
-    this->modeMessage.invert = _invert;
-    this->modeMessage.circleValues = _circleValues;
+    this->minValue = _minValue;
+    this->maxValue = _maxValue;
+    this->steps = _steps;
+    this->invert = _invert;
+    this->circleValues = _circleValues;
     /*
     this->label = _label;
     //    Serial.print("A");

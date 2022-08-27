@@ -9,11 +9,6 @@ using namespace std;
 typedef struct ModeMessage
 {
     int index = 0;
-    long minValue = 0;
-    long maxValue = 0;
-    long steps = 0;
-    bool invert = false;
-    bool circleValues = true;
     long value = 0;
 } AModeMessage;
 
@@ -35,7 +30,14 @@ class Mode
 public:
     Mode();
     ModeMessage modeMessage;
+
+    // UI bits
     string label = "ABCDEFGHIJ"; // doesn't have to be passed around
+    long minValue = 0;
+    long maxValue = 0;
+    long steps = 0;
+    bool invert = false;
+    bool circleValues = true;
 
     void init(int index, string _label, long _minValue, long _maxValue, long _steps, bool _invert, bool _circleValues);
 
