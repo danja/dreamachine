@@ -42,9 +42,14 @@ void DreamachineWaves::Waves(void *pvParameter)
         lightwaveLFO.checkTimer();
 
         ModeMessage modeMessage = ModeMessage();
-        long previous = modeMessage.value;
+        int previousIndex = modeMessage.index;
+        long previousValue = modeMessage.value;
+
         xQueueReceive(intercoreQueue, &modeMessage, QUEUE_RECEIVE_DELAY); // portMAX_DELAY
-        if (previous != modeMessage.value)
+        // Serial.println("-------------");
+        // Serial.println(modeMessage.index);
+        // Serial.println(modeMessage.value);
+        if (previousIndex != modeMessage.index || previousValue != modeMessage.value)
         {
             Serial.println("-------------");
             Serial.println(modeMessage.index);

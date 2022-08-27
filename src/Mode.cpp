@@ -19,17 +19,6 @@ void Mode::init(int index, string _label, long _minValue, long _maxValue, long _
     this->steps = _steps;
     this->invert = _invert;
     this->circleValues = _circleValues;
-    /*
-    this->label = _label;
-    //    Serial.print("A");
-
-    // Serial.println(this->_minValue);
-    minValue = _minValue;
-    this->maxValue = _maxValue;
-    this->steps = _steps;
-    this->invert = _invert;
-    this->circleValues = _circleValues;
-    */
 }
 
 void Mode::setValue(long value)
@@ -46,7 +35,6 @@ string Mode::valueToString(long value)
 {
     stringstream stream;
     stream << value;
-    // stream << value;
     string s = stream.str();
     // Serial.print("Value = ");
     // Serial.println(modeMessage.value);

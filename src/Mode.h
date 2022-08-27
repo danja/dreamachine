@@ -15,13 +15,14 @@ typedef struct ModeMessage
 enum modeSelect
 {
     BRIGHTNESS,    // 0
-    LIGHT_BALANCE, // 1
-    FREQUENCY,     // 2
-    LIGHT_WAVE,    // 3
+    FREQUENCY,     // 1
+    LIGHT_WAVE,    // 2
+    LIGHT_BALANCE, // 3
     LIGHT_PHASE,   // 4
+
     VOLUME,        // 5
-    AUDIO_BALANCE, // 6
     SOUND_WAVE,    // 7
+    AUDIO_BALANCE, // 6
     AUDIO_PHASE    // 8
 };
 

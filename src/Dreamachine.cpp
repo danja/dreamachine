@@ -45,7 +45,7 @@ void Dreamachine::loadModes()
     modes[modeSelect::FREQUENCY]->init(modeSelect::FREQUENCY, "Frequency ", 1, 11, 10, true, false);
 
     modes[modeSelect::LIGHT_PHASE] = new LightPhaseMode();
-    modes[modeSelect::LIGHT_PHASE]->init(modeSelect::LIGHT_PHASE, "Light /\\/ ", 0, 360, 10, true, false);
+    modes[modeSelect::LIGHT_PHASE]->init(modeSelect::LIGHT_PHASE, "Light /-\\ ", 0, 360, 10, true, false);
 
     modes[modeSelect::LIGHT_BALANCE] = new LightBalanceMode();
     modes[modeSelect::LIGHT_BALANCE]->init(modeSelect::LIGHT_BALANCE, "Light <-> ", 0, 100, 10, true, false);
@@ -60,7 +60,7 @@ void Dreamachine::loadModes()
     modes[modeSelect::AUDIO_BALANCE]->init(modeSelect::AUDIO_BALANCE, "Audio <-> ", 0, 100, 10, true, false);
 
     modes[modeSelect::AUDIO_PHASE] = new AudioPhaseMode();
-    modes[modeSelect::AUDIO_PHASE]->init(modeSelect::AUDIO_PHASE, "Audio /\\/ ", 0, 360, 10, true, false);
+    modes[modeSelect::AUDIO_PHASE]->init(modeSelect::AUDIO_PHASE, "Audio /-\\ ", 0, 360, 10, true, false);
 
     modes[modeSelect::SOUND_WAVE] = new SoundWaveMode();
     modes[modeSelect::SOUND_WAVE]->init(modeSelect::SOUND_WAVE, "Sound Wave", 0, 1, 10, true, false);
@@ -123,6 +123,9 @@ void Dreamachine::onEncoderClick(ButtonEventEnum button)
         // modeIndex = modeSelect::BRIGHTNESS;
         //   this->currentMode = modes[modeIndex];
         currentMode->modeMessage.value = 0;
+        Serial.println("..............");
+        Serial.println(currentMode->modeMessage.index);
+        Serial.println(currentMode->modeMessage.value);
         update();
     }
     if (button == BUTTON_2_EVENT)
