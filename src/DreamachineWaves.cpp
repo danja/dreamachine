@@ -20,13 +20,6 @@ DreamachineWaves::DreamachineWaves()
         1);
 }
 
-/*
-void DreamachineWaves::setDreamachine(Dreamachine dreamachine)
-{
-    this->dreamachine = dreamachine;
-}
-*/
-
 /************************/
 /***** WAVES THREAD *****/
 /************************/
@@ -53,7 +46,9 @@ void DreamachineWaves::Waves(void *pvParameter)
         xQueueReceive(intercoreQueue, &modeMessage, QUEUE_RECEIVE_DELAY); // portMAX_DELAY
         if (x != modeMessage.value)
         {
-            // Serial.println(modeMessage.value);
+            Serial.println("-------------");
+            Serial.println(modeMessage.index);
+            Serial.println(modeMessage.value);
             switch (modeMessage.index)
             {
             case modeSelect::BRIGHTNESS:
@@ -66,14 +61,18 @@ void DreamachineWaves::Waves(void *pvParameter)
             case modeSelect::LIGHT_PHASE:
                 break;
             case modeSelect::LIGHT_WAVE:
-            /*
+
                 if (modeMessage.value > 0)
                 {
-                    return "square";
+                    //  Serial.println("SQUARE");
+                    ledDriver.setWaveform(Waveform::SQUARE);
                 }
-                return "sine";
+                else
+                {
+                    ledDriver.setWaveform(Waveform::SINE);
+                }
                 break;
-                */
+
             case modeSelect::SOUND_WAVE:
                 break;
             case modeSelect::AUDIO_BALANCE:

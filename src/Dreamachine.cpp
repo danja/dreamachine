@@ -73,11 +73,12 @@ void Dreamachine::loadModes()
     //   ui.updateDisplay(currentMode->label, currentMode->getValueString());
 }
 
+/*
 void Dreamachine::setMode(int modeIndex)
 {
     this->modeIndex = modeIndex;
 }
-
+*/
 void Dreamachine::nextMode()
 {
     this->modeIndex++;

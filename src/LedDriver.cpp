@@ -20,8 +20,19 @@ LedDriver::LedDriver()
     ledcAttachPin(LED_R, ledChannel);
 }
 
-void LedDriver::setLevel(float level)
+void LedDriver::setWaveform(Waveform form)
 {
-    ledcWrite(ledChannel, level);
-    // Serial.println(level);
+    this->form = form;
+}
+
+void LedDriver::setLevel(float sineLevel, float squareLevel)
+{
+    if (form == Waveform::SINE)
+    {
+        ledcWrite(ledChannel, sineLevel);
+    }
+    if (form == Waveform::SQUARE)
+    {
+        ledcWrite(ledChannel, squareLevel);
+    }
 }

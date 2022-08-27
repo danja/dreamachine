@@ -6,15 +6,23 @@
 
 using namespace std;
 
+enum Waveform
+{
+    SINE,
+    SQUARE
+};
+
 class LedDriver
 {
 public:
     LedDriver();
-    void setLevel(float level);
-    void registerCallback(Dispatcher<float> &dispatcher)
+    Waveform form = Waveform::SINE;
+    void setWaveform(Waveform form);
+    void setLevel(float sineLevel, float squareLevel);
+    void registerCallback(Dispatcher<float, float> &dispatcher)
     {
         using namespace std::placeholders;
-        dispatcher.addCallback(std::bind(&LedDriver::setLevel, this, _1));
+        dispatcher.addCallback(std::bind(&LedDriver::setLevel, this, _1, _2));
     }
 
 private:

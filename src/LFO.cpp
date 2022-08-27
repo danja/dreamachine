@@ -51,7 +51,6 @@ LFO::LFO()
 
 void LFO::setFrequency(float freq)
 {
-    // Serial.begin(115200);
     this->frequency = freq;
     this->setPeriod(1000000.0 / freq);
     Serial.println(this->period);
@@ -60,9 +59,9 @@ void LFO::setFrequency(float freq)
 void IRAM_ATTR LFO::setPeriod(int period)
 {
     this->period = period / N_STEPS;
-    //   portENTER_CRITICAL(&timerMux);
+    portENTER_CRITICAL(&timerMux); // needed?
     timerAlarmWrite(timer, this->period, true);
-    // portEXIT_CRITICAL(&timerMux);
+    portEXIT_CRITICAL(&timerMux);
 }
 
 void LFO::makeWaves(uint32_t step)
@@ -75,7 +74,7 @@ void LFO::makeWaves(uint32_t step)
     }
     float x = 2 * 3.1416 * (float)step / (float)N_STEPS;
     int sine = 128 + 128.0 * sin(x);
-    dispatcher.broadcast(sine);
+    dispatcher.broadcast(sine, square);
 }
 
 void LFO::checkTimer()

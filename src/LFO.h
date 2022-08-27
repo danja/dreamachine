@@ -7,7 +7,7 @@ class LFO
 {
 public:
     LFO();
-    Dispatcher<float> dispatcher;
+    Dispatcher<float, float> dispatcher;
 
     void setFrequency(float freq);
     void IRAM_ATTR setPeriod(int period);
