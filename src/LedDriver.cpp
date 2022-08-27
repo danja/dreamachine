@@ -25,14 +25,22 @@ void LedDriver::setWaveform(Waveform form)
     this->form = form;
 }
 
-void LedDriver::setLevel(float sineLevel, float squareLevel)
+void LedDriver::setBrightness(float brightness)
+{
+    this->brightness = brightness;
+    Serial.print("Brightness : ");
+    Serial.println(brightness);
+}
+
+// from timer
+void LedDriver::setValue(float sineLevel, float squareLevel)
 {
     if (form == Waveform::SINE)
     {
-        ledcWrite(ledChannel, sineLevel);
+        ledcWrite(ledChannel, sineLevel * this->brightness);
     }
     if (form == Waveform::SQUARE)
     {
-        ledcWrite(ledChannel, squareLevel);
+        ledcWrite(ledChannel, squareLevel * this->brightness);
     }
 }

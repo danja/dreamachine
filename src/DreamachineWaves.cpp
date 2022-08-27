@@ -28,23 +28,23 @@ void DreamachineWaves::Waves(void *pvParameter)
     //  Serial.begin(115200);
     // Serial.println("Waves");
 
-    LFO lightwave;
+    LFO lightwaveLFO;
     LedDriver ledDriver;
 
-    lightwave.setFrequency(4);
+    lightwaveLFO.setFrequency(4);
     // Serial.println("Waves B");
-    ledDriver.registerCallback(lightwave.dispatcher);
+    ledDriver.registerCallback(lightwaveLFO.dispatcher);
 
     while (1)
     {
         delay(1); // need to release
 
-        lightwave.checkTimer();
+        lightwaveLFO.checkTimer();
 
         ModeMessage modeMessage = ModeMessage();
-        long x = modeMessage.value;
+        long previous = modeMessage.value;
         xQueueReceive(intercoreQueue, &modeMessage, QUEUE_RECEIVE_DELAY); // portMAX_DELAY
-        if (x != modeMessage.value)
+        if (previous != modeMessage.value)
         {
             Serial.println("-------------");
             Serial.println(modeMessage.index);
@@ -52,16 +52,19 @@ void DreamachineWaves::Waves(void *pvParameter)
             switch (modeMessage.index)
             {
             case modeSelect::BRIGHTNESS:
+                Serial.println("Brightness");
+                ledDriver.setBrightness(modeMessage.value);
                 break;
+
             case modeSelect::FREQUENCY:
-                lightwave.setFrequency(modeMessage.value);
+                lightwaveLFO.setFrequency(modeMessage.value);
                 break;
             case modeSelect::LIGHT_BALANCE:
                 break;
             case modeSelect::LIGHT_PHASE:
                 break;
-            case modeSelect::LIGHT_WAVE:
 
+            case modeSelect::LIGHT_WAVE:
                 if (modeMessage.value > 0)
                 {
                     //  Serial.println("SQUARE");

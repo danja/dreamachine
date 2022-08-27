@@ -37,8 +37,8 @@ public:
 
     Mode *currentMode;
 
-    void nextMode();
-    // void setMode(int modeIndex);
+    // void nextMode();
+    void setMode(int modeIndex);
     void update();
 
     void onEncoderClick(ButtonEventEnum button);
@@ -60,7 +60,6 @@ private:
     int modeIndex = 0;
 
     //  char *labels[9] = {"Brightness", "Light <->", "Frequency", "Light Wave", "Light /\\/", "Volume", "Audio <->", "Sound Wave", "Audio /\\/"};
-    
 };
 
 #endif

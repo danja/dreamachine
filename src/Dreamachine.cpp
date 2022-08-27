@@ -73,21 +73,24 @@ void Dreamachine::loadModes()
     //   ui.updateDisplay(currentMode->label, currentMode->getValueString());
 }
 
-/*
 void Dreamachine::setMode(int modeIndex)
 {
     this->modeIndex = modeIndex;
-}
-*/
-void Dreamachine::nextMode()
-{
-    this->modeIndex++;
     if (this->modeIndex >= N_MODES)
     {
         this->modeIndex = 0;
     }
     this->currentMode = modes[modeIndex];
 }
+
+/*
+void Dreamachine::nextMode()
+{
+    this->modeIndex++;
+
+    this->currentMode = modes[modeIndex];
+}
+*/
 
 void Dreamachine::update()
 {
@@ -116,14 +119,15 @@ void Dreamachine::onEncoderClick(ButtonEventEnum button)
 {
     if (button == BUTTON_1_EVENT)
     {
-        modeIndex = modeSelect::BRIGHTNESS;
-        this->currentMode = modes[modeIndex];
+        setMode(modeSelect::BRIGHTNESS);
+        // modeIndex = modeSelect::BRIGHTNESS;
+        //   this->currentMode = modes[modeIndex];
         currentMode->modeMessage.value = 0;
         update();
     }
     if (button == BUTTON_2_EVENT)
     {
-        nextMode();
+        setMode(++modeIndex);
         update();
     }
 }
@@ -132,7 +136,8 @@ void Dreamachine::onEncoderRotate(EncoderEventEnum encoder, float value)
 {
     if (encoder == ENCODER_1_EVENT)
     {
-        modeIndex = modeSelect::BRIGHTNESS;
+        setMode(modeSelect::BRIGHTNESS);
+        currentMode->setValue(value);
         update();
     }
     if (encoder == ENCODER_2_EVENT)
