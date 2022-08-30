@@ -6,7 +6,7 @@ const int DAC_2 = 26;
 
 const int NOISE_TIMER = 1;     // 2 of 4
 const int NOISE_PRESCALE = 80; // was 80
-const int NOISE_PERIOD = 100;  // 25;   // microseconds
+const int NOISE_PERIOD = 25;   // 25;   // microseconds
 class Noise
 {
 public:
