@@ -20,7 +20,6 @@ class Dreamachine
 {
 public:
     Dreamachine();
-    // Mode modes[2];
 
     void loadModes();
 
@@ -37,7 +36,6 @@ public:
 
     Mode *currentMode;
 
-    // void nextMode();
     void setMode(int modeIndex);
     void update();
 

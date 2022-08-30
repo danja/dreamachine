@@ -26,18 +26,11 @@ void IRAM_ATTR buttonEvent2();
 
 EncoderReader::EncoderReader()
 {
-
-    encoder1.setScale(0, 100, 1, true, true);
+    //   encoder1.setScale(0, 100, 1, true, true);
     encoder1.setup(encoderEvent1, buttonEvent1); // pass the callback functions (leave as-is)
     encoder2.setup(encoderEvent2, buttonEvent2); // pass the callback functions (leave as-is)
 }
 
-/*
-void EncoderReader::setMachine(Dreamachine machine)
-{
-    this->machine = machine;
-}
-*/
 void EncoderReader::operate()
 {
     ////////////////////////////

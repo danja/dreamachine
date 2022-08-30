@@ -1,3 +1,9 @@
+**2022-08-30**
+
+I got a fair bit further, but along the way did a git revert, wiped the notes...
+
+DAC GPIO are 25, 26
+
 **2022-08-26**
 
 The queue between processes on Core 0 and Core 1 was almost working, but :

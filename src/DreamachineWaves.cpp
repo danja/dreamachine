@@ -5,6 +5,7 @@
 #include <LFO.h>
 #include <LedDriver.h>
 #include <Q.h>
+#include <Noise.h>
 
 TaskHandle_t wavesHandle = NULL;
 
@@ -35,10 +36,14 @@ void DreamachineWaves::Waves(void *pvParameter)
     // Serial.println("Waves B");
     ledDriver.registerCallback(lightwaveLFO.dispatcher);
 
+    Noise noise;
+
     while (1)
     {
-        delay(1); // need to release
-
+        //   delay(1); // need to release
+        // noise.outputNextValue();
+        //  delayMicroseconds(10);
+        //  noise.checkTimer();
         lightwaveLFO.checkTimer();
 
         ModeMessage modeMessage = ModeMessage();
