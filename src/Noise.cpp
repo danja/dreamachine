@@ -12,6 +12,7 @@ void IRAM_ATTR onNoiseTimer()
 {
     portENTER_CRITICAL_ISR(&noiseTimerMux);
     //  outputNextValue();
+    /*
     if (x == 0)
     {
         x = 255;
@@ -20,7 +21,8 @@ void IRAM_ATTR onNoiseTimer()
     {
         x = 0;
     }
-    dacWrite(DAC_1, x);
+    */
+    dacWrite(DAC_1, random(256));
     portEXIT_CRITICAL_ISR(&noiseTimerMux);
 
     xSemaphoreGiveFromISR(noiseTimerSemaphore, NULL);
