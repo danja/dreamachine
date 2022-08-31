@@ -43,9 +43,9 @@ void DreamachineWaves::Waves(void *pvParameter)
         //   delay(1); // need to release
         // noise.outputNextValue();
         //  delayMicroseconds(10);
-        //  noise.checkTimer();
-        lightwaveLFO.checkTimer();
+        noise.checkTimer();
 
+        lightwaveLFO.checkTimer();
         ModeMessage modeMessage = ModeMessage();
         int previousIndex = modeMessage.index;
         long previousValue = modeMessage.value;

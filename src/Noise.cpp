@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Noise.h>
+#include <PinkNoise.h>
 
 //// timer bits
 hw_timer_t *noiseTimer = NULL;
@@ -8,21 +9,16 @@ portMUX_TYPE noiseTimerMux = portMUX_INITIALIZER_UNLOCKED;
 
 int x = 0;
 
+PinkNoise pinkNoise;
+
 void IRAM_ATTR onNoiseTimer()
 {
     portENTER_CRITICAL_ISR(&noiseTimerMux);
     //  outputNextValue();
-    /*
-    if (x == 0)
-    {
-        x = 255;
-    }
-    else
-    {
-        x = 0;
-    }
-    */
-    dacWrite(DAC_1, random(256));
+
+    //  dacWrite(DAC_1, random(256));
+    //   dacWrite(DAC_1, pinkNoise.tick() * 256);
+
     portEXIT_CRITICAL_ISR(&noiseTimerMux);
 
     xSemaphoreGiveFromISR(noiseTimerSemaphore, NULL);
@@ -50,12 +46,28 @@ Noise::Noise()
     timerAlarmEnable(noiseTimer);
 }
 
+long mino = 0;
+long maxo = 0;
+
 void Noise::checkTimer()
 {
     if (xSemaphoreTake(noiseTimerSemaphore, 0) == pdTRUE)
     {
         portENTER_CRITICAL(&noiseTimerMux);
         //        outputNextValue();
+        dacWrite(DAC_1, random(256));
+
+        int out = pinkNoise.tick() + 182;
+        dacWrite(DAC_2, out);
+        //   Serial.println(out);
+        /*
+        if (out > maxo)
+            maxo = out;
+        if (out < mino)
+            mino = out;
+        Serial.println(mino);
+        Serial.println(maxo);
+        */
         portEXIT_CRITICAL(&noiseTimerMux);
     }
 }
