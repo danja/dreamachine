@@ -54,15 +54,16 @@ void DreamachineWaves::Waves(void *pvParameter)
         // Serial.println("-------------");
         // Serial.println(modeMessage.index);
         // Serial.println(modeMessage.value);
+
         if (previousIndex != modeMessage.index || previousValue != modeMessage.value)
         {
-            Serial.println("-------------");
-            Serial.println(modeMessage.index);
-            Serial.println(modeMessage.value);
+            //   Serial.println("-------------");
+            // Serial.println(modeMessage.index);
+            // Serial.println(modeMessage.value);
             switch (modeMessage.index)
             {
             case modeSelect::BRIGHTNESS:
-                Serial.println("Brightness");
+                //   Serial.println("Brightness");
                 ledDriver.setBrightness(modeMessage.value);
                 break;
 

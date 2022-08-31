@@ -11,6 +11,6 @@ const int QUEUE_LENGTH = 1;                       // Q
 const int QUEUE_SEND_DELAY = 1;                   // Q // portMAX_DELAY
 
 // used in DreamachineUI.cpp
-const int QUEUE_RECEIVE_DELAY = 1; // Q portMAX_DELAY
+const int QUEUE_RECEIVE_DELAY = 0; // Q portMAX_DELAY
 
 #endif
