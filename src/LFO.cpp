@@ -5,12 +5,13 @@
 
 const int N_STEPS = 256;
 
+volatile uint32_t stepCounter = 0;
+
 //// timer bits
 hw_timer_t *timer = NULL;
 volatile SemaphoreHandle_t timerSemaphore;
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 
-volatile uint32_t stepCounter = 0;
 // volatile uint32_t lastIsrAt = 0;
 ////////////////////
 bool on = false;
@@ -29,7 +30,7 @@ void IRAM_ATTR onTimer()
 
 LFO::LFO()
 {
-
+    stepCounter = 0;
     // Create semaphore to inform us when the timer has fired
     timerSemaphore = xSemaphoreCreateBinary();
 

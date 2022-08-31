@@ -38,6 +38,8 @@ void DreamachineWaves::Waves(void *pvParameter)
 
     Noise noise;
 
+    noise.registerCallback(lightwaveLFO.dispatcher);
+
     while (1)
     {
         //   delay(1); // need to release

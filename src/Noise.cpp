@@ -46,6 +46,11 @@ Noise::Noise()
     timerAlarmEnable(noiseTimer);
 }
 
+void Noise::setAmplitude(float sine, float square)
+{
+    this->amplitude = sine;
+}
+
 long mino = 0;
 long maxo = 0;
 
@@ -55,9 +60,10 @@ void Noise::checkTimer()
     {
         portENTER_CRITICAL(&noiseTimerMux);
         //        outputNextValue();
-        dacWrite(DAC_1, random(256));
 
-        int out = pinkNoise.tick() + 182;
+        dacWrite(DAC_1, random(256) * amplitude / 256);
+
+        int out = (pinkNoise.tick() + 182) * amplitude / 256;
         dacWrite(DAC_2, out);
         //   Serial.println(out);
         /*
