@@ -6,7 +6,7 @@ Decided it was a good time to pause, do some docs, see what was needed to tidy t
 
 Replaced refs to 'Dreamachine*' to 'ESPMachine*', with generalising in mind.
 
-The SSD1306 display bits got messed up, so replaced those, redid splash screen.
+The SSD1306 display bits got messed up, so replaced those, redid splash screen. (There must be a way of doing it without hacking into the driver source, but I can't be bothered looking right now).
 
 **2022-08-30**
 
