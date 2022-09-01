@@ -28,7 +28,6 @@ public:
     Dispatcher<EncoderEventEnum, float> encoderDispatcher;
 
 private:
-    //  Dreamachine machine;
 };
 
 #endif

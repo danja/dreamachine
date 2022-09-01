@@ -6,8 +6,8 @@
 #include <Dispatcher.hpp>
 #include <iostream>
 
-// #include <DreamachineUI.h>
-// #include <DreamachineWaves.h>
+// #include <ESPMachineUI.h>
+// #include <ESPMachineWaves.h>
 
 #include <Mode.h>
 // #include <Q.h>
@@ -16,10 +16,10 @@
 
 using namespace std;
 
-class Dreamachine
+class ESPMachine
 {
 public:
-    Dreamachine();
+    ESPMachine();
 
     void loadModes();
 
@@ -45,13 +45,13 @@ public:
     void registerCallback(Dispatcher<ButtonEventEnum> &dispatcher)
     {
         using namespace std::placeholders;
-        dispatcher.addCallback(std::bind(&Dreamachine::onEncoderClick, this, _1));
+        dispatcher.addCallback(std::bind(&ESPMachine::onEncoderClick, this, _1));
     }
 
     void registerCallback(Dispatcher<EncoderEventEnum, float> &dispatcher)
     {
         using namespace std::placeholders;
-        dispatcher.addCallback(std::bind(&Dreamachine::onEncoderRotate, this, _1, _2));
+        dispatcher.addCallback(std::bind(&ESPMachine::onEncoderRotate, this, _1, _2));
     }
 
 private:

@@ -3,10 +3,10 @@
 
 // #include <LFO.h>
 
-class DreamachineWaves
+class ESPMachineWaves
 {
 public:
-    DreamachineWaves();
+    ESPMachineWaves();
     static void Waves(void *pvParameter);
 
 private:

@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include <DreamachineWaves.h>
-// #include <Dreamachine.h>
+#include <ESPMachineWaves.h>
+// #include <ESPMachine.h>
 #include <Mode.h>
 #include <LFO.h>
 #include <LedDriver.h>
@@ -9,11 +9,11 @@
 
 TaskHandle_t wavesHandle = NULL;
 
-DreamachineWaves::DreamachineWaves()
+ESPMachineWaves::ESPMachineWaves()
 {
     xTaskCreatePinnedToCore(
         Waves,
-        "DreamachineWaves",
+        "ESPMachineWaves",
         4096, // was 2048, 4096
         NULL,
         2,            // 1 | portPRIVILEGE_BIT,
@@ -24,7 +24,7 @@ DreamachineWaves::DreamachineWaves()
 /************************/
 /***** WAVES THREAD *****/
 /************************/
-void DreamachineWaves::Waves(void *pvParameter)
+void ESPMachineWaves::Waves(void *pvParameter)
 {
     //  Serial.begin(115200);
     // Serial.println("Waves");

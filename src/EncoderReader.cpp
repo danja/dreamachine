@@ -1,7 +1,6 @@
 #include <Arduino.h>
 #include <Esp32RotaryEncoder.h>
 #include <EncoderReader.h>
-// #include <Dreamachine.h>
 
 // GPIO ports for rotary encoders
 const int ENCODER_1_CLK = 34;

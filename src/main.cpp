@@ -1,12 +1,12 @@
 #include <Arduino.h>
-#include <Dreamachine.h>
+#include <ESPMachine.h>
 
 void setup()
 {
 
     Serial.begin(115200);
 
-    Dreamachine dreamachine;
+    ESPMachine dreamachine;
 }
 
 void loop()

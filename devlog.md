@@ -1,3 +1,11 @@
+**2022-09-01**
+
+Yay! I got the pink noise gen bit working, modulated from LFO.
+
+Decided it was a good time to pause, do some docs, see what was needed to tidy things up.
+
+Replaced refs to 'Dreamachine*' to 'ESPMachine*', with generalising in mind.
+
 **2022-08-30**
 
 I got a fair bit further, but along the way did a git revert, wiped the notes...

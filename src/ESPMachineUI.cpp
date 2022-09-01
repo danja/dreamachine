@@ -3,12 +3,12 @@
 #include <EncoderReader.h>
 #include <TinyDisplay.h>
 
-#include <DreamachineUI.h>
+#include <ESPMachineUI.h>
 
 TaskHandle_t uiHandle = NULL;
 
 /**
- * `xTaskCreatePinnedToCore(UI, "DreamachineUI", 4096, NULL, 2, &uiHandle, 0);`
+ * `xTaskCreatePinnedToCore(UI, "ESPMachineUI", 4096, NULL, 2, &uiHandle, 0);`
  *
  * The function `xTaskCreatePinnedToCore` creates a task (a thread) and pins it to a core. The first
  * argument is the name of the function that will be run as a task. The second argument is the name of
@@ -16,11 +16,11 @@ TaskHandle_t uiHandle = NULL;
  * arguments. The fifth argument is the priority of the task. The sixth argument is a pointer to the
  * task handle. The seventh argument is the core to pin the task to
  */
-DreamachineUI::DreamachineUI()
+ESPMachineUI::ESPMachineUI()
 {
     xTaskCreatePinnedToCore(
         UI,
-        "DreamachineUI",
+        "ESPMachineUI",
         4096, // stack size, was 4096, 64000 // high 97004
         NULL,
         2, // priority
@@ -32,7 +32,7 @@ TinyDisplay tinyDisplay = TinyDisplay();
 
 EncoderReader encoderReader;
 
-void DreamachineUI::attachEncoder(Dreamachine dreamachine) // should probably extract interface
+void ESPMachineUI::attachEncoder(ESPMachine dreamachine) // should probably extract interface
 {
     dreamachine.registerCallback(encoderReader.buttonDispatcher);
     dreamachine.registerCallback(encoderReader.encoderDispatcher);
@@ -41,7 +41,7 @@ void DreamachineUI::attachEncoder(Dreamachine dreamachine) // should probably ex
 /*********************/
 /***** UI THREAD *****/
 /*********************/
-void DreamachineUI::UI(void *pvParameter)
+void ESPMachineUI::UI(void *pvParameter)
 {
     tinyDisplay.init();
     // delay(500);
@@ -61,7 +61,7 @@ void DreamachineUI::UI(void *pvParameter)
     }
 }
 
-void DreamachineUI::updateDisplay(string label, string value)
+void ESPMachineUI::updateDisplay(string label, string value)
 {
     tinyDisplay.drawLabel(label);
     tinyDisplay.drawValue(value);

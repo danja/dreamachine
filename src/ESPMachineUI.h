@@ -4,17 +4,17 @@
 // #include <Q.h>
 #include <iostream>
 #include <Arduino.h>
-#include <Dreamachine.h>
+#include <ESPMachine.h>
 
 using namespace std;
 
-class DreamachineUI
+class ESPMachineUI
 {
 public:
-    DreamachineUI();
+    ESPMachineUI();
     static void UI(void *pvParameter);
 
-    void attachEncoder(Dreamachine dreamachine); // should probably extract interface
+    void attachEncoder(ESPMachine dreamachine); // should probably extract interface
 
     //  void updateDisplay(String label, int value);
     // void updateDisplay(String label, String value);
@@ -23,7 +23,7 @@ public:
     void updateDisplay(string label, string value);
 
 private:
-    // Dreamachine dreamachine;
+    // ESPMachine dreamachine;
     /*
     Brightness : 0-100%
 Light Balance : L% : R%

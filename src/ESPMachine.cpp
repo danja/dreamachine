@@ -1,8 +1,8 @@
 
-#include <DreamachineUI.h>
-#include <DreamachineWaves.h>
+#include <ESPMachineUI.h>
+#include <ESPMachineWaves.h>
 #include <EncoderReader.h>
-#include <Dreamachine.h>
+#include <ESPMachine.h>
 #include <Mode.h>
 #include <Q.h>
 
@@ -14,11 +14,11 @@ QueueHandle_t intercoreQueue;
 
 const int N_MODES = 9;
 
-DreamachineUI ui;
+ESPMachineUI ui;
 
 Mode *modes[N_MODES];
 
-Dreamachine::Dreamachine()
+ESPMachine::ESPMachine()
 {
     intercoreQueue = xQueueCreate(QUEUE_LENGTH, QUEUE_ITEM_SIZE);
     if (intercoreQueue == NULL)
@@ -30,13 +30,13 @@ Dreamachine::Dreamachine()
 
     ui.attachEncoder(*this); // attaches callbacks
 
-    DreamachineWaves waves; // if this is placed up there ^^ it kills the encoder input
+    ESPMachineWaves waves; // if this is placed up there ^^ it kills the encoder input
 
     //
     // update();
 }
 
-void Dreamachine::loadModes()
+void ESPMachine::loadModes()
 {
     modes[modeSelect::BRIGHTNESS] = new BrightnessMode();
     modes[modeSelect::BRIGHTNESS]->init(modeSelect::BRIGHTNESS, "Brightness", 0, 100, 100, true, false);
@@ -73,7 +73,7 @@ void Dreamachine::loadModes()
     //   ui.updateDisplay(currentMode->label, currentMode->getValueString());
 }
 
-void Dreamachine::setMode(int modeIndex)
+void ESPMachine::setMode(int modeIndex)
 {
     this->modeIndex = modeIndex;
     if (this->modeIndex >= N_MODES)
@@ -84,7 +84,7 @@ void Dreamachine::setMode(int modeIndex)
 }
 
 /*
-void Dreamachine::nextMode()
+void ESPMachine::nextMode()
 {
     this->modeIndex++;
 
@@ -92,7 +92,7 @@ void Dreamachine::nextMode()
 }
 */
 
-void Dreamachine::update()
+void ESPMachine::update()
 {
     xQueueSend(intercoreQueue, &currentMode->modeMessage, QUEUE_SEND_DELAY);
 
@@ -115,7 +115,7 @@ void Dreamachine::update()
     */
 }
 
-void Dreamachine::onEncoderClick(ButtonEventEnum button)
+void ESPMachine::onEncoderClick(ButtonEventEnum button)
 {
     if (button == BUTTON_1_EVENT)
     {
@@ -135,7 +135,7 @@ void Dreamachine::onEncoderClick(ButtonEventEnum button)
     }
 }
 
-void Dreamachine::onEncoderRotate(EncoderEventEnum encoder, float value)
+void ESPMachine::onEncoderRotate(EncoderEventEnum encoder, float value)
 {
     if (encoder == ENCODER_1_EVENT)
     {
