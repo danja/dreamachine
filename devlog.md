@@ -6,6 +6,8 @@ Decided it was a good time to pause, do some docs, see what was needed to tidy t
 
 Replaced refs to 'Dreamachine*' to 'ESPMachine*', with generalising in mind.
 
+The SSD1306 display bits got messed up, so replaced those, redid splash screen.
+
 **2022-08-30**
 
 I got a fair bit further, but along the way did a git revert, wiped the notes...
