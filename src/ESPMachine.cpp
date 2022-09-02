@@ -10,16 +10,40 @@
 
 using namespace std;
 
+TaskHandle_t uiHandle = NULL;
+TaskHandle_t wavesHandle = NULL;
+
 QueueHandle_t intercoreQueue;
 
 const int N_MODES = 9;
 
 ESPMachineUI ui;
+ESPMachineWaves waves;
 
 Mode *modes[N_MODES];
 
 ESPMachine::ESPMachine()
 {
+    ui.attachEncoder(*this); // attaches callbacks
+
+    xTaskCreatePinnedToCore(
+        ESPMachineWaves::Waves,
+        "ESPMachineWaves",
+        4096, // was 2048, 4096
+        NULL,
+        2,            // 1 | portPRIVILEGE_BIT,
+        &wavesHandle, // was &AudioTask,
+        1);
+
+    xTaskCreatePinnedToCore(
+        ESPMachineUI::UI,
+        "ESPMachineUI",
+        4096, // stack size, was 4096, 64000 // high 97004
+        NULL,
+        2, // priority
+        &uiHandle,
+        0); // core
+
     intercoreQueue = xQueueCreate(QUEUE_LENGTH, QUEUE_ITEM_SIZE);
     if (intercoreQueue == NULL)
     {
@@ -28,12 +52,9 @@ ESPMachine::ESPMachine()
 
     loadModes();
 
-    ui.attachEncoder(*this); // attaches callbacks
+    // ui.attachEncoder(*this); // attaches callbacks
 
-    ESPMachineWaves waves; // if this is placed up there ^^ it kills the encoder input
-
-    //
-    // update();
+    //  ESPMachineWaves waves; // if this is placed up there ^^ it kills the encoder input
 }
 
 void ESPMachine::loadModes()
@@ -83,36 +104,11 @@ void ESPMachine::setMode(int modeIndex)
     this->currentMode = modes[modeIndex];
 }
 
-/*
-void ESPMachine::nextMode()
-{
-    this->modeIndex++;
-
-    this->currentMode = modes[modeIndex];
-}
-*/
-
 void ESPMachine::update()
 {
     xQueueSend(intercoreQueue, &currentMode->modeMessage, QUEUE_SEND_DELAY);
 
-    // currentMode->modeMessage.maxValue = 7;
-    /*
-        Serial.print("----ALabel : ");
-        Serial.println(currentMode->modeMessage.maxValue);
-        Serial.println(currentMode->label.c_str());
-        Serial.print("Value : ");
-        Serial.println(currentMode->getValueString().c_str());
-    */
     ui.updateDisplay(currentMode->label, currentMode->getValueString());
-
-    /*
-        Serial.print("BLabel : ");
-        Serial.println(currentMode->modeMessage.maxValue);
-        Serial.println(currentMode->label.c_str());
-        Serial.print("Value : ");
-        Serial.println(currentMode->getValueString().c_str());
-    */
 }
 
 void ESPMachine::onEncoderClick(ButtonEventEnum button)
@@ -120,12 +116,10 @@ void ESPMachine::onEncoderClick(ButtonEventEnum button)
     if (button == BUTTON_1_EVENT)
     {
         setMode(modeSelect::BRIGHTNESS);
-        // modeIndex = modeSelect::BRIGHTNESS;
-        //   this->currentMode = modes[modeIndex];
         currentMode->modeMessage.value = 0;
-        Serial.println("..............");
-        Serial.println(currentMode->modeMessage.index);
-        Serial.println(currentMode->modeMessage.value);
+        //  Serial.println("..............");
+        // Serial.println(currentMode->modeMessage.index);
+        // Serial.println(currentMode->modeMessage.value);
         update();
     }
     if (button == BUTTON_2_EVENT)

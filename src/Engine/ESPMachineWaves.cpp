@@ -7,10 +7,11 @@
 #include <Q.h>
 #include <Noise.h>
 
-TaskHandle_t wavesHandle = NULL;
+// TaskHandle_t wavesHandle = NULL;
 
 ESPMachineWaves::ESPMachineWaves()
 {
+    /*
     xTaskCreatePinnedToCore(
         Waves,
         "ESPMachineWaves",
@@ -19,6 +20,7 @@ ESPMachineWaves::ESPMachineWaves()
         2,            // 1 | portPRIVILEGE_BIT,
         &wavesHandle, // was &AudioTask,
         1);
+        */
 }
 
 /************************/
@@ -28,6 +30,7 @@ void ESPMachineWaves::Waves(void *pvParameter)
 {
     //  Serial.begin(115200);
     // Serial.println("Waves");
+    delay(500);
 
     LFO lightwaveLFO;
     LedDriver ledDriver;
