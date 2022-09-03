@@ -1,24 +1,4 @@
-/*!
- * @file Adafruit_SSD1306.h
- *
- * This is part of for Adafruit's SSD1306 library for monochrome
- * OLED displays: http://www.adafruit.com/category/63_98
- *
- * These displays use I2C or SPI to communicate. I2C requires 2 pins
- * (SCL+SDA) and optionally a RESET pin. SPI requires 4 pins (MOSI, SCK,
- * select, data/command) and optionally a reset pin. Hardware SPI or
- * 'bitbang' software SPI are both supported.
- *
- * Adafruit invests time and resources providing this open source code,
- * please support Adafruit and open-source hardware by purchasing
- * products from Adafruit!
- *
- * Written by Limor Fried/Ladyada for Adafruit Industries, with
- * contributions from the open source community.
- *
- * BSD license, all text above, and the splash screen header file,
- * must be included in any redistribution.
- *
+/*
  */
 
 #ifndef _Adafruit_SSD1306_H_
@@ -51,7 +31,7 @@ typedef uint8_t PortMask;
 typedef volatile RwReg PortReg;
 typedef uint32_t PortMask;
 #define HAVE_PORTREG
-#elif (defined(__arm__) || defined(ARDUINO_FEATHER52)) &&                      \
+#elif (defined(__arm__) || defined(ARDUINO_FEATHER52)) && \
     !defined(ARDUINO_ARCH_MBED) && !defined(ARDUINO_ARCH_RP2040)
 typedef volatile uint32_t PortReg;
 typedef uint32_t PortMask;
@@ -126,7 +106,8 @@ typedef uint32_t PortMask;
     @brief  Class that stores state and functions for interacting with
             SSD1306 OLED displays.
 */
-class Adafruit_SSD1306 : public Adafruit_GFX {
+class Adafruit_SSD1306 : public Adafruit_GFX
+{
 public:
   // NEW CONSTRUCTORS -- recommended for new projects
   Adafruit_SSD1306(uint8_t w, uint8_t h, TwoWire *twi = &Wire,
@@ -184,7 +165,7 @@ protected:
   int8_t clkPin;   ///< (Clock Pin) set when using SPI set during construction.
   int8_t dcPin;    ///< (Data Pin) set when using SPI set during construction.
   int8_t
-      csPin; ///< (Chip Select Pin) set when using SPI set during construction.
+      csPin;     ///< (Chip Select Pin) set when using SPI set during construction.
   int8_t rstPin; ///< Display reset pin assignment. Set during construction.
 
 #ifdef HAVE_PORTREG

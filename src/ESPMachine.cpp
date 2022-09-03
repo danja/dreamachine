@@ -10,6 +10,19 @@
 
 using namespace std;
 
+void setup()
+{
+
+    Serial.begin(115200);
+
+    ESPMachine dreamachine;
+}
+
+void loop()
+{
+    delay(100);
+}
+
 TaskHandle_t uiHandle = NULL;
 TaskHandle_t wavesHandle = NULL;
 
