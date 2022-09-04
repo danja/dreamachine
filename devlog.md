@@ -1,3 +1,13 @@
+**2022-09-04**
+
+Wondering about the audio out. According to this : https://esp32.com/viewtopic.php?t=2331
+the max current for a GPIO pins is 12mA. It can go up to 3.3v-ish. Discounting everything else, that would suggests a series resistor of
+275R, giving a power of 40mW. Which _might_ be enough to drive earpieces...
+
+Trying with 270R in series with a 22u capacitor.
+
+It's not loud, but is certainly audible, and in the interests of simplicity, yeah, that'll do.
+
 **2022-09-01**
 
 Yay! I got the pink noise gen bit working, modulated from LFO.

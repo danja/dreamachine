@@ -1,6 +1,56 @@
-<h1>Functional Requirements</h1>
+<h1>Design/Functional Requirements</h1>
 
-<p>Easiest to describe in terms of the user interface.</p>
+<h2>Output</h2>
+
+<h3>Hardware</h3>
+
+<ul>
+<li>pair of 1W white LEDs (attached inside sunglasses)</li>
+<li>driver for stereo headphones (speakers TBD)</li>
+</ul>
+
+<h3>Software</h3>
+
+<ul>
+<li>low-frequency flashing of the LEDs</li>
+<li>pink &amp; white noise generation</li>
+</ul>
+
+<p><em>(adjustable, see modes below)</em></p>
+
+<h2>User Interface</h2>
+
+<h3>Hardware</h3>
+
+<ul>
+<li>two rotary encoders (with pushswitches)</li>
+<li>tiny OLED display</li>
+</ul>
+
+<h3>Software</h3>
+
+<p>The hardware controls/display allow the navigation of the following modes for adjusting settings:</p>
+
+<p><strong>Light Modes</strong></p>
+
+<ul>
+<li>Brightness (overall, 0-100%)</li>
+<li>Frequency (1-50Hz)</li>
+<li>Light Phase (between left/right LEDs, 0-360°)</li>
+<li>Light Balance (level offset, -50...50)</li>
+<li>Light Wave (sine/square)</li>
+</ul>
+
+<p><strong>Sound Modes</strong></p>
+
+<ul>
+<li>Volume (overall, 0-100%)</li>
+<li>Audio Balance (level offset between left/right, -50...50)</li>
+<li>Audio Phase (between left/right channel, 0-360°)</li>
+<li>Sound Wave (white/pink noise)</li>
+</ul>
+
+<hr />
 
 <p>safety :</p>
 
@@ -9,18 +59,3 @@
 <li>push switch to immediately switch LEDs off</li>
 <li>timer controlling active period - initially say 1 min (epilepsy)</li>
 </ul>
-
-<p>User Interface</p>
-
-<p>Assuming one encoder + switch for the brightness, another for everything else (maybe a pot for audio volume?). Make it modal on clicking the switch :</p>
-
-<p>Brightness : 0-100%
-Light Balance : L% : R%
-Frequency : 1-50 Hz
-Wave : sine/square
-Light Phase : 0-359°</p>
-
-<p>Volume : 0-100%
-Audio Balance : L% : R%
-Noise : white/pink
-Audio Phase : 0-359°</p>

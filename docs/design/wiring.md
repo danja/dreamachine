@@ -1,5 +1,4 @@
 ```
-
 ESP32
 5v       +5v
 3v3      display 3.3v
@@ -48,6 +47,5 @@ Encoder2   ESP32
 CLK        GPIO 36
 DT         GPIO 39
 SW         GPIO 4
-
 
 ```
