@@ -10,19 +10,6 @@
 
 using namespace std;
 
-void setup()
-{
-
-    Serial.begin(115200);
-
-    ESPMachine dreamachine;
-}
-
-void loop()
-{
-    delay(100);
-}
-
 TaskHandle_t uiHandle = NULL;
 TaskHandle_t wavesHandle = NULL;
 
@@ -35,10 +22,28 @@ ESPMachineWaves waves;
 
 Mode *modes[N_MODES];
 
+/**
+ * Sets up serial port and creates an instance of ESPMachine
+ */
+void setup()
+{
+    Serial.begin(115200);
+    ESPMachine dreamachine;
+}
+
+/**
+ * Does nothing, periodically
+ */
+void loop()
+{
+    delay(100);
+}
+
 ESPMachine::ESPMachine()
 {
     ui.attachEncoder(*this); // attaches callbacks
 
+    /* Creating a task that runs the ESPMachineWaves::Waves function. */
     xTaskCreatePinnedToCore(
         ESPMachineWaves::Waves,
         "ESPMachineWaves",
@@ -48,6 +53,7 @@ ESPMachine::ESPMachine()
         &wavesHandle, // was &AudioTask,
         1);
 
+    /* It creates a task that runs the ESPMachineUI::UI function. */
     xTaskCreatePinnedToCore(
         ESPMachineUI::UI,
         "ESPMachineUI",
@@ -64,10 +70,6 @@ ESPMachine::ESPMachine()
     }
 
     loadModes();
-
-    // ui.attachEncoder(*this); // attaches callbacks
-
-    //  ESPMachineWaves waves; // if this is placed up there ^^ it kills the encoder input
 }
 
 void ESPMachine::loadModes()
@@ -100,11 +102,8 @@ void ESPMachine::loadModes()
     modes[modeSelect::SOUND_WAVE]->init(modeSelect::SOUND_WAVE, "Sound Wave", 0, 1, 10, true, false);
 
     this->currentMode = modes[modeSelect::FREQUENCY];
-    // delay(500);
-    // update();
-    delay(1000);
 
-    //   ui.updateDisplay(currentMode->label, currentMode->getValueString());
+    delay(1000);
 }
 
 void ESPMachine::setMode(int modeIndex)

@@ -1,3 +1,27 @@
+**2022-09-13**
+
+I've done a bit of work preparing a case for a stripboard prototype.
+
+I've still not sorted out the rotary controller lib.
+
+Coincidentally I got a youtube recommendation, see : https://github.com/RalphBacon/230-Ultimate-Switch-Bounce-Eliminator
+
+That points to a pretty thorough doc : https://github.com/RalphBacon/230-Ultimate-Switch-Bounce-Eliminator/blob/main/Jack%20Ganssle%202007%20debouncing.pdf
+
+The guy that made the video came up with a circuit that uses a diode, cap and a couple of resistors before a 74AC14 hex schmitt :
+
+https://github.com/RalphBacon/230-Ultimate-Switch-Bounce-Eliminator/blob/main/images/Schematic.jpg
+
+I also posted to r/ESP32 asking about mocking something like an encoder. Several responses, mostly saying don't... A couple suggested making a hardware emulator (Arduino or whatever). A couple of suggestions that might be worth looking into :
+
+ESP32 event loops - appears to be like the Dispatcher/Observer thing I'm using elsewhere. Is in ESP-IDF, not sure if it's supported in the Arduino framework :
+
+https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/esp_event.html
+
+MQTT : use messaging from a remote machine (via WiFi). I should look at this for more general application...
+
+https://learn.sparkfun.com/tutorials/introduction-to-mqtt/all
+
 **2022-09-04**
 
 Wondering about the audio out. According to this : https://esp32.com/viewtopic.php?t=2331
