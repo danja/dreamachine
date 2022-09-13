@@ -22,7 +22,11 @@ That also has debounce just using a series 10k then a 10n cap to ground.
 
 ---
 
-I also posted to r/ESP32 asking about mocking something like an encoder. Several responses, mostly saying don't... A couple suggested making a hardware emulator (Arduino or whatever). A couple of suggestions that might be worth looking into :
+I also posted to r/ESP32 asking about mocking something like an encoder.
+
+https://www.reddit.com/r/esp32/comments/xbokqu/mock_objects_to_emulate_hardware/
+
+Several responses, mostly saying don't... A couple suggested making a hardware emulator (Arduino or whatever). A couple of suggestions that might be worth looking into :
 
 ESP32 event loops - appears to be like the Dispatcher/Observer thing I'm using elsewhere. Is in ESP-IDF, not sure if it's supported in the Arduino framework :
 
