@@ -12,6 +12,16 @@ The guy that made the video came up with a circuit that uses a diode, cap and a 
 
 https://github.com/RalphBacon/230-Ultimate-Switch-Bounce-Eliminator/blob/main/images/Schematic.jpg
 
+There's also a doc linked about debouncing what appears to be the same encoder that I'm using, KY-040 :
+
+https://www.best-microcontroller-projects.com/rotary-encoder.html
+
+This would be very useful if I was building lib from scratch, which I may do...
+
+That also has debounce just using a series 10k then a 10n cap to ground.
+
+---
+
 I also posted to r/ESP32 asking about mocking something like an encoder. Several responses, mostly saying don't... A couple suggested making a hardware emulator (Arduino or whatever). A couple of suggestions that might be worth looking into :
 
 ESP32 event loops - appears to be like the Dispatcher/Observer thing I'm using elsewhere. Is in ESP-IDF, not sure if it's supported in the Arduino framework :
