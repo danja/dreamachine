@@ -1,30 +1,35 @@
 ```
 ESP32
-5v       +5v
-3v3      display 3.3v
+=====
+GND      Ov IN also to Display etc.
+5v       +5v OUT to LED positive
+3v3      3.3v OUT to Display etc.
 
-GPIO 2 (on-board LED)
-GPIO 4  *** Encoder 2 SW
-GPIO 13 (JTAG)
-GPIO 16 *** Encoder 1 SW
-GPIO 17
-GPIO 18
-GPIO 19
-GPIO 21 *** Display SCL
-GPIO 22 *** Display SCL
-GPIO 23
-GPIO 25
-GPIO 26
-GPIO 27
-GPIO 32
-GPIO 33
-GPIO 34 (input only) *** Encoder 1 CLK
-GPIO 35 (input only) *** Encoder 1 DT
-GPIO 36 (input only) *** Encoder 2 CLK
-GPIO 39 (input only) *** Encoder 12 DT
+GPIO 4  Encoder 2 SW
+
+GPIO 12 (JTAG TDI)
+GPIO 13 (JTAG TCK)
+GPIO 14 (JTAG TMS)
+GPIO 15 (JTAG TDO)
+
+GPIO 16 Encoder 1 SW
+
+GPIO 21 Display SDA
+GPIO 22 Display SCL
+
+GPIO 32 Driver for LED_L
+GPIO 33 Driver for LED_R
+
+GPIO 34 Encoder 1 CLK
+GPIO 35 Encoder 1 DT
+
+GPIO 36 Encoder 2 CLK
+GPIO 39 Encoder 2 DT
+```
 
 https://randomnerdtutorials.com/esp32-pinout-reference-gpios/
 
+```
 ### Display
 
 Pin	ESP32
