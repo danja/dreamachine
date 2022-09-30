@@ -1,3 +1,11 @@
+**2022-09-29**
+
+DECOUPLING CAPS!
+
+I've done a little bit more putting the thing in a box.
+
+// 820R to the base
+
 **2022-09-13**
 
 I've done a bit of work preparing a case for a stripboard prototype.

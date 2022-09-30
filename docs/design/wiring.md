@@ -1,3 +1,5 @@
+earphones : 270R in series with a 22u capacitor
+
 ```
 ESP32
 =====
