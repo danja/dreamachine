@@ -69,12 +69,15 @@ void LFO::makeWaves(uint32_t step)
 {
     // Serial.println(step);
     int square = 0;
+
     if (step > 128)
     {
         square = 255;
     }
+
     float x = 2 * 3.1416 * (float)step / (float)N_STEPS;
     int sine = 128 + 128.0 * sin(x);
+
     dispatcher.broadcast(sine, square);
 }
 

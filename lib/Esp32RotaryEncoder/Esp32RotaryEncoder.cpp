@@ -9,7 +9,7 @@ Esp32RotaryEncoder::Esp32RotaryEncoder(uint8_t gpioCLK, uint8_t gpioDT, uint8_t 
 	this->gpioCLK = gpioCLK;
 	this->gpioDT = gpioDT;
 	this->gpioSW = gpioSW;
-	this->encoderSteps = 10;
+	this->steps = 10;
 
 	pinMode(this->gpioCLK, INPUT_PULLDOWN);
 	pinMode(this->gpioDT, INPUT_PULLDOWN);
@@ -39,15 +39,15 @@ void IRAM_ATTR Esp32RotaryEncoder::updateValue()
 
 	if (currentDirection != 0)
 	{
-		long prevRotaryPosition = this->encoder0Pos / this->encoderSteps;
+		long prevRotaryPosition = this->encoder0Pos / this->steps;
 		this->encoder0Pos += currentDirection;
-		long newRotaryPosition = this->encoder0Pos / this->encoderSteps;
+		long newRotaryPosition = this->encoder0Pos / this->steps;
 
 		// respect limits
-		if (this->encoder0Pos > (this->_maxEncoderValue))
-			this->encoder0Pos = this->_circleValues ? this->_minEncoderValue : this->_maxEncoderValue;
-		if (this->encoder0Pos < (this->_minEncoderValue))
-			this->encoder0Pos = this->_circleValues ? this->_maxEncoderValue : this->_minEncoderValue;
+		if (this->encoder0Pos > (this->maxValue))
+			this->encoder0Pos = this->circleValues ? this->minValue : this->maxValue;
+		if (this->encoder0Pos < (this->minValue))
+			this->encoder0Pos = this->circleValues ? this->maxValue : this->minValue;
 	}
 	this->valueChangeFlag = true;
 	portEXIT_CRITICAL_ISR(&(this->mux));
@@ -82,34 +82,41 @@ void Esp32RotaryEncoder::resetButton()
 /*
 void Esp32RotaryEncoder::setBoundaries(long minEncoderValue, long maxEncoderValue, bool circleValues)
 {
-	this->_minEncoderValue = minEncoderValue * this->encoderSteps;
-	this->_maxEncoderValue = maxEncoderValue * this->encoderSteps;
+	this->minValue = minEncoderValue * this->steps;
+	this->maxValue = maxEncoderValue * this->steps;
 
-	this->_circleValues = circleValues;
+	this->circleValues = circleValues;
 }
 */
 
 void Esp32RotaryEncoder::setScale(long minValue, long maxValue, long steps, bool invert, bool circleValues)
 {
-	this->encoderSteps = steps;
-
-	// this->_minEncoderValue = minValue * this->encoderSteps;
-	// this->_maxEncoderValue = maxValue * this->encoderSteps;
-
-	this->_minEncoderValue = minValue;
-	this->_maxEncoderValue = maxValue;
-
+	this->steps = steps;
+	this->minValue = minValue;
+	this->maxValue = maxValue;
 	this->invert = invert;
-	this->_circleValues = circleValues;
+	this->circleValues = circleValues;
 }
 
 long Esp32RotaryEncoder::getValue()
-// long Esp32RotaryEncoder::readEncoder()
 {
-	long value = (this->encoder0Pos / this->encoderSteps);
+	Serial.println(" ");
+	Serial.print("this->minValue = ");
+	Serial.println(this->minValue);
+	Serial.print("this->maxValue = ");
+	Serial.println(this->maxValue);
+
+	Serial.print("encoder0Pos = ");
+	Serial.println(encoder0Pos);
+
+	// long value = (this->encoder0Pos / this->steps);
+	long value = this->encoder0Pos;
+	Serial.print("value = ");
+	Serial.println(value);
+
 	if (this->invert)
 	{
-		return this->_maxEncoderValue - value;
+		return this->maxValue - value;
 	}
 	return value;
 }
@@ -133,11 +140,11 @@ long Esp32RotaryEncoder::encoderChanged()
 
 void Esp32RotaryEncoder::reset(long newValue_)
 {
-	newValue_ = newValue_ * this->encoderSteps;
+	newValue_ = newValue_ * this->steps;
 	this->encoder0Pos = newValue_;
 	this->lastReadEncoder0Pos = this->encoder0Pos;
-	if (this->encoder0Pos > this->_maxEncoderValue)
-		this->encoder0Pos = this->_circleValues ? this->_minEncoderValue : this->_maxEncoderValue;
-	if (this->encoder0Pos < this->_minEncoderValue)
-		this->encoder0Pos = this->_circleValues ? this->_maxEncoderValue : this->_minEncoderValue;
+	if (this->encoder0Pos > this->maxValue)
+		this->encoder0Pos = this->circleValues ? this->minValue : this->maxValue;
+	if (this->encoder0Pos < this->minValue)
+		this->encoder0Pos = this->circleValues ? this->maxValue : this->minValue;
 }

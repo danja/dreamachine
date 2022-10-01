@@ -32,6 +32,13 @@ void LedDriver::setBrightness(float brightness)
     Serial.println(brightness);
 }
 
+/*
+void LedDriver::setAmplitude(float amplitude)
+{
+    this->amplitude = amplitude;
+}
+*/
+
 // from timer
 void LedDriver::setValue(float sineLevel, float squareLevel)
 {

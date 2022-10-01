@@ -1,6 +1,6 @@
 #include <Arduino.h>
 #include <Esp32RotaryEncoder.h>
-#include <EncoderReader.h>
+#include <EncodersReader.h>
 
 // GPIO ports for rotary encoders
 const int ENCODER_1_CLK = 34;
@@ -23,54 +23,45 @@ void IRAM_ATTR buttonEvent1();
 void IRAM_ATTR encoderEvent2();
 void IRAM_ATTR buttonEvent2();
 
-EncoderReader::EncoderReader()
+EncodersReader::EncodersReader()
 {
-    //   encoder1.setScale(0, 100, 1, true, true);
     encoder1.setup(encoderEvent1, buttonEvent1); // pass the callback functions (leave as-is)
     encoder2.setup(encoderEvent2, buttonEvent2); // pass the callback functions (leave as-is)
 }
 
-void EncoderReader::operate()
+void EncodersReader::operate()
 {
-    ////////////////////////////
     if (encoder1.buttonClicked()) // look at a flag
     {
-        //   Serial.println("1 click!"); // do stuff
         buttonDispatcher.broadcast(BUTTON_1_EVENT);
         encoder1.resetButton(); // reset the flag
     }
 
     if (encoder1.valueChanged()) // look at a flag
     {
-        //   Serial.print("1 Value :"); // do stuff
-        // Serial.println(encoder1.getValue());
         encoderDispatcher.broadcast(ENCODER_1_EVENT, encoder1.getValue());
         encoder1.resetValue(); // reset the flag
     }
 
     if (encoder2.buttonClicked()) // look at a flag
     {
-        // Serial.println("2 click!"); // do stuff
         buttonDispatcher.broadcast(BUTTON_2_EVENT);
-        //        this->machine.nextMode();
         encoder2.resetButton(); // reset the flag
     }
 
     if (encoder2.valueChanged()) // look at a flag
     {
-        // Serial.print("2 Value :"); // do stuff
-        // Serial.println(encoder2.getValue());
         encoderDispatcher.broadcast(ENCODER_2_EVENT, encoder2.getValue());
         encoder2.resetValue(); // reset the flag
     }
 }
 
-void EncoderReader::setScale1(long minValue, long maxValue, long steps, boolean invert, bool circleValues)
+void EncodersReader::setScale1(long minValue, long maxValue, long steps, boolean invert, bool circleValues)
 {
     encoder1.setScale(minValue, maxValue, steps, invert, circleValues);
 }
 
-void EncoderReader::setScale2(long minValue, long maxValue, long steps, boolean invert, bool circleValues)
+void EncodersReader::setScale2(long minValue, long maxValue, long steps, boolean invert, bool circleValues)
 {
     encoder2.setScale(minValue, maxValue, steps, invert, circleValues);
 }

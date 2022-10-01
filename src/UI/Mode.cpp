@@ -10,20 +10,23 @@ Mode::Mode() {}
 
 // string _label,
 
-void Mode::init(int index, string _label, long _minValue, long _maxValue, long _steps, bool _invert, bool _circleValues)
+void Mode::init(int index, string label, long currentValue, long minValue, long maxValue, long steps, bool invert, bool circleValues)
 {
     this->modeMessage.index = index;
-    this->label = _label;
-    this->minValue = _minValue;
-    this->maxValue = _maxValue;
-    this->steps = _steps;
-    this->invert = _invert;
-    this->circleValues = _circleValues;
+    this->label = label;
+    this->currentValue = currentValue;
+    this->minValue = minValue;
+    this->maxValue = maxValue;
+    this->steps = steps;
+    this->invert = invert;
+    this->circleValues = circleValues;
 }
 
+// hmm, doubling up variables..?
 void Mode::setValue(long value)
 {
     this->modeMessage.value = value;
+    this->currentValue = value;
 }
 
 long Mode::getValue()
@@ -36,10 +39,6 @@ string Mode::valueToString(long value)
     stringstream stream;
     stream << value;
     string s = stream.str();
-    // Serial.print("Value = ");
-    // Serial.println(modeMessage.value);
-    // Serial.print("String = ");
-    // Serial.println(s.c_str());
     return s;
 }
 
