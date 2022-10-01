@@ -1,5 +1,7 @@
 earphones : 270R in series with a 22u capacitor
 
+decoupling caps : 220uF on 5v, 22uF on 3.3v
+
 ```
 ESP32
 =====

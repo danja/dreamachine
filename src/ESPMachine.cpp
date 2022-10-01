@@ -1,7 +1,7 @@
 
 #include <ESPMachineUI.h>
 #include <ESPMachineWaves.h>
-#include <EncoderReader.h>
+#include <EncodersReader.h>
 #include <ESPMachine.h>
 #include <Mode.h>
 #include <Q.h>
@@ -74,34 +74,39 @@ ESPMachine::ESPMachine()
 
 void ESPMachine::loadModes()
 {
+    // Esp32RotaryEncoder::setScale(long currentValue, long minValue, long maxValue, long steps, bool invert, bool circleValues)
     modes[modeSelect::BRIGHTNESS] = new BrightnessMode();
-    modes[modeSelect::BRIGHTNESS]->init(modeSelect::BRIGHTNESS, "Brightness", 0, 100, 100, true, false);
+    modes[modeSelect::BRIGHTNESS]->init(modeSelect::BRIGHTNESS, "Brightness", 10, 0, 100, 100, true, false);
 
     modes[modeSelect::FREQUENCY] = new FrequencyMode();
-    modes[modeSelect::FREQUENCY]->init(modeSelect::FREQUENCY, "Frequency ", 1, 11, 10, true, false);
+    modes[modeSelect::FREQUENCY]->init(modeSelect::FREQUENCY, "Frequency ", 2, 1, 11, 10, true, false);
 
     modes[modeSelect::LIGHT_PHASE] = new LightPhaseMode();
-    modes[modeSelect::LIGHT_PHASE]->init(modeSelect::LIGHT_PHASE, "Light /-\\ ", 0, 360, 10, true, false);
+    modes[modeSelect::LIGHT_PHASE]->init(modeSelect::LIGHT_PHASE, "Light /-\\ ", 0, 0, 360, 10, true, false);
 
     modes[modeSelect::LIGHT_BALANCE] = new LightBalanceMode();
-    modes[modeSelect::LIGHT_BALANCE]->init(modeSelect::LIGHT_BALANCE, "Light <-> ", 0, 100, 10, true, false);
+    modes[modeSelect::LIGHT_BALANCE]->init(modeSelect::LIGHT_BALANCE, "Light <-> ", 50, 0, 100, 10, true, false);
 
     modes[modeSelect::LIGHT_WAVE] = new LightWaveMode();
-    modes[modeSelect::LIGHT_WAVE]->init(modeSelect::LIGHT_WAVE, "Light Wave", 0, 1, 10, true, false);
+    modes[modeSelect::LIGHT_WAVE]->init(modeSelect::LIGHT_WAVE, "Light Wave", 50, 0, 1, 10, true, false);
 
     modes[modeSelect::VOLUME] = new VolumeMode();
-    modes[modeSelect::VOLUME]->init(modeSelect::VOLUME, "Volume    ", 0, 100, 10, true, false);
+    modes[modeSelect::VOLUME]->init(modeSelect::VOLUME, "Volume    ", 50, 0, 100, 10, true, false);
 
     modes[modeSelect::AUDIO_BALANCE] = new AudioBalanceMode();
-    modes[modeSelect::AUDIO_BALANCE]->init(modeSelect::AUDIO_BALANCE, "Audio <-> ", 0, 100, 10, true, false);
+    modes[modeSelect::AUDIO_BALANCE]->init(modeSelect::AUDIO_BALANCE, "Audio <-> ", 50, 0, 100, 10, true, false);
 
     modes[modeSelect::AUDIO_PHASE] = new AudioPhaseMode();
-    modes[modeSelect::AUDIO_PHASE]->init(modeSelect::AUDIO_PHASE, "Audio /-\\ ", 0, 360, 10, true, false);
+    modes[modeSelect::AUDIO_PHASE]->init(modeSelect::AUDIO_PHASE, "Audio /-\\ ", 0, 0, 360, 10, true, false);
 
     modes[modeSelect::SOUND_WAVE] = new SoundWaveMode();
-    modes[modeSelect::SOUND_WAVE]->init(modeSelect::SOUND_WAVE, "Sound Wave", 0, 1, 10, true, false);
+    modes[modeSelect::SOUND_WAVE]->init(modeSelect::SOUND_WAVE, "Sound Wave", 0, 0, 1, 10, true, false);
+
+    ui.initEncoder1(modes[modeSelect::BRIGHTNESS]->currentValue, modes[modeSelect::BRIGHTNESS]->minValue, modes[modeSelect::BRIGHTNESS]->maxValue, modes[modeSelect::BRIGHTNESS]->steps, modes[modeSelect::BRIGHTNESS]->invert, modes[modeSelect::BRIGHTNESS]->circleValues);
 
     this->currentMode = modes[modeSelect::FREQUENCY];
+
+    //     ui.initEncoder2(currentMode->minValue, currentMode->maxValue, currentMode->steps, currentMode->invert, currentMode->circleValues);
 
     delay(1000);
 }
@@ -118,7 +123,12 @@ void ESPMachine::setMode(int modeIndex)
 
 void ESPMachine::update()
 {
+    // void EncodersReader::setScale1(long minValue, long maxValue, long steps, boolean invert, bool circleValues)
+    ui.initEncoder2(currentMode->currentValue, currentMode->minValue, currentMode->maxValue, currentMode->steps, currentMode->invert, currentMode->circleValues);
+
     xQueueSend(intercoreQueue, &currentMode->modeMessage, QUEUE_SEND_DELAY);
+
+    // update encoders
 
     ui.updateDisplay(currentMode->label, currentMode->getValueString());
 }

@@ -16,12 +16,13 @@ enum EncoderEventEnum
     ENCODER_2_EVENT
 };
 
-class EncoderReader
+class EncodersReader
 {
 public:
-    EncoderReader();
+    EncodersReader();
     void setScale1(long minValue, long maxValue, long steps, boolean invert, bool circleValues);
     void setScale2(long minValue, long maxValue, long steps, boolean invert, bool circleValues);
+
     void operate();
 
     Dispatcher<ButtonEventEnum> buttonDispatcher;

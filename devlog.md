@@ -1,6 +1,20 @@
+**2022-10-01**
+
+Mode class defs in Mode.h
+
+ESPMachine::loadModes()
+
+updates in ESPMachine.cpp
+
+Grr! No obvious way of doing UI to split audio/visual
+
 **2022-09-29**
 
+Boxed!
+
 DECOUPLING CAPS!
+
+220uF on
 
 I've done a little bit more putting the thing in a box.
 

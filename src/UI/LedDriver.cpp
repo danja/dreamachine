@@ -28,8 +28,8 @@ void LedDriver::setWaveform(Waveform form)
 void LedDriver::setBrightness(float brightness)
 {
     this->brightness = brightness;
-    Serial.print("Brightness : ");
-    Serial.println(brightness);
+    //  Serial.print("Brightness : ");
+    // Serial.println(brightness);
 }
 
 // from timer

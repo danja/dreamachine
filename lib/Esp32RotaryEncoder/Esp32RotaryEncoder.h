@@ -20,20 +20,17 @@ private:
 	volatile unsigned long lastMovementAt = 0;
 	unsigned long rotaryAccelerationCoef = 150;
 
-	bool _circleValues = false;
-
-	//	const int ENCODER_DT = 35;
-	//	const int ENCODER_SW = 16;
+	bool circleValues = false;
 
 	uint8_t gpioCLK = 34;
 	uint8_t gpioDT = 35;
 	uint8_t gpioSW = 36;
 
-	long encoderSteps = 10;
+	long steps = 10;
 	bool invert = false;
 
-	long _minEncoderValue = -1 << 15;
-	long _maxEncoderValue = 1 << 15;
+	long minValue = -1 << 15;
+	long maxValue = 1 << 15;
 
 	uint8_t old_AB;
 	long lastReadEncoder0Pos;
@@ -54,8 +51,10 @@ public:
 
 	volatile boolean valueChangeFlag = false; // not 100% about volatile
 	volatile boolean buttonClickedFlag = false;
+
 	boolean valueChanged();
 	boolean buttonClicked();
+
 	void resetValue();
 	void resetButton();
 

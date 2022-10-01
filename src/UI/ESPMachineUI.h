@@ -16,26 +16,12 @@ public:
 
     void attachEncoder(ESPMachine dreamachine); // should probably extract interface
 
-    //  void updateDisplay(String label, int value);
-    // void updateDisplay(String label, String value);
-
-    // void updateDisplay(string label, int value);
     void updateDisplay(string label, string value);
 
-private:
-    // ESPMachine dreamachine;
-    /*
-    Brightness : 0-100%
-Light Balance : L% : R%
-Frequency : 1-50 Hz
-Wave : sine/square
-Light Phase : 0-359°
+    void initEncoder1(long currentValue, long minValue, long maxValue, long steps, boolean invert, bool circleValues);
+    void initEncoder2(long currentValue, long minValue, long maxValue, long steps, boolean invert, bool circleValues);
 
-Volume : 0-100%
-Audio Balance : L% : R%
-Noise : white/pink
-Audio Phase : 0-359°
-*/
+private:
 };
 
 #endif

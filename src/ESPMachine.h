@@ -12,7 +12,7 @@
 #include <Mode.h>
 // #include <Q.h>
 
-#include <EncoderReader.h>
+#include <EncodersReader.h>
 
 using namespace std;
 
