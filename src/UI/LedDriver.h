@@ -19,6 +19,7 @@ public:
 
     void setWaveform(Waveform form);
     void setBrightness(float brightness);
+    // void setAmplitude(float amplitude);
     void setValue(float sineLevel, float squareLevel);
     void registerCallback(Dispatcher<float, float> &dispatcher)
     {
@@ -29,5 +30,6 @@ public:
 private:
     Waveform form = Waveform::SINE;
     float brightness = 0.5;
+    // float amplitude = 0.5;
 };
 #endif

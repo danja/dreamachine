@@ -10,6 +10,7 @@ public:
     Dispatcher<float, float> dispatcher;
 
     void setFrequency(float freq);
+    // void setAmplitude(float amplitude);
     void IRAM_ATTR setPeriod(int period);
 
     void checkTimer();
@@ -23,6 +24,7 @@ private:
         sine
     };
     float frequency = 1;
-    int period = 3906;
+    // float amplitude = 0.5;
+    int period = 3906; //??
 };
 #endif

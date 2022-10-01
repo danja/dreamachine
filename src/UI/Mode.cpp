@@ -22,9 +22,11 @@ void Mode::init(int index, string label, long currentValue, long minValue, long 
     this->circleValues = circleValues;
 }
 
+// hmm, doubling up variables..?
 void Mode::setValue(long value)
 {
     this->modeMessage.value = value;
+    this->currentValue = value;
 }
 
 long Mode::getValue()
@@ -37,10 +39,6 @@ string Mode::valueToString(long value)
     stringstream stream;
     stream << value;
     string s = stream.str();
-    // Serial.print("Value = ");
-    // Serial.println(modeMessage.value);
-    // Serial.print("String = ");
-    // Serial.println(s.c_str());
     return s;
 }
 

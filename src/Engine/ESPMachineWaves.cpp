@@ -49,8 +49,8 @@ void ESPMachineWaves::Waves(void *pvParameter)
         // noise.outputNextValue();
         //  delayMicroseconds(10);
         noise.checkTimer();
-
         lightwaveLFO.checkTimer();
+
         ModeMessage modeMessage = ModeMessage();
         int previousIndex = modeMessage.index;
         long previousValue = modeMessage.value;
@@ -69,7 +69,8 @@ void ESPMachineWaves::Waves(void *pvParameter)
             {
             case modeSelect::BRIGHTNESS:
                 //   Serial.println("Brightness");
-                ledDriver.setBrightness(modeMessage.value);
+
+                ledDriver.setBrightness(((float)modeMessage.value) / 100.0); // SCALE
                 break;
 
             case modeSelect::FREQUENCY:
