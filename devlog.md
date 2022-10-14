@@ -1,3 +1,7 @@
+**2022-10-11**
+
+https://github.com/RalphBacon/226-Better-Rotary-Encoder---no-switch-bounce
+
 **2022-10-01**
 
 Mode class defs in Mode.h
