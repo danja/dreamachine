@@ -2,7 +2,7 @@
 #define _ENCODERREADER_H
 
 #include <Dispatcher.hpp>
-#include <Esp32RotaryEncoder.h>
+#include <RotaryEncoder.h>
 
 enum ButtonEventEnum
 {
@@ -20,8 +20,9 @@ class EncodersReader
 {
 public:
     EncodersReader();
-    void setScale1(long minValue, long maxValue, long steps, boolean invert, bool circleValues);
-    void setScale2(long minValue, long maxValue, long steps, boolean invert, bool circleValues);
+    void init();
+    void setScale1(float minValue, float maxValue, float stepSize, boolean invert, bool circleValues);
+    void setScale2(float minValue, float maxValue, float stepSize, boolean invert, bool circleValues);
 
     void operate();
 

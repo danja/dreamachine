@@ -15,6 +15,7 @@ EncodersReader encodersReader;
 
 void ESPMachineUI::attachEncoder(ESPMachine dreamachine) // should probably extract interface
 {
+    encodersReader.init();
     dreamachine.registerCallback(encodersReader.buttonDispatcher);
     dreamachine.registerCallback(encodersReader.encoderDispatcher);
 }
