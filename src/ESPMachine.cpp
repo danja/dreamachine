@@ -74,7 +74,7 @@ ESPMachine::ESPMachine()
 
 void ESPMachine::loadModes()
 {
-    // Esp32RotaryEncoder::setScale(long currentValue, long minValue, long maxValue, long steps, bool invert, bool circleValues)
+    // void RotaryEncoder::setScale(float minValue, float maxValue, float stepSize, bool invert, bool circleValues)
     modes[modeSelect::BRIGHTNESS] = new BrightnessMode();
     modes[modeSelect::BRIGHTNESS]->init(modeSelect::BRIGHTNESS, "Brightness", 10, 0, 100, 100, true, false);
 
@@ -123,7 +123,7 @@ void ESPMachine::setMode(int modeIndex)
 
 void ESPMachine::update()
 {
-    // void EncodersReader::setScale1(currentValue, long minValue, long maxValue, long steps, boolean invert, bool circleValues)
+    // void EncodersReader::setScale1(currentValue, long minValue, long maxValue, long steps, bool invert, bool circleValues)
     ui.initEncoder2(currentMode->currentValue, currentMode->minValue, currentMode->maxValue, currentMode->steps, currentMode->invert, currentMode->circleValues);
 
     xQueueSend(intercoreQueue, &currentMode->modeMessage, QUEUE_SEND_DELAY);

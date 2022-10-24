@@ -18,8 +18,8 @@ public:
 
     void updateDisplay(string label, string value);
 
-    void initEncoder1(long currentValue, long minValue, long maxValue, long steps, boolean invert, bool circleValues);
-    void initEncoder2(long currentValue, long minValue, long maxValue, long steps, boolean invert, bool circleValues);
+    void initEncoder1(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
+    void initEncoder2(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
 
 private:
 };

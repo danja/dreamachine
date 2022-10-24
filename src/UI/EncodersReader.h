@@ -21,8 +21,8 @@ class EncodersReader
 public:
     EncodersReader();
     void init();
-    void setScale1(float minValue, float maxValue, float stepSize, boolean invert, bool circleValues);
-    void setScale2(float minValue, float maxValue, float stepSize, boolean invert, bool circleValues);
+    void setScale1(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
+    void setScale2(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
 
     void operate();
 

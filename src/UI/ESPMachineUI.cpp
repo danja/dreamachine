@@ -36,16 +36,16 @@ void ESPMachineUI::UI(void *pvParameter)
     }
 }
 
-// void EncodersReader::setScale1(long minValue, long maxValue, long steps, boolean invert, bool circleValues)
+//  (float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues)
 
-void ESPMachineUI::initEncoder1(long currentValue, long minValue, long maxValue, long steps, boolean invert, bool circleValues)
+void ESPMachineUI::initEncoder1(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues)
 {
-    encodersReader.setScale1(minValue, maxValue, steps, invert, circleValues);
+    encodersReader.setScale1(startValue, minValue, maxValue, stepSize, invert, circleValues);
 }
 
-void ESPMachineUI::initEncoder2(long currentValue, long minValue, long maxValue, long steps, boolean invert, bool circleValues)
+void ESPMachineUI::initEncoder2(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues)
 {
-    encodersReader.setScale2(minValue, maxValue, steps, invert, circleValues);
+    encodersReader.setScale2(startValue, minValue, maxValue, stepSize, invert, circleValues);
 }
 
 void ESPMachineUI::updateDisplay(string label, string value)

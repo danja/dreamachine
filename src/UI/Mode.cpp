@@ -10,7 +10,7 @@ Mode::Mode() {}
 
 // string _label,
 
-void Mode::init(int index, string label, long currentValue, long minValue, long maxValue, long steps, bool invert, bool circleValues)
+void Mode::init(int index, string label, float currentValue, float minValue, float maxValue, float steps, bool invert, bool circleValues)
 {
     this->modeMessage.index = index;
     this->label = label;
@@ -23,18 +23,18 @@ void Mode::init(int index, string label, long currentValue, long minValue, long 
 }
 
 // hmm, doubling up variables..?
-void Mode::setValue(long value)
+void Mode::setValue(float value)
 {
     this->modeMessage.value = value;
     this->currentValue = value;
 }
 
-long Mode::getValue()
+float Mode::getValue()
 {
     return this->modeMessage.value;
 }
 
-string Mode::valueToString(long value)
+string Mode::valueToString(float value)
 {
     stringstream stream;
     stream << value;

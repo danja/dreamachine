@@ -9,7 +9,7 @@ using namespace std;
 typedef struct ModeMessage
 {
     int index = 0;
-    long value = 0;
+    float value = 0;
 } AModeMessage;
 
 enum modeSelect
@@ -34,26 +34,26 @@ public:
 
     // UI bits
     string label = "ABCDEFGHIJ"; // doesn't have to be passed around
-    long currentValue = 0;
-    long minValue = 0;
-    long maxValue = 0;
-    long steps = 0;
+    float currentValue = 0;
+    float minValue = 0;
+    float maxValue = 0;
+    float steps = 0;
     bool invert = false;
     bool circleValues = true;
 
-    void init(int index, string label, long currentValue, long minValue, long maxValue, long steps, bool invert, bool circleValues);
+    void init(int index, string label, float currentValue, float minValue, float maxValue, float steps, bool invert, bool circleValues);
 
     virtual string getValueString()
     {
         return "none";
     };
 
-    static string valueToString(long value);
-    void setValue(long value);
-    long getValue();
+    static string valueToString(float value);
+    void setValue(float value);
+    float getValue();
 
 private:
-    // long previousValue = 0;
+    // float previousValue = 0;
 };
 
 class BrightnessMode : public Mode
