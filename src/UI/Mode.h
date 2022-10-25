@@ -43,6 +43,8 @@ public:
 
     void init(int index, string label, float currentValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
 
+// (1, 10, 20, 0.1, false, true)
+
     virtual string getValueString()
     {
         return "none";

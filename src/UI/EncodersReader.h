@@ -21,10 +21,12 @@ class EncodersReader
 public:
     EncodersReader();
     void init();
-    void setScale1(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
-    void setScale2(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
+    void configure1(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
+    void configure2(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
 
     void operate();
+
+    void showConfig(RotaryEncoder encoder);
 
     Dispatcher<ButtonEventEnum> buttonDispatcher;
     Dispatcher<EncoderEventEnum, float> encoderDispatcher;

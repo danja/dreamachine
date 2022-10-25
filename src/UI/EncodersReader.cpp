@@ -16,9 +16,6 @@ RotaryEncoder encoder2;
 
 EncodersReader::EncodersReader()
 {
-
-    //  encoder1.setup(encoderEvent1, buttonEvent1); // pass the callback functions (leave as-is)
-    //  encoder2.setup(encoderEvent2, buttonEvent2); // pass the callback functions (leave as-is)
 }
 
 void EncodersReader::init()
@@ -27,16 +24,32 @@ void EncodersReader::init()
     encoder2.init(ENCODER_2_CLK, ENCODER_2_DT, ENCODER_2_SW);
 }
 
+void EncodersReader::showConfig(RotaryEncoder encoder)
+{
+    Serial.print("minValue : ");
+    Serial.println(encoder.minValue);
+    Serial.print("maxValue : ");
+    Serial.println(encoder.maxValue);
+    Serial.print("stepSize : ");
+    Serial.println(encoder.stepSize);
+    Serial.print("invert : ");
+    Serial.println(encoder.invert);
+    Serial.print("circleValues : ");
+    Serial.println(encoder.circleValues);
+}
+
 void EncodersReader::operate()
 {
     if (encoder1.readButton())
     {
-        Serial.println("Button 1");
+        Serial.println("\nButton 1");
+        // showConfig(encoder1);
         buttonDispatcher.broadcast(BUTTON_1_EVENT);
     }
     if (encoder2.readButton())
     {
-        Serial.println("Button 2");
+        Serial.println("\nButton 2");
+        // showConfig(encoder2);
         buttonDispatcher.broadcast(BUTTON_2_EVENT);
     }
 
@@ -63,12 +76,12 @@ void EncodersReader::operate()
     }
 }
 
-void EncodersReader::setScale1(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues)
+void EncodersReader::configure1(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues)
 {
-    encoder1.setScale(startValue, minValue, maxValue, stepSize, invert, circleValues);
+    encoder1.configure(startValue, minValue, maxValue, stepSize, invert, circleValues);
 }
 
-void EncodersReader::setScale2(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues)
+void EncodersReader::configure2(float startValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues)
 {
-    encoder2.setScale(startValue, minValue, maxValue, stepSize, invert, circleValues);
+    encoder2.configure(startValue, minValue, maxValue, stepSize, invert, circleValues);
 }
