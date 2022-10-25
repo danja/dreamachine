@@ -61,9 +61,9 @@ string LightWaveMode::getValueString()
 {
     if (modeMessage.value > 0)
     {
-        return "square";
+        return " sqr";
     }
-    return "sine";
+    return " sin";
 }
 
 string LightPhaseMode::getValueString()
