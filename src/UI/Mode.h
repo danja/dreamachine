@@ -36,12 +36,12 @@ public:
     string label = "ABCDEFGHIJ"; // doesn't have to be passed around
     float currentValue = 0;
     float minValue = 0;
-    float maxValue = 0;
-    float steps = 0;
+    float maxValue = 100;
+    float stepSize = 1;
     bool invert = false;
     bool circleValues = true;
 
-    void init(int index, string label, float currentValue, float minValue, float maxValue, float steps, bool invert, bool circleValues);
+    void init(int index, string label, float currentValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues);
 
     virtual string getValueString()
     {

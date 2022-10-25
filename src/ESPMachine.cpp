@@ -124,7 +124,7 @@ void ESPMachine::setMode(int modeIndex)
 void ESPMachine::update()
 {
     // void EncodersReader::setScale1(currentValue, long minValue, long maxValue, long steps, bool invert, bool circleValues)
-    ui.initEncoder2(currentMode->currentValue, currentMode->minValue, currentMode->maxValue, currentMode->steps, currentMode->invert, currentMode->circleValues);
+    ui.initEncoder2(currentMode->currentValue, currentMode->minValue, currentMode->maxValue, currentMode->stepSize, currentMode->invert, currentMode->circleValues);
 
     xQueueSend(intercoreQueue, &currentMode->modeMessage, QUEUE_SEND_DELAY);
 

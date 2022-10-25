@@ -10,14 +10,14 @@ Mode::Mode() {}
 
 // string _label,
 
-void Mode::init(int index, string label, float currentValue, float minValue, float maxValue, float steps, bool invert, bool circleValues)
+void Mode::init(int index, string label, float currentValue, float minValue, float maxValue, float stepSize, bool invert, bool circleValues)
 {
     this->modeMessage.index = index;
     this->label = label;
     this->currentValue = currentValue;
     this->minValue = minValue;
     this->maxValue = maxValue;
-    this->steps = steps;
+    this->stepSize = stepSize;
     this->invert = invert;
     this->circleValues = circleValues;
 }
