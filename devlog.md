@@ -1,3 +1,9 @@
+**2022-12-03**
+
+More general OLED driver :
+
+https://github.com/olikraus/u8g2
+
 **2022-10-11**
 
 https://github.com/RalphBacon/226-Better-Rotary-Encoder---no-switch-bounce

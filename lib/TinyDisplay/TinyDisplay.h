@@ -5,6 +5,7 @@
 #include <iostream>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
+// #include <Adafruit_SH1106.h>
 
 using namespace std;
 
@@ -21,6 +22,7 @@ public:
 private:
     void refresh();
     Adafruit_SSD1306 display;
+    // Adafruit_SH1106 display2;
     string label;
     string value;
 };
