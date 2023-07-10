@@ -1,3 +1,12 @@
+**2023-07-10**
+
+the 0.96" Adafruit 1306-clone display was a bit too small, so moved to the 1.3"
+
+the u8g2 driver did seem the best bet. 
+
+It doesn't work the same as the Adafruit 1306, is paged. But I've got Hello World! showing, so good progress.
+ 
+
 **2022-12-03**
 
 More general OLED driver :

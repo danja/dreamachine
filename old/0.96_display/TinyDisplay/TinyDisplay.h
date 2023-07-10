@@ -3,9 +3,8 @@
 #define TinyDisplay_h
 
 #include <iostream>
-
-#include <U8g2lib.h>
-#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 
 using namespace std;
 
@@ -21,9 +20,7 @@ public:
 
 private:
     void refresh();
-
-    U8G2_SH1106_128X64_NONAME_1_HW_I2C display = U8G2_SH1106_128X64_NONAME_1_HW_I2C(U8G2_R0, /* reset=*/U8X8_PIN_NONE);
-
+    Adafruit_SSD1306 display;
     string label;
     string value;
 };
